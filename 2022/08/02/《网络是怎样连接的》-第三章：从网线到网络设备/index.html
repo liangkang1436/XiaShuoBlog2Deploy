@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="小虾米">
+    
+    <title>
+        
+            《网络是怎样连接的》-第三章：从网线到网络设备 |
+        
+        虾说
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"xiashuo.xyz","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207102315524.png","favicon":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"1920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207111056425.svg","description":"求知是一种快乐，表达是一种本能"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                虾说
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">《网络是怎样连接的》-第三章：从网线到网络设备</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207102315524.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">小虾米</span>
+                        
+                            <span class="author-label">半吊子CRUD工程师</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-08-02 13:45:08</span>
+        <span class="mobile">2022-08-02 13:45</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E3%80%8A%E7%BD%91%E7%BB%9C%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%9E%E6%8E%A5%E7%9A%84%E3%80%8B/">《网络是怎样连接的》</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1>从网线到网络设备</h1>
+<p>总结：</p>
+<p>主要介绍通过网线传输出去的包是如何经过<strong>集线器、交换机和路由器等网络设备</strong>，最终进入互联网的。重点是<mark><strong>路由器</strong></mark>，</p>
+<p><mark>集线器：中继电路+多个PHY(MAU)模块+RJ-45接口</mark></p>
+<p><mark>交换机：交换电路+多个网卡（ROM+MAC模块+PHY(MAU)模块+RJ-45接口）</mark></p>
+<p><mark>路由器：包转发模块（IP模块）+端口模块（多个支持不同网络协议类型的网卡）</mark></p>
+<hr>
+<p><strong>第三章跟第二章有很多地方都相互对应了，就像是第二章的原理的实际应用一样</strong>。</p>
+<h2 id="信号在网线和集线器中传输">信号在网线和集线器中传输</h2>
+<h3 id="每个包都是独立传输的">每个包都是独立传输的</h3>
+<p>无论包里面装的是应用程序的数据或者是TCP协议的控制信息，都不会对包的传输操作本身产生影响。换句话说，HTTP请求的方法，TCP的确认响应和序号，客户端和服务器之间的关系，<strong><mark>这一切都与包的传输无关。因此，所有的包在传输到目的地的过程中都是独立的，相互之间没有任何关联</mark></strong>。</p>
+<p>我们假设客户端计算机连接的局域网结构是像图3.1这样的。也就是说，网络包从客户端计算机发出之后，要经过集线器、交换机和路由器最终进入互联网。实际上，我们家里用的路由器已经集成了集线器和交换机的功能，这里，我们把每个功能独立出来更容易理解。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011330365.png"
+                      alt=""
+                ></p>
+<h3 id="防止网线中的信号衰减很重要">防止网线中的信号衰减很重要</h3>
+<p>本章的探索从信号流出网卡进入网线开始。网卡中的PHY（MAU）模块负责将包转换成电信号，信号通过RJ-45接口进入双绞线，这部分的放大图如图3.2的右侧部分所示。以太网信号的本质是正负变化的电压，大家可以认为<strong>网卡的PHY（MAU）模块就是一个从正负两个信号端子输出信号的电路</strong>。</p>
+<p>但是，信号到达集线器的时候并不是跟刚发送出去的时候一模一样。集线器收到的信号有时会出现衰减（图3.3）。信号在网线的传输过程中，能量会逐渐损失。网线越长，信号衰减就越严重。</p>
+<p>即便线路条件很好，没有噪声，信号在传输过程中依然会发生失真，如果再加上噪声的影响，失真就会更厉害。</p>
+<p>集线器的中继电路有放大信号的作用（我猜的）。</p>
+<h3 id="双绞-是为了抑制噪声">&quot;双绞&quot;是为了抑制噪声</h3>
+<p>局域网网线使用的是双绞线，其中&quot;双绞&quot;的意思就是以两根信号线为一组缠绕在一起，这种拧麻花一样的设计是为了抑制噪声的影响。</p>
+<p>那么双绞线为什么能够抑制噪声呢？这里讲了很多电磁波的知识，没有必要深究</p>
+<h3 id="集线器将信号发往所有线路">集线器将信号发往所有线路</h3>
+<p>基础知识：</p>
+<p>集线器有多个RJ-45接口，RJ-45接口用于连接水晶头，也就是说集线器会同时连接多个水晶头。</p>
+<p><strong>每一条信号传输线路都有正负两个信号端子，也就是说发送一个信号需要两条线，发送线路有两个端子，接受线路也有两个端子。</strong></p>
+<p><mark>PHY(MAU)和RJ-45的接口</mark>的接法有两种MDI/MDI-X，MDI就是对RJ-45接口和PHY(MAU)的信号收发模块进行直连接线（PHY(MAU)的发送端子接发送接口，PHY(MAU)的接收端子接接收接口），而MDI-X则是交叉接线（对RJ-45接口和PHY(MAU)的信号收发模块进行反向接线，PHY(MAU)的发送端子接接收接口，PHY(MAU)的接收端子接发送接口）。<mark><strong>信号如果要正常传输，就必须从PHY(MAU)的发送线路发出，出发经过网线，从另一个网卡的PHY(MAU)的接受线路进入网卡</strong></mark>，也就是说，一头用MDI直接连线，另一头必须用MDI-X交叉接线，看图3.2</p>
+<p>信号到达集线器的PHY（MAU）模块后，会进入中继电路。中继电路的基本功能就是将输入的信号广播到集线器的所有端口上。接下来，信号从所有接口流出，到达连接在集线器上的所有设备。然后，这些设备在收到信号之后会通过MAC头部中的接收方MAC地址判断是不是发给自己的，如果是发给自己的就接受，否则就忽略。这样，网络包就能够到达指定MAC地址的接收方了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011331831.png"
+                      alt=""
+                ></p>
+<h2 id="交换机的包转发操作">交换机的包转发操作</h2>
+<h3 id="交换机根据地址表进行转发">交换机根据地址表进行转发</h3>
+<p>首先，信号到达网线接口，并由PHY（MAU）模块进行接收，这一部分和集线器是相同的。也就是说，它的接口和PHY（MAU）模块也是以MDI-X模式进行连接的，接下来，PHY（MAU）模块会将网线中的信号转换为通用格式，然后传递给MAC模块。MAC模块将信号转换为数字信息，然后通过包末尾的FCS校验错误，如果没有问题则存放到缓冲区中。这部分操作和网卡接受信号的处理流程基本相同，可以认为<strong>交换机的每个网线接口后面都是一块网卡</strong>。网线接口和后面的电路部分加在一起称为一个端口，也就是说<mark><strong>交换机的一个端口就相当于计算机上的一块网卡</strong></mark>。换句话说，<mark><strong>如果在计算机上安装多块网卡，并开启&quot;混杂模式&quot;让网卡接收所有的网络包，然后再安装一个和交换机具备同样功能的网络包转发软件，那么这台计算机就变成了一台交换机</strong></mark>（一般电脑上至少有两个网卡，一个是以太网网卡，一个是无线局域网网卡）。但交换机的工作方式和网卡有一点不同：交换机的端口不核对接收方MAC地址，而是直接接收所有的包并存放到缓冲区中。因此，<mark><strong>交换机端口的 MAC 模块不具有 MAC 地址</strong></mark>。将包存入缓冲区后，接下来需要查询一下这个包的接收方MAC地址是否已经在MAC地址表中有记录了。MAC地址表主要包含两个信息，<strong>一个是设备的MAC地址，另一个是该设备连接在交换机的哪个端口上</strong>。以图3.7中的地址表为例，MAC地址和端口是一一对应的，通过这张表就能够判断出收到的包应该转发到哪个端口。然后就可以通过交换电路将包发送到相应的端口了。</p>
+<p><mark><strong>注意：从工作原理来看，交换机的端口和网卡很像，但实际上并非如图上这样每一个端口都有独立的PHY(MAU)、MAC和内存，一般都是通过一个控制芯片同时控制多个端口</strong></mark>。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011334539.png"
+                      alt=""
+                ></p>
+<p>交换电路的结构如图3.8所示，它可以将输入端和输出端连接起来。其中，信号线排列成网格状，每一个交叉点都有一个交换开关，交换开关是电子控制的，通过切换开关的状态就可以改变信号的流向。交换电路的输入端和输出端分别连接各个接收端口和发送端口，网络包通过这个网格状的电路在端口之间流动。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011334156.png"
+                      alt=""
+                ></p>
+<h3 id="MAC-地址表的维护">MAC 地址表的维护</h3>
+<p>第一种是收到包时，将<mark><strong>发送方MAC地址以及其输入端口的号码写入MAC地址表中</strong></mark>。</p>
+<p>另一种是删除地址表中某条记录的操作，这是为了防止设备移动时产生问题。然而，交换机没办法知道这台笔记本电脑已经从原来的端口移走了。因此地址表中的记录不能永久有效，<strong>而是要在一段时间不使用后就自动删除</strong>。<mark><strong>计算机网络的时效性非常短，因此很多缓存的数据都会有一个过期时间</strong></mark>。</p>
+<p>总之，交换机会自行更新或删除地址表中的记录，不需要手动维护。当地址表的内容出现异常时，只要重启一下交换机就可以重置地址表，也不需要手动进行维护。</p>
+<h3 id="特殊操作">特殊操作</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>交换机查询地址表之后发现记录中的目标端口和这个包的源端口是同一个端口，这种情况要怎么处理呢？处理方法是，<mark><strong>当交换机发现一个包要发回到原端口时，就会直接丢弃这个包</strong></mark>。</p>
+</li>
+<li class="lvl-2">
+<p>地址表中找不到指定的MAC地址。这可能是因为<mark><strong>具有该地址的设备还没有向交换机发送过包</strong></mark>，或者这个设备一段时间没有工作导致地址被从地址表中删除了。这种情况下，<mark><strong>交换机无法判断应该把包转发到哪个端口，只能将包转发到除了源端口之外的所有端口上</strong></mark>，这就跟集线器的操作一样了，结果就是只有相应的接收者才接收包，而其他设备则会忽略这个包。等目标设备会作出响应，只要返回了响应包，交换机就可以将它的地址写入地址表，下次也就不需要把包发到所有端口了。</p>
+</li>
+<li class="lvl-2">
+<p>如果接收方MAC地址是一个广播地址，那么交换机会将包发送到除源端口之外的所有端口。</p>
+</li>
+</ul>
+<blockquote>
+<p>PS：广播地址（broadcast address）是一种特殊的地址，将广播地址设为接收方地址时，包会发送到网络中所有的设备。MAC地址中的FF:FF:FF:FF:FF:FF和IP地址中的255.255.255.255都是广播地址。</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011336480.png"
+                      alt=""
+                ></p>
+<h3 id="全双工模式可以同时进行发送和接收">全双工模式可以同时进行发送和接收</h3>
+<p>使用集线器时，如果多台计算机同时发送信号，<strong>信号就会在集线器内部混杂在一起</strong>，进而无法使用，这种现象称为碰撞，是以太网的一个重要特征。</p>
+<p>而使用双绞线时，发送和接收的信号线是各自独立的，因此在双绞线中信号不会发生碰撞。网线连接的另一端，即交换机端口和网卡的PHY（MAU）模块以及MAC模块，其内部发送和接收电路也是各自独立的，信号也不会发生碰撞。因此，只要不用集线器，就可以避免信号碰撞了。如果不存在碰撞，也就不需要半双工模式中的碰撞处理机制了。也就是说，发送和接收可以同时进行。然而以太网规范中规定了在网络中有信号时要等该信号结束后再发送信号，因此发送和接收还是无法同时进行。于是，<mark><strong>人们对以太网规范进行了修订，增加了一个无论网络中有没有信号都可以发送信号的工作模式，同时规定在这一工作模式下停用碰撞检测（图3.10）。这种工作模式就是全双工模式</strong></mark>。在全双工模式下，无需等待其他信号结束就可以发送信号，因此它比半双工模式速度要快。<strong>由于双方可以同时发送数据，所以可同时传输的数据量也更大，性能也就更高</strong>。</p>
+<p>全双工模式是交换机特有的工作模式，（<strong>在交换机内部</strong>）它可以同时进行发送和接收操作，集线器不具备这样的特性</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011337459.png"
+                      alt=""
+                ></p>
+<p><mark><strong>意思是，硬件上，从MAC模块到PHY(MAU)模块到RJ-45接口（RJ-45接口的发送线路和接受线路本来就是分开的），本来就是支持同时发送信号和接受信号的，只是集线器不能同时处理多个输入信号。现在有了交换机，配合硬件，完全不会有信号碰撞，因此就可以同时发送信号和接受信号。</strong></mark></p>
+<p><mark><strong>CSMA/CD中说得情况被双绞线解决了</strong></mark></p>
+<p>半双工模式中，AB通信，A发了信号，B再发，也就是说A发信号的时候，B得等着，但是全双工模式中，AB可以同时给对方发信号。</p>
+<h3 id="自动协商：确定最优的传输速率">自动协商：确定最优的传输速率</h3>
+<p>在全双工模式刚刚出现的时候，还需要手动进行切换，但这样实在太麻烦，于是后来出现了自动切换工作模式的功能。这一功能可以由相互连接的双方探测对方是否支持全双工模式，并自动切换成相应的工作模式。此外，<strong>除了能自动切换工作模式之外，还能探测对方的传输速率并进行自动切换。这种自动切换的功能称为自动协商</strong>。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011339445.png"
+                      alt=""
+                ></p>
+<p><strong>在以太网中，当没有数据在传输时，网络中会填充一种被称为连接脉冲的脉冲信号。在没有数据信号时就填充连接脉冲，这使得<mark>网络中一直都有一定的信号流过</mark>，从而能够检测对方是否在正常工作，或者说网线有没有正常连接。<mark>以太网设备的网线接口周围有一个绿色的LED指示灯，它表示是否检测到正常的脉冲信号</mark>。如果绿灯亮，说明PHY（MAU）模块以及网线连接正常</strong>。</p>
+<p>后来，人们又设计出了如图3.11这样的具有特定排列的脉冲信号，通过这种信号可以将自身的状态告知对方。自动协商功能就利用了这样的脉冲信号，即通过这种信号将自己能够支持的工作模式和传输速率相互告知对方，并从中选择一个最优的组合。</p>
+<p>下面来看一个具体的例子。假设现在连接双方的情况如表3.2所示，网卡一方支持所有的速率和工作模式，而交换机只支持到100Mbit/s全双工模式。<strong>当两台设备通电并完成硬件初始化之后，就会开始用脉冲信号发送自己支持的速率和工作模式。当对方收到信号之后，会通过读取脉冲信号的排列来判断对方支持的模式，然后看看双方都支持的模式有哪些</strong>。表3.2是按照优先级排序的，因此双方都支持的模式就是第3行及以下的部分。越往上优先级越高，因此在本例中100 Mbit/s全双工模式就是最优组合，于是双方就会以这个模式开始工作。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011340761.png"
+                      alt=""
+                ></p>
+<h3 id="交换机可同时执行多个转发操作">交换机可同时执行多个转发操作</h3>
+<p>交换机只将包转发到具有特定MAC地址的设备连接的端口，其他端口都是空闲的。如图3.7中的例子所示，当包从最上面的端口发送到最下面的端口时，其他端口都处于空闲状态，这些端口可以传输其他的包，因此交换机可以同时转发多个包。</p>
+<p>这里讲的是多个端口可以同时工作，而<code>本章:全双工模式可以同时进行发送和接收</code>中的全双工模式讲的是一个端口在全双工模式下可以同时发送和接收信号。</p>
+<h2 id="路由器的包转发操作">路由器的包转发操作</h2>
+<h3 id="路由器的基本知识">路由器的基本知识</h3>
+<p>网络包经过集线器和交换机之后，现在到达了路由器，并在此被转发到下一个路由器。<mark><strong>这一步转发的工作原理和交换机类似，也是通过查表判断包转发的目标</strong></mark>。不过在具体的操作过程上，路由器和交换机是有区别的。因为<mark><strong>路由器是基于IP设计的（基于IP地址转发），而交换机是基于以太网设计的（基于MAC地址转发）</strong></mark>。</p>
+<p>路由器包括转发模块和端口模块两部分。其中转发模块负责判断包的转发目的地，端口模块负责包的收发操作。<mark><strong>转发模块和端口模块的关系，就相当于协议栈的IP模块和网卡之间的关系</strong></mark>。因此，大家可以将路由器的转发模块想象成IP模块，将端口模块想象成网卡。（<strong>路由器跟交换机不一样，交换机只相当于交换电路+多个网卡</strong>）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011341113.png"
+                      alt=""
+                ></p>
+<p>通过更换网卡，计算机不仅可以支持以太网，也可以支持无线局域网，路由器也是一样。如果路由器的端口模块安装了支持无线局域网的硬件，就可以支持无线局域网了。此外，路由器的端口模块则支持除局域网之外的多种通信技术，如ADSL、FTTH，以及各种宽带专线等，只要端口模块安装了支持这些技术的硬件即可。（<strong>以太网、无线局域网、以及ADSL、FTTH，以及各种宽带专线等，都是不同的网络技术，需要特定的硬件支持，路由器同时支持这些网络技术，就会涉及到网络包在不同的网络协议之间过渡的问题，比如从以太网进入，发送到无线局域网，这其中的一个问题就是输出端口的最大包跟输入端口的不一样，就需要分片，详细请看<code>本章:通过分片功能拆分大网络包</code></strong>）（一般的个人电脑上至少会有两个网卡，一个以太网网卡，一个无线网卡，这两个网卡都有自己的MAC地址，在Windows系统上通过 <code>ipconfig /all</code> 查看所有的网络接口即网卡信息，也可以用前面提到的 <code>route print</code> 命令查看）</p>
+<hr>
+<p>路由器的基本原理：</p>
+<p><mark>路由器在转发包时，首先会通过端口将发过来的包接收进来，这一步的工作过程取决于端口对应的通信技术。对于以太网端口来说，就是按照以太网规范进行工作，而无线局域网端口则按照无线局域网的规范工作，总之就是委托端口的硬件将包接收进来。接下来，转发模块会根据接收到的包的IP头部中记录的接收方IP地址，在路由表中进行查询，以此判断转发目标。然后，转发模块将包转移到转发目标对应的端口，端口再按照硬件的规则将包发送出去，也就是转发模块委托端口模块将包发送出去的意思。</mark></p>
+<p>刚才我们讲到端口模块会根据相应通信技术的规范来执行包收发的操作，这意味着<mark>端口模块是以实际的发送方或者接收方的身份来收发网络包的</mark>。以以太网端口为例，<mark>路由器的端口具有MAC地址</mark>，因此它就能够成为以太网的发送方和接收方。<mark>端口还具有IP地址</mark>，从这个意义上来说，<mark><strong>它和计算机的网卡是一样的</strong></mark>。当转发包时，首先路由器端口会接收发给自己的以太网包，然后查询转发目标，再由相应的端口作为发送方将以太网包发送出去。这一点和交换机是不同的，<strong>交换机只是将进来的包转发出去而已，它自己并不会成为发送方或者接收方（交换机的网卡没有MAC地址）。</strong></p>
+<h3 id="路由表中的信息">路由表中的信息</h3>
+<p>路由表中的IP地址只包含表示子网的网络号部分的比特值（配合子网掩码），而表示主机号部分的比特值全部为0。路由器会将接收到的网络包的接收方IP地址与路由表中的目标地址进行比较，并找到相应的记录。交换机在地址表中只匹配完全一致的记录，而<mark><strong>路由器则会忽略主机号部分，只匹配网络号部分</strong></mark>。打个比方，路由器在转发包的时候只看接收方地址属于哪个区，××区发往这一边，××区发往那一边。这样效率更高</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011343195.png"
+                      alt=""
+                ></p>
+<p>特殊情况：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>路由聚合</p>
+<p>目标地址列中的IP地址表示的是子网，但也有一些例外，有时地址本身的子网掩码和路由表中的子网掩码是不一致的，这是路由聚合的结果。路由聚合会将几个子网合并成一个子网，并在路由表中只产生一条记录。</p>
+<p>我们现在有3个子网，分别为<mark><strong>10.10.1.0/24、10.10.2.0/24、10.10.3.0/24</strong></mark>，路由器B需要将包发往这3个子网。在这种情况下，路由器B的路由表中原本应该有对应这3个子网的3条记录，但在这个例子中，无论发往任何一个子网，都是通过路由器A来进行转发，因此我们可以在路由表中将这3个子网合并成<mark><strong>10.10.0.0/16</strong></mark>，这样也可以正确地进行转发，但我们减少了路由表中的记录数量，这就是路由聚合。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011344478.png"
+                      alt=""
+                ></p>
+</li>
+<li class="lvl-2">
+<p>具体的计算机的地址</p>
+<p>我们也可以将某台具体计算机的地址写入路由表中，这时的子网掩码为255.255.255.255，也就是说地址中的全部32个比特都为1。</p>
+</li>
+</ul>
+<hr>
+<p>从结果上看，<mark><strong>路由表的子网掩码列只是用来在匹配目标地址时告诉路由器应该匹配多少个比特（这个总结太精髓了）</strong></mark>。而且，目标地址中的地址和实际子网的网络号可能并不完全相同，但即便如此，路由器依然可以正常工作。按照这样的规则，<mark><strong>我们可能会匹配到多条候选记录。其中，路由器首先寻找网络号比特数最长的一条记录</strong></mark>。网络号比特数越长，说明主机号比特数越短，也就意味着该子网内可分配的主机数量越少，即子网中可能存在的主机数量越少，<strong>这一规则的目的是尽量缩小范围，所以根据这条记录判断的转发目标就会更加准确</strong>。有时候路由表中会存在网络号长度相同的多条记录，例如考虑到路由器或网线的故障而设置的备用路由就属于这种情况。这时，<mark><strong>需要根据跃点计数的值来进行判断。跃点计数越小说明该路由越近</strong></mark>，因此应选择跃点计数较小的记录。如果在路由表中无法找到匹配的记录，路由器会丢弃这个包，并通过ICMP消息（<code>第二章:将服务器的响应包从 IP 传递给 TCP</code>小节介绍过）告知发送方。</p>
+<hr>
+<p>跃点计数，它表示距离目标IP地址的距离是远还是近。这个数字越小，表示距离目的地越近；数字越大，表示距离目的地越远。</p>
+<hr>
+<p>这一小节的内容解决了<code>第二章:生成包含接收方 IP 地址的 IP 头部</code>小节的疑惑。</p>
+<hr>
+<p>路由表记录维护的方式和交换机也有所不同。<strong>交换机中对MAC地址表的维护是包转发操作中的一个步骤（在接受到包的时候把发送方MAC地址和包输入端口的记录到MAC地址表中），<mark>而路由器中对路由表的维护是与包转发操作相互独立的</mark></strong>，也就是说，在转发包的过程中不需要对路由表的内容进行维护。对路由表进行维护的方法有几种，大体上可分为以下两类。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>由人手动维护路由记录，比如<code>本章:从互联网访问公司内网</code>小节中将内网服务器映射到外网的配置。</p>
+</li>
+<li class="lvl-2">
+<p>根据路由协议机制，通过路由器之间的信息交换由路由器自行维护路由表的记录，这些路由协议有很多种，例如RIP、OSPC、BGP等都属于路由协议。这里就不深究了。TODO</p>
+</li>
+</ul>
+<h3 id="路由器的包接收操作">路由器的包接收操作</h3>
+<p>路由器的端口有各种不同的类型，这里我们只介绍以太网端口是如何接收包的。首先，信号到达网线接口部分，其中的PHY（MAU）模块和MAC模块将信号转换为数字信息，然后通过包末尾的FCS进行错误校验，如果没问题则检查MAC头部中的接收方MAC地址，看看是不是发给自己的包，如果是就放到接收缓冲区中，否则就丢弃这个包。</p>
+<h3 id="查询路由表确定输出端口">查询路由表确定输出端口</h3>
+<p><mark><strong>完成包接收操作之后，路由器就会丢弃包开头的MAC头部</strong></mark>。MAC头部的作用就是将包送达路由器，其中的接收方MAC地址就是路由器端口的MAC地址。因此，当包到达路由器之后，MAC头部的任务就完成了，于是MAC头部就会被丢弃。</p>
+<p>接下来，路由器会根据MAC头部后方的IP头部中的内容进行包的转发操作。</p>
+<p>如图3.13的情况，假设地址为10.10.1.101的计算机要向地址为192.168.1.10的服务器发送一个包，这个包先到达图中的路由器。判断转发目标的第一步，就是根据包的接收方IP地址查询路由表中的目标地址栏，以找到相匹配的记录。就像前面讲过的一样，这个匹配并不是匹配全部32个比特，<mark><strong>而是根据子网掩码列中的值判断网络号的比特数，并匹配相应数量的比特</strong></mark>。按照这样的规则，我们可能会匹配到多条候选记录。比如这个例子中第3、4、5行都可以匹配。其中，<mark><strong>路由器首先寻找网络号比特数最长的一条记录</strong></mark>。网络号比特数越长，说明主机号比特数越短，也就意味着该子网内可分配的主机数量越少，即子网中可能存在的主机数量越少，这一规则的目的是尽量缩小范围，所以根据这条记录判断的转发目标就会更加准确。因此这里应该选择第4行作为转发目标。按照最长匹配原则筛选后，如果只剩一条候选记录，则按照这条记录的内容进行转发。然而，<strong>有时候路由表中会存在网络号长度相同的多条记录</strong>，例如考虑到路由器或网线的故障而设置的备用路由就属于这种情况。这时，<mark><strong>需要根据跃点计数的值来进行判断</strong></mark>。跃点计数越小说明该路由越近，因此应选择跃点计数较小的记录。<mark><strong>如果在路由表中无法找到匹配的记录，路由器会丢弃这个包</strong></mark>，并通过ICMP（<code>第二章:将服务器的响应包从 IP 传递给 TCP</code>小节介绍过）消息告知发送方。这里的处理方式和交换机不同（交换机是发送到所有端口，相当于广播），原因在于网络规模的大小。交换机连接的网络最多也就是几千台设备的规模，这个规模并不大。广播到所有端口不会引发什么问题。然而，路由器工作的网络环境就是互联网，它的规模是远远大于以太网的，如果将不知道应该转发到哪里的包发送到整个网络上，那就会产生大量的网络包，造成网络拥塞。因此，路由器遇到不知道该转发到哪里的包，就会直接丢弃。</p>
+<h3 id="找不到匹配路由时选择默认路由">找不到匹配路由时选择默认路由</h3>
+<p>如果找不到匹配的端口，那么是不是所有的转发目标都需要配置在路由表中才行呢？这样太麻烦了，我们的做法是配置默认路由，比如图3.13路由表中的最后一行。</p>
+<p>这一行的子网掩码为0.0.0.0，关键就在这里，子网掩码0.0.0.0的意思是网络包接收方IP地址和路由表目标地址的匹配中需要匹配的比特数为0，换句话说，就是根本不需要匹配。只要将子网掩码设置为0.0.0.0，那么无论任何地址都能匹配到这一条记录，这样就不会发生不知道要转发到哪里的问题了。而且由于匹配的比特数越长优先级越高（最长匹配原则），因此子网掩码为0.0.0.0的记录优先级是最低的，只有当找不到其他匹配的记录时，才会选择这条记录。（<mark><strong>一个简单的规则的花式应用，真的很聪明</strong></mark>）</p>
+<p><strong>只要在这一条记录的网关列中填写接入互联网的路由器地址，当匹配不到其他路由时，网络包就会被转发到互联网接入路由器</strong>。因此这条记录被称为默认路由，这一行配置的网关地址被称为默认网关。在计算机的TCP/IP设置窗口中也有一个填写默认网关的框，意思是一样的。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011352056.png"
+                      title="" alt="" width="413"
+                >
+<h3 id="包的有效期">包的有效期</h3>
+<p>从路由表中查找到转发目标之后，网络包就会被转交给输出端口，并最终发送出去，但在此之前，路由器还有一些工作要完成。比如更新IP头部中的TTL（Time to Live，生存时间）字段（参见<code>第二章:生成包含接收方 IP 地址的 IP 头部</code>小结中的表2.2）。<strong>TTL字段表示包的有效期，包每经过一个路由器的转发，这个值就会减1，当这个值变成0时，就表示超过了有效期，这个包就会被丢弃</strong>。这个机制是为了防止包在一个地方陷入死循环。发送方在发送包时会将TTL设为64或128，也就是说包经过这么多路由器后就会&quot;寿终正寝&quot;。<mark>现在的互联网即便访问一台位于地球另一侧的服务器，最多也只需要经过几十个路由器</mark>，因此只要包被正确转发，就可以在过期之前到达目的地。</p>
+<p>为什么只需要经过几十个路由器？我们可以通过tracert命令查看从当前地址到目标IP到底需要经过多少个路由器。</p>
+<p>Windows端用tracert</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011354161.png"
+                      alt=""
+                ></p>
+<p>可以看到从电信内网到阿里云服务器，只需要经过12个路由器的转发。</p>
+<p>Linux端用traceroute，如果没有的话，用 yum install traceroute 一个即可。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011355583.png"
+                      alt=""
+                ></p>
+<p>traceroute/tracert的基本原理：</p>
+<p>traceroute最简单的基本用法是：traceroute hostname</p>
+<p>traceroute程序的设计是利用ICMP及IP header的TTL（Time To Live）栏位（field）使用过UDP协议。首先，traceroute送出一个TTL是1的IP datagram（其实，每次送出的为3个40字节的包，包括源地址，目的地址和包发出的时间标签）到目的地，当路径上的第一个路由器（router）收到这个datagram时，它将TTL减1。此时，TTL变为0了，所以该路由器会将此datagram丢掉，并送回一个「ICMP time exceeded」消息（包括发IP包的源地址，IP包的所有内容及路由器的IP地址），traceroute 收到这个消息后，便知道这个路由器存在于这个路径上，接着traceroute 再送出另一个TTL是2 的datagram，发现第2 个路由器…。traceroute 每次将送出的datagram的TTL 加1来发现另一个路由器，这个重复的动作一直持续到某个datagram 抵达目的地。</p>
+<p>当datagram到达目的地后，该主机并不会送回ICMP time exceeded消息，因为它已是目的地了，那么traceroute如何得知目的地到达了呢？traceroute在送出UDP datagrams到目的地时，它所选择送达的port number 是一个一般应用程序都不会用的号码（30000 以上），所以当此UDP datagram 到达目的地后该主机会送回一个「ICMP port unreachable」的消息，而当traceroute 收到这个消息时，便知道目的地已经到达了。所以traceroute 在Server端也是没有所谓的Daemon 程式。</p>
+<p>traceroute提取发 ICMP TTL到期消息设备的IP地址并作域名解析。每次，traceroute都打印出一系列数据,包括所经过的路由设备的域名及 IP地址,三个包每次来回所花时间。</p>
+<hr>
+<p>tracert 命令详解</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/2895909c1b54x" >https://www.jianshu.com/p/2895909c1b54x<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="通过分片功能拆分大网络包">通过分片功能拆分大网络包</h3>
+<p>路由器的端口并不只有以太网一种，也可以支持其他局域网或专线通信技术。不同的线路和局域网类型各自能传输的最大包长度（MTU）也不同，当包在不同的通信技术之间流转的时候，输出端口的最大包长度可能会小于输入端口，这个时候就需要使用IP协议中定义的分片功能对包进行拆分，缩短每个包的长度。可回看<code>第二章:生成包含接收方 IP 地址的 IP 头部</code>中的细节。</p>
+<p>最大包长度是由各个通信规格定义的，如果包超过了这个最大长度就不符合相应的规格，也就不能传输了，因此输入端口收到的包不会超过最大长度。<strong>所有通信技术的最大包长度（MTU）的定义都是一样的，都是指IP包：IP头部+(IP)数据，数据层可以是TCP头+(TCP)数据，也可以是UDP头+(UDP)数据，这就是分出IP层的好处，回看<code>第二章:生成包含接收方 IP 地址的 IP 头部</code>小节。</strong></p>
+<p>分片操作的过程如图3.15所示。首先，我们需要知道输出端口的MTU，看看这个包能不能不分片直接发送。最大包长度是由端口类型决定的，用这个最大长度减掉头部的长度就是MTU，（在以太网中，这个头部就是MAC头部），将MTU与要转发的包长度进行比较。如果输出端口的MTU足够大，那么就可以不分片直接发送；如果输出端口的MTU太小，那么就需要将包按照这个MTU进行分片，但在此之前还需要看一下IP头部中的标志字段，确认是否可以分片。一般来说都是可以分片的，但下面两种情况不能分片：1）发送方应用程序等设置了不允许分片；2）这个包已经是经过分片后的包。<strong>如果查询标志字段发现不能分片，那么就只能丢弃这个包，并通过ICMP消息通知发送方</strong>。否则，就可以按照输出端口MTU对数据进行依次拆分了。在分片中，TCP头部及其后面的部分都是可分片的数据，尽管TCP头部不属于用户数据，但从IP来看也是TCP请求传输的数据的一部分。数据被拆分后，每一份数据前面会加上IP头部，其大部分内容都和原本的IP头部一模一样，但其中有部分字段需要更新，这些字段用于记录分片相关的信息。涉及到的参数主要有标识符（Identifier）、标记（Flags）、片偏移（Fragment Offset）具体可回看<code>第二章:生成包含接收方 IP 地址的 IP 头部</code>小节。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011359836.png"
+                      alt=""
+                ></p>
+<h3 id="路由器的发送操作和计算机相同">路由器的发送操作和计算机相同</h3>
+<p>在将包发送出去之前实际上还有一项工作。IP头部中有一个用于错误检验的字段&quot;校验和&quot;，<strong>在路由器更新TTL和分片的过程中，IP头部的内容发生了改变，因此必须重新计算校验和</strong>。这里之所以没有详细讲解这个过程，是因为和以太网以及通信线路本身的错误校验机制相比，IP校验和的可靠性很低，因此大多数路由器都不去校验这个值，就当它不存在一样。</p>
+<p>到这里，发送前的准备工作就完成了，接下来就会进入包的发送操作。这一步操作取决于输出端口的类型。如果是以太网端口，则按照以太网的规则将包转换为电信号发送出去；如果是ADSL则按照ADSL的规则来转换，以此类推。这里，我们假设路由器位于公司等局域网的内部，即输出端口也是以太网，看看这种情况是如何操作的。</p>
+<p>基本过程和协议栈中的IP模块发送包的过程是基本上是相同的（回看<code>第二章:IP 与以太网的包收发操作</code>整个小节），协议栈中的IP模块会设置包的IP头部和MAC头部，设置其中的一些字段，然后将完成的包转换成电信号并发送出去。但是。<mark><strong>路由器的转发只用重新设置MAC头部，IP头部中的发送地址和接收地址是不需要也是不能修改的</strong></mark>。（<code>本章:地址转换的基本原理</code>小节中，地址转换设备会修改IP和端口，这数据特殊情况）。</p>
+<p>首先，为了判断MAC头部中的接收方的MAC地址应该填写什么值，我们需要根据<strong>路由表</strong>的网关列判断对方的地址。如果网关是一个IP地址，则这个IP地址就是我们要转发到的目标地址；如果网关为空，则IP头部中的接收方IP地址就是要转发到的目标地址。<code>第二章:生成包含接收方 IP 地址的 IP 头部</code>小结我们讲过网关的IP地址和接口的IP地址相同时，表示IP头部中的接收方IP地址就是我们要转发的直接目标。路由器和Windows不一样，当包可以直接发送到最终接收方时，一般网关列是留空的。知道对方的IP地址之后，接下来需要通过ARP根据IP地址查询MAC地址，并将查询的结果作为接收方MAC地址。路由器也有ARP缓存，因此首先会在ARP缓存中查询，如果找不到则发送ARP查询请求。确定接收方MAC地址之后，接下来是发送方MAC地址字段，这里填写输出端口的MAC地址（<strong>注意，路由器的端口都是有自己的IP和MAC地址的</strong>）。还有一个以太类型字段，填写0080（十六进制），表示IP协议。</p>
+<p>网络包完成后，接下来会将其转换成电信号并通过端口发送出去。这一步的工作过程和计算机也是相同的。如果输出端口为以太网，则发送出去的网络包会通过交换机到达下一个路由器。由于接收方MAC地址就是下一个路由器的地址，所以交换机会根据这一地址将包传输到下一个路由器。接下来，下一个路由器会将包转发给再下一个路由器，经过层层转发之后，网络包就到达了最终的目的地。</p>
+<h3 id="路由器与交换机的关系">路由器与交换机的关系</h3>
+<p>计算机在发送网络包时，或者是路由器在转发网络包时，都需要在前面加上MAC头部。之前的讲解都是说在开头加上MAC头部，如果看图3.16大家可以发现，准确的说法应该是<strong>将IP包装进以太网包的数据部分中</strong>。也就是说，<mark><strong>给包加上MAC头部并发送，从本质上说是将IP包装进以太网包的数据部分中，委托以太网去传输这些数据</strong></mark>。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011401209.png"
+                      alt=""
+                ></p>
+<p><mark><strong>IP协议本身没有传输包的功能，因此包的实际传输要委托以太网来进行</strong></mark>。路由器是基于IP设计的，而交换机是基于以太网设计的，因此IP与以太网的关系也就是路由器与交换机的关系。换句话说，路由器将包的传输工作委托给交换机来进行。当然，这里讲的内容只适用于原原本本实现IP和以太网机制的纯粹的路由器和交换机，实际的路由器有内置交换机功能的，比如用于连接互联网的家用路由器就属于这一种，对于这种路由器，上面内容可能就不适用了（&quot;路由器将包的传输工作委托给交换机来进行&quot;这个说法其实很容易混淆，理解这个意思即可）。但是，如果把这种&quot;不纯粹&quot;的路由器拆分成&quot;纯粹&quot;的路由器和&quot;纯粹&quot;的交换机，则它们各自都适用上面的内容。</p>
+<p><mark><strong>简单来说，IP负责将包发送给通信对象这一整体过程，而其中将包传输到下一个路由器的过程则是由以太网来负责的。</strong></mark></p>
+<p>当然，网络并非只有以太网一种，还有无线局域网，以及接入互联网的通信线路，它们和IP之间的关系又是什么样的呢？其实只要将以太网替换成无线局域网、互联网线路等通信规格就可以了。IP本身不负责包的传输，而是委托各种通信技术将包传输到下一个路由器，这样的设计是有重要意义的，即可以根据需要灵活运用各种通信技术，这也是IP的最大特点。正是有了这一特点，我们才能够构建出互联网这一规模巨大的网络。</p>
+<hr>
+<p>这一小节的内容其实就是我在<code>第二章:包的基本知识</code>小节中自己总结的内容。</p>
+<h2 id="路由器的附加功能">路由器的附加功能</h2>
+<p>两种最重要的功能------地址转换和包过滤。</p>
+<h3 id="通过地址转换有效利用-IP-地址">通过地址转换有效利用 IP 地址</h3>
+<p>随着接入互联网的设备越来越多，全世界的IP地址不够用了，需要解决这个问题</p>
+<p>解决这个问题的关键在于固定地址的分配方式。举个例子，假如有A、B两家公司，它们的内网是完全独立的。这种情况下，<mark><strong>两家公司的内网之间不会有网络包流动，即使A公司的内网中的某台服务器和B公司的内网中的某台客户端具有相同的IP地址也没关系，因为它们之间不会进行通信</strong></mark>。只要在每家公司自己的范围内，能够明确判断网络包的目的地就可以了。<mark><strong>即公司内部设备的地址不一定要和其他公司不重复。</strong></mark></p>
+<p>当然，就算是公司内网，也不是可以随便分配地址的，因此需要设置一定的规则，规定某些地址是用于内网的，这些地址叫作私有地址，而原来的固定地址则叫作公有地址，在内网中可用作私有地址的范围仅限以下这些。</p>
+<p><mark><strong>10.0.0.0～10.255.255.255</strong></mark></p>
+<p><mark><strong>172.16.0.0～172.31.255.255</strong></mark></p>
+<p><mark><strong>192.168.0.0～192.168.255.255</strong></mark></p>
+<p>这些地址属于公有地址中还没有分配的范围。换句话说，<strong>私有地址本身并没有什么特别的结构，只不过是将公有地址中没分配的一部分拿出来规定只能在内网使用它们而已</strong>。</p>
+<p>尽管这样的确能节省一部分地址，但仅凭这一点还无法完全解决问题。公司内网并不是完全独立的，而是需要通过互联网和其他很多公司相连接，所以当内网和互联网之间需要传输包的时候，问题就出现了，因为如果很多地方都出现相同的地址，包就无法正确传输了，（A公司的内网和B公司的内网是不会有包流动的，但是内网跟互联网还是有包流动的，不然不就成了离线网了嘛）。</p>
+<p>当公司内网和互联网连接的时候，需要采用图3.17这样的结构，即将公司内网分成两个部分，一部分是对互联网开放的服务器，另一部分是公司内部设备。其中对互联网开放的部分分配公有地址，可以和互联网直接进行通信，这一部分和之前介绍的内容是一样的。相对地，<strong>内网部分则分配私有地址，内网中的设备不能和互联网直接收发网络包，而是通过一种特别的机制进行连接，这个机制就叫<mark>地址转换</mark></strong>。具体细节看<code>本章:地址转换的基本原理</code>小节</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011405655.png"
+                      alt=""
+                ></p>
+<h3 id="地址转换的基本原理">地址转换的基本原理</h3>
+<p><strong>地址转换的基本原理是在转发网络包时对IP头部中的IP地址和TCP头部或者UDP头部中的端口号进行改写。</strong></p>
+<p>首先，TCP连接操作的第一个包被转发到互联网时，会像图3.18这样，<strong>将发送方IP地址从私有地址改写成公有地址。这里使用的公有地址是地址转换设备的互联网接入端口的地址（具备地址转换功能的设备不仅有路由器，有些防火墙也有地址转换功能，它的工作方式和路由器是相同的，在当前文档中将其理解为路由器即可）。与此同时，端口号也需要进行改写，地址转换设备会随机选择一个空闲的端口</strong>。然后，<mark><strong>改写前的私有地址和端口号，以及改写后的公有地址和端口号，会作为一组相对应的记录保存在地址转换设备内部的一张表中</strong></mark>。改写发送方IP地址和端口号之后，包就被发往互联网，最终到达服务器，然后服务器会返回一个包。服务器返回的包的接收方是原始包的发送方，因此返回的包的接收方就是改写后的公有地址和端口号。这个公有地址其实是地址转换设备的地址，因此这个返回包就会到达地址转换设备。接下来，<strong>地址转换设备会从地址对应表中通过公有地址和端口号找到相对应的私有地址和端口号，并改写接收方信息，然后将包发给公司内网，这样包就能够到达原始的发送方了</strong>。在后面的包收发过程中，地址转换设备需要根据对应表查找私有地址和公有地址的对应关系，再改写地址和端口号之后进行转发。当数据收发结束，进入断开阶段，访问互联网的操作全部完成后，对应表中的记录就会被删除。（我猜应该是通过超时来关闭的）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011407572.png"
+                      alt=""
+                ></p>
+<hr>
+<p>现在我懂了，为什么要在内网中使用互联网中没有使用过的IP地址，<mark>因为地址转换设备同时连接了内网和互联网，如果内网中使用的地址是互联网中已经使用了的公有IP，那么地址转换设备在转发接收方为这个IP的包的时候，就会冲突，不知道是往互联网转发还是往内网转发，所以如果内网使用的IP跟互联网使用的IP一开始就是分开的，就不会有这个问题</mark>。</p>
+<p><mark><strong>对内网地址的转发信息只在这台地址转换设备上记录了，所以所有流量都得通过这台地址转换设备转发</strong></mark>。</p>
+<h3 id="改写端口号的原因">改写端口号的原因</h3>
+<p>只改IP的话，有多少台设备要上互联网，就需要多少个公有地址。内网同时使用的人数一多，就需要很多公有地址，改写端口号正是为了解决这个问题。端口号是一个16比特的数值，总共可以分配出65536个端口（有很多端口都是保留端口，不是所有端口都能用于地址转换），也就是最多支持这么多内网设备，明显效率更高。</p>
+<h3 id="从互联网访问公司内网">从互联网访问公司内网</h3>
+<p>对于从公司内网访问互联网的包，即便其发送方私有地址和端口号没有保存在对应表中也是可以正常转发的，因为用来改写的公有地址就是地址转换设备自身的地址，而端口号只要随便选一个空闲的端口就可以了，这些都可以由地址转换设备自行判断。然而，<strong>对于从互联网访问公司内网的包，如果在地址转换设备的对应表中没有记录就无法正常转发。因为如果对应表中没有记录，就意味着地址转换设备无法判断公有地址与私有地址之间的对应关系</strong>。换个角度来看，这意味着对于<mark><strong>没有在访问互联网的内网设备，是无法从互联网向其发送网络包的。而且即便是正在访问的设备，也只能向和互联网通信中使用的那个端口发送网络包，无法向其他端口发送包</strong></mark>。也就是说，除非公司主动允许，否则是无法从互联网向公司内网发送网络包的。<strong>这种机制具有防止非法入侵的效果</strong>。</p>
+<p>不过，有时候我们希望能够从互联网访问公司内网，这需要进行一些设置才能实现。之所以无法从互联网访问内网，是因为对应表里没有相应的记录，那么我们只要事先手动添加这样的记录就可以了（图3.19）。一般来说，用于外网访问的服务器可以放在地址转换设备的外面并为它分配一个公有地址，<mark><strong>也可以将服务器的私有地址手动添加到地址转换设备中，这样就可以从互联网访问到这台具有私有地址的服务器了</strong></mark>。同时还需要将地址转换设备的公有地址添加到DNS服务器中，不然互联网无法找到地址转换设备。</p>
+<p>这就像是将内网中的设备映射到外网让外网访问一样，这一点在公司中经常使用，比如我在公司内网部署了一套OA，或者一个SVN服务器，员工们需要在公网环境下可以自由访问，在地址转换设备的对应表中添加一个映射信息即可，非常方便。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202208011409687.png"
+                      alt=""
+                ></p>
+<h3 id="路由器的包过滤功能">路由器的包过滤功能</h3>
+<p>包过滤就是在对包进行转发时，根据MAC头部、IP头部、TCP头部的内容，按照事先设置好的规则决定是转发这个包，还是丢弃这个包。我们通常说的防火墙设备或软件，大多数都是利用这一机制来防止非法入侵的。（<strong><mark>防火墙，防的其实就是网络包</mark></strong>）</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：《网络是怎样连接的》-第三章：从网线到网络设备</li>
+        <li>本文作者：小虾米</li>
+        <li>创建时间：2022-08-02 13:45:08</li>
+        <li>
+            本文链接：https://xiashuo.xyz/2022/08/02/《网络是怎样连接的》-第三章：从网线到网络设备/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/07/31/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91%E7%BD%91%E7%BB%9C%E7%9A%84%E8%BF%9B%E5%8C%96/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">【转载】网络的进化</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '3f329557fe1b20fa9c21',
+                    clientSecret: 'a126bc3b9d208261a6ff0c7d32c84395bd4615b5',
+                    repo: 'gittalk-use-repo',
+                    owner: 'liangkang1436',
+                    admin: ['liangkang1436'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小虾米</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">鄂ICP备2022011270号-1</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">从网线到网络设备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E5%9C%A8%E7%BD%91%E7%BA%BF%E5%92%8C%E9%9B%86%E7%BA%BF%E5%99%A8%E4%B8%AD%E4%BC%A0%E8%BE%93"><span class="nav-number">1.1.</span> <span class="nav-text">信号在网线和集线器中传输</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%8F%E4%B8%AA%E5%8C%85%E9%83%BD%E6%98%AF%E7%8B%AC%E7%AB%8B%E4%BC%A0%E8%BE%93%E7%9A%84"><span class="nav-number">1.1.1.</span> <span class="nav-text">每个包都是独立传输的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E7%BD%91%E7%BA%BF%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E8%A1%B0%E5%87%8F%E5%BE%88%E9%87%8D%E8%A6%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">防止网线中的信号衰减很重要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E7%BB%9E-%E6%98%AF%E4%B8%BA%E4%BA%86%E6%8A%91%E5%88%B6%E5%99%AA%E5%A3%B0"><span class="nav-number">1.1.3.</span> <span class="nav-text">&quot;双绞&quot;是为了抑制噪声</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E7%BA%BF%E5%99%A8%E5%B0%86%E4%BF%A1%E5%8F%B7%E5%8F%91%E5%BE%80%E6%89%80%E6%9C%89%E7%BA%BF%E8%B7%AF"><span class="nav-number">1.1.4.</span> <span class="nav-text">集线器将信号发往所有线路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%8C%85%E8%BD%AC%E5%8F%91%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.</span> <span class="nav-text">交换机的包转发操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E6%A0%B9%E6%8D%AE%E5%9C%B0%E5%9D%80%E8%A1%A8%E8%BF%9B%E8%A1%8C%E8%BD%AC%E5%8F%91"><span class="nav-number">1.2.1.</span> <span class="nav-text">交换机根据地址表进行转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MAC-%E5%9C%B0%E5%9D%80%E8%A1%A8%E7%9A%84%E7%BB%B4%E6%8A%A4"><span class="nav-number">1.2.2.</span> <span class="nav-text">MAC 地址表的维护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.3.</span> <span class="nav-text">特殊操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%8F%8C%E5%B7%A5%E6%A8%A1%E5%BC%8F%E5%8F%AF%E4%BB%A5%E5%90%8C%E6%97%B6%E8%BF%9B%E8%A1%8C%E5%8F%91%E9%80%81%E5%92%8C%E6%8E%A5%E6%94%B6"><span class="nav-number">1.2.4.</span> <span class="nav-text">全双工模式可以同时进行发送和接收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%8D%8F%E5%95%86%EF%BC%9A%E7%A1%AE%E5%AE%9A%E6%9C%80%E4%BC%98%E7%9A%84%E4%BC%A0%E8%BE%93%E9%80%9F%E7%8E%87"><span class="nav-number">1.2.5.</span> <span class="nav-text">自动协商：确定最优的传输速率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%8F%AF%E5%90%8C%E6%97%B6%E6%89%A7%E8%A1%8C%E5%A4%9A%E4%B8%AA%E8%BD%AC%E5%8F%91%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.6.</span> <span class="nav-text">交换机可同时执行多个转发操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%8C%85%E8%BD%AC%E5%8F%91%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.</span> <span class="nav-text">路由器的包转发操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="nav-number">1.3.1.</span> <span class="nav-text">路由器的基本知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="nav-number">1.3.2.</span> <span class="nav-text">路由表中的信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%8C%85%E6%8E%A5%E6%94%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.3.</span> <span class="nav-text">路由器的包接收操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E8%B7%AF%E7%94%B1%E8%A1%A8%E7%A1%AE%E5%AE%9A%E8%BE%93%E5%87%BA%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.3.4.</span> <span class="nav-text">查询路由表确定输出端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%BE%E4%B8%8D%E5%88%B0%E5%8C%B9%E9%85%8D%E8%B7%AF%E7%94%B1%E6%97%B6%E9%80%89%E6%8B%A9%E9%BB%98%E8%AE%A4%E8%B7%AF%E7%94%B1"><span class="nav-number">1.3.5.</span> <span class="nav-text">找不到匹配路由时选择默认路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%85%E7%9A%84%E6%9C%89%E6%95%88%E6%9C%9F"><span class="nav-number">1.3.6.</span> <span class="nav-text">包的有效期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%88%86%E7%89%87%E5%8A%9F%E8%83%BD%E6%8B%86%E5%88%86%E5%A4%A7%E7%BD%91%E7%BB%9C%E5%8C%85"><span class="nav-number">1.3.7.</span> <span class="nav-text">通过分片功能拆分大网络包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%8F%91%E9%80%81%E6%93%8D%E4%BD%9C%E5%92%8C%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9B%B8%E5%90%8C"><span class="nav-number">1.3.8.</span> <span class="nav-text">路由器的发送操作和计算机相同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%8E%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.3.9.</span> <span class="nav-text">路由器与交换机的关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E9%99%84%E5%8A%A0%E5%8A%9F%E8%83%BD"><span class="nav-number">1.4.</span> <span class="nav-text">路由器的附加功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%9C%89%E6%95%88%E5%88%A9%E7%94%A8-IP-%E5%9C%B0%E5%9D%80"><span class="nav-number">1.4.1.</span> <span class="nav-text">通过地址转换有效利用 IP 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">1.4.2.</span> <span class="nav-text">地址转换的基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E5%86%99%E7%AB%AF%E5%8F%A3%E5%8F%B7%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.4.3.</span> <span class="nav-text">改写端口号的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E4%BA%92%E8%81%94%E7%BD%91%E8%AE%BF%E9%97%AE%E5%85%AC%E5%8F%B8%E5%86%85%E7%BD%91"><span class="nav-number">1.4.4.</span> <span class="nav-text">从互联网访问公司内网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E5%8C%85%E8%BF%87%E6%BB%A4%E5%8A%9F%E8%83%BD"><span class="nav-number">1.4.5.</span> <span class="nav-text">路由器的包过滤功能</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

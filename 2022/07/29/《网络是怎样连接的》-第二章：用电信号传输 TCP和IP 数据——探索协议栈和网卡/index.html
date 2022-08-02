@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="小虾米">
+    
+    <title>
+        
+            《网络是怎样连接的》-第二章：用电信号传输 TCP和IP 数据——探索协议栈和网卡 |
+        
+        虾说
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"xiashuo.xyz","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207102315524.png","favicon":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"1920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207111056425.svg","description":"求知是一种快乐，表达是一种本能"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                虾说
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">《网络是怎样连接的》-第二章：用电信号传输 TCP和IP 数据——探索协议栈和网卡</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207102315524.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">小虾米</span>
+                        
+                            <span class="author-label">半吊子CRUD工程师</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-07-29 23:31:20</span>
+        <span class="mobile">2022-07-29 23:31</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E3%80%8A%E7%BD%91%E7%BB%9C%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%9E%E6%8E%A5%E7%9A%84%E3%80%8B/">《网络是怎样连接的》</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1>用电信号传输 TCP/IP 数据——探索协议栈和网卡</h1>
+<p>总结：</p>
+<p>第 1 章，我们从解析浏览器中输入的网址开始，探索了生成 HTTP 请求消息、委托操作系统发送消息等步骤。本章，<mark>我们将讲解操作系统中的协议栈是如何处理数据发送请求的</mark>。</p>
+<p>这一章主要讲述了<mark><strong>TCP模块，IP模块，Mac模块</strong></mark>的工作，非常经典。</p>
+<h2 id="创建套接字">创建套接字</h2>
+<h3 id="协议栈的内部结构">协议栈的内部结构</h3>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281358244.png"
+                      alt=""
+                ></p>
+<p>TCP：Transmission Control Protocol</p>
+<p>UDP：User Datagram Protocol 详情请看<code>本章:UDP 协议的收发操作</code></p>
+<p>IP：Internet Protocol</p>
+<p>ICMP：Internet Control Message Protocol 详情请看<code>本章:将服务器的响应包从 IP 传递给 TCP</code></p>
+<p>ARP：Address Resolution Protocol 详情请看<code>本章:通过 ARP 查询目标路由器的 MAC 地址</code></p>
+<hr>
+<p>这张图中的上下关系是有一定规则的，<strong>上面的部分会向下面的部分委派工作</strong></p>
+<p>浏览器、电子邮件客户端、Web服务器、电子邮件服务器等程序，尽管不同的应用程序收发的数据内容不同，但收发数据的操作是共通的</p>
+<hr>
+<p><mark>协议栈的上半部分有两块，分别是负责用TCP协议收发数据的部分和负责用UDP协议收发数据的部分</mark>。浏览器、邮件等一般应用程序收发数据时用 TCP；DNS 查询等收发较短的控制数据时用 UDP。</p>
+<p><mark>下半部分是用IP协议控制网络包收发操作的部分</mark>。在互联网上传送数据时，数据会被切分成一个一个的网络包，而将网络包发送给通信对象的操作就是由IP来负责的。此外，IP中还包括ICMP协议和ARP协议。ICMP用于告知网络包传送过程中产生的错误以及各种控制消息，ARP用于根据IP地址查询相应的以太网MAC地址。</p>
+<hr>
+<p>如何理解协议栈这个叫法呢，在Java中，栈表示一个方法调用另一个方法的时候在内存中新开辟出来的空间，又叫栈帧（frame），协议栈也有类似的逻辑，比如，应用程序层会调用操作系统提供的接口来完成请求，而操作系统又是调用驱动程序来完成工作，从具体的协议上来说，HTTP协议请求通过调用TCP协议，来完成，TCP协议调用IP协议，IP协议调用以太网协议。一层层得嵌套，一层层地委托，很类似于Java中的栈。所以，可以把这些协议地嵌套使用，称为协议栈。</p>
+<p><code>第一章：解析器的内部原理</code>小节也提到过这种类似的逻辑。</p>
+<h3 id="套接字的实体就是通信控制信息">套接字的实体就是通信控制信息</h3>
+<blockquote>
+<p>书中出现了Socket、socket、套接字（英文也是socket）等看起来非常容易混淆的词，其中大写字母开头的Socket表示库，小写的socket表示程序组件的名称，而<strong>汉字的&quot;套接字&quot;则表示管道两端的接口</strong>。</p>
+</blockquote>
+<p>在协议栈内部有一块用于存放控制信息的内存空间，<strong>这里记录了用于控制通信操作的控制信息，例如通信对象的IP地址、端口号、通信操作的进行状态等</strong>。（这部分在<code>本章：负责保存控制信息的头部</code>中有详细描述）</p>
+<p>套接字就只是一个概念而已，并不存在实体，如果一定要赋予它一个实体，我们可以说这些控制信息就是套接字的实体，或者说存放控制信息的内存空间就是套接字的实体，（可以理解为存在内存上的一个对象），<mark>套接字中记录了用于控制通信操作的各种控制信息，协议栈则需要根据这些信息判断下一步的行动，这就是套接字的作用。</mark></p>
+<p><mark><strong>通过netstat查看套接字信息</strong></mark>，一般Windows系统用<code>netstat -ano</code>表示查看所有状态的套接字，并且显示IP而不是域名，同时还显示对应的进程ID，在Linux系统下，使用<code>netstat -anp</code>实现同样的查询效果（这个一命令在《Linux听课笔记》 14.7中也有记录）：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281401324.png"
+                      alt=""
+                ></p>
+<p>本地IP地址和远程IP地址都是0.0.0.0，这表示通信还没开始，IP地址不确定，进程的状态也是LISTENING</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281402945.png"
+                      alt=""
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281402181.png"
+                      alt=""
+                ></p>
+<p>192.168.1.68是本地的IP地址，每一个网卡都会分配有一个IP地址，如果本地有多块网卡，这里就会有多个IP地址</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281402283.png"
+                      alt=""
+                ></p>
+<p>UDP 协议中套接字不绑定对方的地址和端口，因此这里显示 <code>*:*</code> 。</p>
+<p>UDP协议的细节看<code>本章:UDP 协议的收发操作</code>小结</p>
+<h3 id="调用-socket-时的操作">调用 socket 时的操作</h3>
+<blockquote>
+<p>书中出现了Socket、socket、套接字（英文也是socket）等看起来非常容易混淆的词，其中大写字母开头的Socket表示库，<strong>小写的socket表示程序组件的名称</strong>，而汉字的&quot;套接字&quot;则表示管道两端的接口。</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281403754.png"
+                      alt=""
+                ></p>
+<p>在第一步创建套接字中，协议栈首先会分配用于存放一个套接字所需的内存空间，并返回一个描述符，（对应<code>第一章：创建套接字阶段</code>），套接字还没有连接，里面只有一些初始的信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281404314.png"
+                      alt=""
+                ></p>
+<h2 id="连接服务器">连接服务器</h2>
+<h3 id="连接是什么意思">连接是什么意思</h3>
+<p><mark><strong>连接实际上是通信双方交换控制信息，在套接字中记录这些必要信息并准备数据收发的一连串操作</strong></mark>，叫连接只是习惯叫法，实际上叫准备比较准确。</p>
+<p>所谓控制信息，就是用来控制数据收发操作所需的一些信息，IP地址和端口号就是典型的例子。除此之外还有其他一些控制信息，我们后面会逐一进行介绍。</p>
+<p><mark>连接操作中所交换的控制信息是根据通信规则来确定的</mark>，只要根据规则执行连接操作，双方就可以得到必要的信息从而完成数据收发的准备。此外，当执行数据收发操作时，我们还需要一块用来临时存放要收发的数据的内存空间，这块内存空间称为缓冲区，它也是在连接操作的过程中分配的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281405638.png"
+                      alt=""
+                ></p>
+<h3 id="负责保存控制信息的头部">负责保存控制信息的头部</h3>
+<p>之前我们说的控制信息其实可以大体上分为两类（这一点在<code>本章：套接字的实体就是通信控制信息</code>中其实已经说过了）</p>
+<p><mark>第一类是客户端和服务器相互联络时交换的控制信息</mark>。这些信息不仅连接时需要，包括数据收发和断开连接操作在内，整个通信过程中都需要，这些内容在TCP协议的规格中进行了定义。</p>
+<p>这些字段是固定的，在连接、收发、断开等各个阶段中，每次客户端和服务器之间进行通信时，都需要提供这些控制信息。<strong>这些信息会被添加在客户端与服务器之间传递的网络包的开头</strong>。会记作TCP头部，此外，以太网和IP协议也有自己的控制信息，这些信息也叫头部，叫做以太网头部、IP头部。（以太网头部又称&quot;MAC头部&quot;）</p>
+<p>头部的信息非常重要，理解了头部各字段的含义，就等于理解了整个通信的过程。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281406389.png"
+                      alt=""
+                ></p>
+<p>端口是TCP协议使用的，IP是IP协议使用的</p>
+<p>校验和： checksum</p>
+<p>端口号为16位，即最大为65536，也就是说，计算机上的端口号，范围就是0-65535</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281406236.png"
+                      alt=""
+                ></p>
+<p>控制信息还有另外一类，那就是保存在套接字中，<mark>用来控制协议栈操作的信息</mark>，<strong>应用程序传递来的信息以及从通信对象接收到的信息都会保存在这里，还有收发数据操作的执行状态等信息也会保存在这里，协议栈会根据这些信息来执行每一步的操作</strong>。即：<mark>套接字的控制信息和协议栈的程序本身其实是一体的</mark>。</p>
+<p>TCP协议在不同的操作系统的实现不一样，比如Windows操作系统和Linux操作系统的协议栈的实现肯定是不一样的，必要的控制信息肯定也不一样，但是这并不妨碍Windows操作系统和Linux操作系统相互通信，只要在通信时按照规则将必要的信息写入头部，客户端和服务器之间的通信就能够得以成立。这就是TCP协议的作用</p>
+<h4 id="TCP报文头详解">TCP报文头详解</h4>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281408608.png"
+                      alt=""
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281408078.png"
+                      alt=""
+                ></p>
+<p>数据偏移量只有4位，最大表示15，乘以32bit（4字节）就是实际的偏移字节数，所以最大的偏移字节数是60字节，数据偏移量一定是32位的整倍数，不够的，填充的部分会补充，这样做的好处就是可以快速定位数据的部分的起点。</p>
+<p>TCP头部中，前面这些都是固定的部分，占用20个字节，选项（可选字段）是一个可变长的信息，这部分最多包含40字节，因为TCP头部最长60字节，</p>
+<p>控制位：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281409033.png"
+                      alt=""
+                ></p>
+<h3 id="连接操作的实际过程（三次握手）">连接操作的实际过程（三次握手）</h3>
+<p>截取表2.1</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281409367.png"
+                      alt=""
+                ></p>
+<p>首先，客户端先创建一个包含表示开始数据收发操作的控制信息的头部。如表2.1所示，头部包含很多字段，这里要关注的重点是发送方和接收方的端口号（端口号就对应了服务器上的套接字，回看<code>第一章：连接阶段：把管道接上去</code>）。然后，我们将头部中的控制位的SYN比特设置为1，大家可以认为它表示连接。此外还需要设置序号字段（一个随机数，具体可查看<code>本章:使用 ACK 号确认网络包已收到（TCP的精髓，三次握手详细版）</code>，控制位的SYN设为1的意义实际上就是为了跟服务器同步这个值）和窗口大小字段（<code>本章:使用窗口有效管理 ACK 号</code>），这一点我们会稍后详细讲解。</p>
+<p>当TCP头部创建好之后，接下来TCP模块会将信息传递给IP模块并委托它进行发送，这个时候，客户端的套接字的状态是正在连接。IP模块执行网络包发送操作后，网络包就会通过网络到达服务器，然后服务器上的IP模块会将接收到的数据传递给TCP模块，服务器的TCP模块根据TCP头部中的信息找到端口号对应的套接字，因为服务器中会有很多套接字监听着端口等待连接，我们只需要从处于等待连接状态的套接字中找到与TCP头部中记录的端口号相同的套接字就可以了。当找到对应的套接字之后，套接字中会写入相应的信息，并将状态改为正在连接（收到客户端发回确认信息之后才会改为连接完毕）。上述操作完成后，服务器的TCP模块会返回响应，这个过程和客户端一样，需要在TCP头部中设置发送方和接收方端口号以及SYN比特。此外，在返回响应时还需要将ACK控制位设为1，这表示已经接收到相应的网络包（还会设置ACK号，同时也会设置序号，还有窗口）。网络中经常会发生错误，网络包也会发生丢失，因此双方在通信时必须相互确认网络包是否已经送达，而设置ACK比特就是用来进行这一确认的。接下来，服务器TCP模块会将TCP头部传递给IP模块，并委托IP模块向客户端返回响应。</p>
+<p>然后，网络包就会返回到客户端，通过IP模块到达TCP模块，并通过TCP头部的信息确认连接服务器的操作是否成功。如果SYN为1则表示连接成功（我感觉这里检查返回的头部的ACK号应该更合理），这时会向套接字中写入服务器的IP地址、端口号等信息，同时还会将状态改为连接完毕。到这里，客户端的操作就已经完成，但其实还剩下最后一个步骤。刚才服务器返回响应时将ACK比特设置为1，相应地，客户端也需要将ACK比特设置为1（同时设置ACK号）并发回服务器，告诉服务器刚才的响应包已经收到。当这个服务器收到这个返回包之后，会将对应的套接字的连接状态设置为连接完毕，这时连接操作才算全部完成。</p>
+<hr>
+<p>控制位的作用是用来表示这个数据包是用来干什么的，</p>
+<p>SYN：表示连接，这个数据包用来表示连接的</p>
+<p>ACK：表示数据已收到，这个数据包是用来表示我已经收到了的</p>
+<hr>
+<p>以上就是三次握手的细节。</p>
+<p>实际上序号和ack号都是一直在变的，而且其值都是有意义的，实际的详细过程看<code>本章：使用 ACK 号确认网络包已收到（TCP的精髓，三次握手详细版）</code></p>
+<hr>
+<p>三次握手和四次挥手的TCP抓包详情：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36963043/article/details/106960792" >TCP三次握手抓包分析及TCP四次挥手过程_夕阳还在水边明的博客-CSDN博客_ensp的tcp三次握手实验<i class="fas fa-external-link-alt"></i></a></p>
+<p>第一次握手：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292304705.png"
+                      alt=""
+                ></p>
+<p>第二次握手：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281411127.png"
+                      alt=""
+                ></p>
+<p>第三次握手：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281411177.png"
+                      alt=""
+                ></p>
+<h2 id="收发数据">收发数据</h2>
+<h3 id="将-HTTP-请求消息交给协议栈">将 HTTP 请求消息交给协议栈</h3>
+<p>首先，<strong>协议栈并不关心应用程序传来的数据是什么内容</strong>。应用程序在调用write时（<code>本章：调用 socket 时的操作</code>小节，图2.3的第三步）会指定发送数据的长度，在协议栈看来，<mark>要发送的数据就是一定长度的二进制字节序列而已</mark>。</p>
+<p>其次，协议栈并不是一收到数据就马上发送出去，而是会将数据存放在内部的<mark>发送缓冲区</mark>中，并等待应用程序的下一段数据。什么时候发出去看两个条件。</p>
+<p>第一个判断要素是每个网络包能容纳的数据长度，MTU（Maximum Transmission Unit，最大传输单元）表示一个网络包的最大长度，在以太网中一般是1500字节（图2.5） MTU是包含头部的总长度，因此需要从MTU减去头部的长度，然后得到的长度就是一个网络包中所能容纳的最大数据长度，这一长度叫作MSS（Maximum Segment Size，最大分段大小），<mark>TCP和IP的头部加起来一般是40字节（IP头部最少20个字节，TCP头部最少20个字节）</mark>，因此MTU减去这个长度就是MSS。例如，在以太网中，<mark>MTU为1500</mark>，因此<mark>MSS就是1460</mark>。TCP/IP可以使用一些可选参数（protocol option），如加密等，这时头部的长度会增加，那么MSS就会随着头部长度增加而相应缩短。当从应用程序收到的数据长度超过或者接近MSS时再发送出去，就可以避免发送大量小包的问题了。</p>
+<p>注意：MTU的头部不包含Mac头部，只包含IP头部和TCP头部，剩下的都是数据</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281413614.png"
+                      alt=""
+                ></p>
+<p>另一个判断要素是时间。当应用程序发送数据的频率不高的时候，如果每次都等到长度接近MSS时再发送，可能会因为等待时间太长而造成发送延迟，这种情况下，即便缓冲区中的数据长度没有达到MSS，也应该果断发送出去。为此，协议栈的内部有一个计时器，当经过一定时间之后，就会把网络包发送出去。（网络调优参数）</p>
+<p>实际如何平衡这两个判断条件是由协议栈的开发者来决定的，也正是由于这个原因，不同种类和版本的操作系统在相关操作上也就存在差异。</p>
+<p>同时，应用程序在发送数据时可以指定一些选项，比如如果指定&quot;不等待填满缓冲区直接发送&quot;，则协议栈就会按照要求直接发送数据。</p>
+<h3 id="对较大的数据进行拆分">对较大的数据进行拆分</h3>
+<p>当要发送的数据很大（一般存在于文件上传），发送缓冲区中的数据就会超过MSS的长度，这时我们当然不需要继续等待后面的数据了。发送缓冲区中的数据会被以MSS长度为单位进行拆分，拆分出来的每块数据会被放进单独的网络包中。根据发送缓冲区中的数据拆分的情况，当判断需要发送这些数据时，就在每一块数据前面加上TCP头部，并根据套接字中记录的控制信息标记发送方和接收方的端口号，然后交给IP模块来执行发送数据的操作（图2.6）</p>
+<p>这个时候，HTTP协议层的数据（请求行、状态行、消息头、消息体）就是TCP后面的数据块，如果太大，会被分割成数据块1、数据块2。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292305848.png"
+                      alt=""
+                ></p>
+<h3 id="使用-ACK-号确认网络包已收到（TCP的精髓，三次握手详细版）">使用 ACK 号确认网络包已收到（TCP的精髓，三次握手详细版）</h3>
+<p>网络包已经装好数据并发往服务器了，但数据发送操作还没有结束。因此在发送网络包之后，接下来还需要进行确认操作，当对方没收到时进行重发</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281414054.png"
+                      alt=""
+                ></p>
+<p><mark>服务器返回的Ack号等于接收到的数据包的序号加上数据的长度，而这个数字就是客户端下一个应该发送数据块的序号</mark></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281415193.png"
+                      alt=""
+                ></p>
+<p>首先，TCP模块在拆分数据时，会先算好<mark>每一块数据相当于从头开始的第几个字节</mark>，接下来在发送这一块数据时，将这个起点坐标写在TCP头部中，<mark>“序号”</mark>字段就是派在这个用场上的。然后，发送数据的长度也需要告知接收方，不过这个并不是放在TCP头部里面的，因为用整个网络包的长度减去头部的长度就可以得到数据的长度，所以接收方可以用这种方法来进行计算（TCP头部有数据偏移量字段，只有4位，一位表示4字节，4位二进制数最多表示15，所以可以表达hi的最多偏移量位60个字节）。有了上面两个数值，我们就可以知道发送的数据是从第几个字节开始，长度是多少了。</p>
+<p>通过这些信息，接收方还能够检查收到的网络包有没有遗漏。例如，假设上次接收到第1460字节，那么接下来如果收到序号为1461的包，说明中间没有遗漏（服务器返回的Ack号就是客户端下一个应该发送数据块的序号）；但如果收到的包序号为2921，那就说明中间有包遗漏了，如果客户端没有接收到服务器发回的对应的ack号，那么就会重发。如果确认没有遗漏，接收方会将到目前为止接收到的数据长度加起来，计算出一共已经收到了多少个字节，然后将这个数值写入TCP头部的ACK号中发送给发送方A。简单来说，<mark>发送方说的是&quot;现在发送的是从第××字节开始的部分，一共有××字节哦！&quot;而接收方则回复说，“到第××字节之前的数据我已经都收到了哦！”</mark>这个返回ACK号的操作被称为确认响应，通过这样的方式，发送方就能够确认对方到底收到了多少数据。</p>
+<p>在实际的通信中，序号并不是从1开始的，而是需要用随机数计算出一个初始值（32位随机数，Initial Sequence Number，简称ISN，这是做为了避免数据被拦截监听），这个随机的初始值是什么时候同步的呢？我们在建立连接的时候，有一个将SYN控制位设为1并发送给服务器的操作，实际上，在将SYN设为1的同时，还需要同时设置序号字段的值，而这里的值就代表序号的初始值。<mark>将SYN设为1并告知初始序号这一操作仅在连接过程中出现，因此</mark><mark>发送SYN为1的网络包就表示发起连接的意思。实际上，SYN是Synchronize（同步）的缩写，意思是通过告知初始序号使通信双方保持步调一致，以便完成后续的数据收发检查，这才是SYN原本的含义。</mark></p>
+<p>我们刚刚只考虑了单向的数据传输，但TCP数据收发是双向的，在客户端向服务器发送数据的同时，服务器也会向客户端发送数据，方法也很简单</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281419403.png"
+                      alt=""
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281419975.png"
+                      alt=""
+                ></p>
+<p><strong><mark>实际的工作过程（图2.9）</mark>。首先，客户端在连接时需要计算出与从客户端到服务器方向通信相关的序号初始值，并将这个值发送给服务器（图2.9①，其实还会把窗口大小发送过去，详细请看2.3.5）。接下来，服务器会通过这个初始值计算出ACK号并返回给客户端（图2.9②）。初始值有可能在通信过程中丢失，因此当服务器收到初始值后需要返回ACK号作为确认。同时，服务器也需要计算出与从服务器到客户端方向通信相关的序号初始值，并将这个值发送给客户端（图2.9②，其实还会把窗口大小发送过去，详细请看2.3.5）。接下来像刚才一样，客户端也需要根据服务器发来的初始值计算出ACK号并返回给服务器（图2.9③）。到这里，序号和ACK号都已经准备完成了，接下来就可以进入数据收发阶段了。数据收发操作本身是可以双向同时进行的，但Web中是先由客户端向服务器发送请求，序号也会跟随数据一起发送（图2.9④）。然后，服务器收到数据后再返回ACK号（图2.9⑤）。从服务器向客户端发送数据的过程则正好相反（图2.9⑥⑦）。</strong></p>
+<p>TCP采用这样的方式确认对方是否收到了数据，<strong>在得到对方确认之前，发送过的包都会保存在发送缓冲区中。如果对方没有返回某些包对应的ACK号，那么就重新发送这些包</strong>。这一机制非常强大。通过这一机制，我们可以确认接收方有没有收到某个包，如果没有收到则重新发送，这样一来，无论网络中发生任何错误，我们都可以发现并采取补救措施（重传网络包）。反过来说，有了这一机制，我们就不需要在其他地方对错误进行补救了。因此，网卡、集线器、路由器都没有错误补偿机制，一旦检测到错误就直接丢弃相应的包。应用程序也是一样，因为采用TCP传输，即便发生一些错误对方最终也能够收到正确的数据，所以应用程序只管自顾自地发送这些数据就好了。不过，如果发生网络中断、服务器宕机等问题，那么无论TCP怎样重传都不管用。这种情况下，无论如何尝试都是徒劳，因此TCP会在尝试几次重传无效之后强制结束通信，并向应用程序报错。</p>
+<hr>
+<p><mark><strong>通过&quot;序号&quot;和&quot;ACK 号&quot;可以确认接收方是否收到了网络包</strong></mark></p>
+<hr>
+<p>我猜<strong>TCP的连接的复用的原理也是这个，第二个请求开始的时候，其序号只需要在第一个请求结束的时候服务器返回的ACK号上继续运算即可</strong>。</p>
+<h3 id="根据网络包平均往返时间调整-ACK-号等待时间（决定是否重传）">根据网络包平均往返时间调整 ACK 号等待时间（决定是否重传）</h3>
+<p>在等待时间之内，收到了接收端发回的ACK号，则发送下一个包，如果超过了等待时间还没有收到ACK号，则判断为包丢失，需要重新发包</p>
+<p>这个等待时间不能太长，不然网络就会慢，不能太短，不然就会出现无意义的重传，所以需要一个合适的值</p>
+<p>不同的环境ACK返回的时间差别很大，局域网内只需要几毫秒，互联网环境下可能又几百毫秒，所以将等待时间设置为一个固定值并不是一个好办法。因此，TCP采用了动态调整等待时间的方法，这个等待时间是根据ACK号返回所需的时间来判断的。具体来说，<mark>TCP会在发送数据的过程中持续测量ACK号的返回时间，如果ACK号返回变慢，则相应延长等待时间；相对地，如果ACK号马上就能返回，则相应缩短等待时间</mark>。</p>
+<p>由于计算机的时间测量精度较低，<strong>ACK返回时间过短时无法被正确测量，因此等待时间有一个最小值</strong>，这个值在每个操作系统上不一样，基本上是在0.5秒到1秒之间。</p>
+<h3 id="使用窗口有效管理-ACK-号">使用窗口有效管理 ACK 号</h3>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281422785.png"
+                      alt=""
+                ></p>
+<p>滑动窗口，就是在发送一个包之后，不等待ACK号返回，而是直接发送后续的一系列包。这样一来，等待ACK号的这段时间就被有效利用起来了，</p>
+<p>但是要考虑数据处理过快，接收端处理不过来的情况。当接收方的TCP收到包后，会先将数据存放到<mark>接收缓冲区</mark>中。然后，接收方需要计算ACK号，将数据块组装起来还原成原本的数据并传递给应用程序，如果这些操作还没完成下一个包就到了，也不用担心，因为下一个包也会被暂存在接收缓冲区中。如果数据到达的速率比处理这些数据并传递给应用程序的速率还要快，那么接收缓冲区中的数据就会越堆越多，最后就会溢出。缓冲区溢出之后，后面的数据就进不来了，因此接收方就收不到后面的包了，这就和中途出错的结果是一样的，也就意味着超出了接收方处理能力。</p>
+<p>滑动窗口方式的基本思路：<mark>接收方需要告诉发送方自己最多能接收多少数据，然后发送方根据这个值对数据发送操作进行控制</mark>。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281432826.png"
+                      alt=""
+                ></p>
+<p><mark>接收端在缓冲区变大的时候（这个时机跟返回ack包的时机并不是完全相同，具体看2.3.6），会发送一个设置了TCP头的窗口字段的包给发送端</mark>，<mark>里面设置了此时此刻自己能接收的数据量，发送端接着收到这个信号之后，将根据这个字段来发送数据包</mark>，这样一来，发送方就不会发送过多的数据，导致超出接收方的处理能力了。</p>
+<p><strong>窗口字段，是非常著名的TCP调优字段，一般和接收方的缓冲区大小一致。</strong></p>
+<hr>
+<p>这里有一个问题，如果在一个窗口中发送的一连串的包中有一个丢失了，那么是不是后面的都要重传，即单通道顺序传输，答案：不是的，具体请看《TCP超时与重传》</p>
+<h3 id="ACK-与窗口的合并（信号发送的时机）">ACK 与窗口的合并（信号发送的时机）</h3>
+<p>什么时候发送ACK号呢？当接收方收到数据时，如果确认内容没有问题，就应该向发送方返回ACK号，因此我们可以认为收到数据之后马上就应该进行这一操作。</p>
+<p>什么时候需要更新窗口大小呢？当收到的数据刚刚开始填入缓冲区时（即发送ACK号的时候），其实没必要每次都向发送方更新窗口大小，因为只要发送方在每次发送数据时减掉已发送的数据长度就可以自行计算出当前窗口的剩余长度。因此，<mark>更新窗口大小的时机应该是接收方从缓冲区中取出数据传递给应用程序的时候。这个操作是接收方应用程序发出请求时才会进行的，而发送方不知道什么时候会进行这样的操作</mark>，因此当接收方将数据传递给应用程序，导致接收缓冲区剩余容量增加时，就需要告知发送方，这就是更新窗口大小的时机。</p>
+<p>当然，如果不经过优化，每收到一个包，就需要往发送端发两个包，这样效率未免太低了，我们可以通过设计一个延迟时间来解决这个问题（这估计也是一个调优参数），<mark>接收方在发送ACK号和窗口更新时，并不会马上把包发送出去，而是会等待一段时间</mark>（当然，这个时间肯定不能太长，至少不能长于发送端的ACK号的等待的时间），<mark>在这个过程中很有可能会出现其他的通知操作也需要发送包，这样就可以把两种通知合并在一个包里面发送了</mark>。举个例子，在等待发送ACK号的时候正好需要更新窗口，这时就可以把ACK号和窗口更新放在一个包里发送，从而减少包的数量。当需要连续发送多个ACK号时，也可以减少包的数量，这是因为ACK号表示的是已收到的数据量，也就是说，它是告诉发送方目前已接收的数据的最后位置在哪里，因此当需要连续发送ACK号时，只要发送最后一个ACK号就可以了，中间的可以全部省略。当需要连续发送多个窗口更新时也可以减少包的数量，因为连续发生窗口更新说明应用程序连续请求了数据，接收缓冲区的剩余空间连续增加。这种情况和ACK号一样，可以省略中间过程，只要发送最终的结果就可以了。秒极！！</p>
+<h3 id="接收-HTTP-响应消息">接收 HTTP 响应消息</h3>
+<p>其实接收端的操作前面都讲过了。</p>
+<p>协议栈尝试从接收缓冲区中取出数据并传递给应用程序，但可能这个时候请求消息刚刚发送出去，响应消息可能还没返回。响应消息的返回还需要等待一段时间，因此这时接收缓冲区中并没有数据，那么接收数据的操作也就无法继续。这时，协议栈会将应用程序的委托，也就是从接收缓冲区中取出数据并传递给应用程序的工作暂时挂起（即<strong>阻塞</strong>），等服务器返回的响应消息到达之后再继续执行接收操作。</p>
+<p>接收到数据之后，协议栈会检查收到的数据块和TCP头部的内容，判断是否有数据丢失，如果没有问题则返回ACK号。然后，协议栈将数据块暂存到接收缓冲区中，并将数据块按顺序连接起来还原出原始的数据，最后将数据交给应用程序。具体来说，<strong>协议栈会将接收到的数据复制到应用程序指定的内存地址中</strong>，然后将控制流程交回应用程序。将数据交给应用程序之后，协议栈还需要找到合适的时机向发送方发送窗口更新。</p>
+<h2 id="从服务器断开并删除套接字">从服务器断开并删除套接字</h2>
+<h3 id="数据发送完毕后断开连接（四次挥手）">数据发送完毕后断开连接（四次挥手）</h3>
+<p>协议栈在设计上允许任何一方先发起断开过程。</p>
+<p>无论哪种情况，完成数据发送的一方会发起断开过程，这里我们以服务器一方发起断开过程为例来进行讲解。首先，服务器一方的应用程序会调用Socket库的close程序（2.1.3小节，图2.3的第四步）。然后，服务器的协议栈会生成包含断开信息的TCP头部，具体来说就是将控制位中的FIN比特设为1。接下来，协议栈会委托IP模块向客户端发送数据（图2.12①）。同时，<strong>服务器的套接字中也会记录下断开操作的相关信息</strong>。接下来轮到客户端了。当收到服务器发来的FIN为1的TCP头部时，客户端的协议栈会将自己的套接字标记为进入断开操作状态。然后，为了告知服务器已收到FIN为1的包，客户端会向服务器返回一个ACK号（图2.12②）。这些操作完成后，协议栈就可以等待应用程序来取数据了。不会再有后续的数据写入接收缓冲区了，接收缓冲区里的数据可以直接开始处理。根据规则，服务器发送FIN请求之后，Web通信操作就全部结束了，因此只要收到服务器返回的所有数据，客户端的操作也就随之结束了。因此，客户端应用程序会调用close来结束数据收发操作，这时客户端的协议栈也会和服务器一样，生成一个FIN比特为1的TCP包，然后委托IP模块发送给服务器（图2.12③）。一段时间之后，服务器就会返回ACK号（图2.12④）。到这里，客户端和服务器的通信就全部结束了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281435797.png"
+                      alt=""
+                ></p>
+<p>FIN：表示断开连接，这个数据包用来表示断开连接的</p>
+<hr>
+<p>三次握手和四次挥手的TCP抓包详情：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36963043/article/details/106960792" >TCP三次握手抓包分析及TCP四次挥手过程_夕阳还在水边明的博客-CSDN博客_ensp的tcp三次握手实验<i class="fas fa-external-link-alt"></i></a></p>
+<p>一方挥手</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281437635.png"
+                      title="" alt="" width="712"
+                >
+<p>确认</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281437540.png"
+                      title="" alt="" width="707"
+                >
+<p>另一方挥手</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281437652.png"
+                      title="" alt="" width="698"
+                >
+<p>确认</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207281437528.png"
+                      title="" alt="" width="677"
+                >
+<h3 id="删除套接字">删除套接字</h3>
+<p>和服务器的通信结束之后，用来通信的套接字也就不会再使用了，这时我们就可以删除这个套接字了。<mark>不过，套接字并不会立即被删除，而是会等待一段时间之后再被删除。等待这段时间是为了防止误操作</mark>，因为网络有丢包的风险，在最后一步ACK号发出之后，如果这个包丢失了，对方会重发FIN包（对，没错，<mark><strong>发送任何数据包都需要接受到返回的ACK号通信才算结束，不然就会重传，包括FIN包</strong></mark>），这个时候，如果己方已经把这个端口对应的套接字删除了，那么将由新的套接字处理这个FIN信号，这个新建的套接字就直接关闭了，他自己该做的工作还没开始呢，这是不对的，所以套接字在断开连接之后需要保留一段时间（这个时间取决于对方的丢包重传时间<br>
+2.3.4，不会很长，往往有几分钟），防止网络丢包需要重发断开信号。</p>
+<h3 id="数据收发操作小结（-mark-TCP连接与断开终极版-mark-）">数据收发操作小结（<mark>TCP连接与断开终极版</mark>）</h3>
+<p>数据收发操作的第一步是创建套接字。一般来说，服务器一方的应用程序在启动时就会创建好套接字并进入等待连接的状态（比如Tomcat启动的时候，监听8080端口）。客户端则一般是在用户触发特定动作，需要访问服务器的时候创建套接字。在这个阶段，还没有开始传输网络包。</p>
+<p><strong>创建套接字之后，客户端会向服务器发起连接操作。首先，客户端会生成一个SYN为1的TCP包并发送给服务器（图2.13①）。这个TCP包的头部还包含了客户端向服务器发送数据时使用的初始序号，以及服务器向客户端发送数据时需要用到的窗口大小。当这个包到达服务器之后，服务器会返回一个SYN为1的TCP包（图2.13②）。和图2.13①一样，这个包的头部中也包含了序号和窗口大小，此外还包含表示确认已收到包①的ACK号。当这个包到达客户端时，客户端会向服务器返回一个包含表示确认的ACK号的TCP包（图2.13③）。到这里，连接（或者说准备）操作就完成了，双方进入数据收发阶段。</strong></p>
+<p><strong>数据收发阶段的操作根据应用程序的不同而有一些差异，以Web为例，首先客户端会向服务器发送请求消息。TCP会将请求消息切分成一定大小的块，并在每一块前面加上TCP头部，然后发送给服务器（图2.13④）。TCP头部中包含序号，它表示当前发送的是第几个字节的数据。当服务器收到数据时，会向客户端返回ACK号（图2.13⑤）。在最初的阶段，服务器只是不断接收数据，随着数据收发的进行，数据不断传递给应用程序，接收缓冲区就会被逐步释放。这时，服务器需要将新的窗口大小告知客户端。当服务器收到客户端的请求消息后，会向客户端返回响应消息，这个过程和刚才的过程正好相反（图2.13⑥⑦）。</strong></p>
+<p><strong>服务器的响应消息发送完毕之后，数据收发操作就结束了，这时就会开始执行断开操作。以Web为例，服务器会先发起断开过程。在这个过程中，服务器先发送一个FIN为1的TCP包（图2.13⑧），然后客户端返回一个表示确认收到的ACK号（图2.13⑨）。接下来，双方还会交换一组方向相反的FIN为1的TCP包（图2.13⑩）和包含ACK号的TCP包（图2.13k）。最后，在等待一段时间后，套接字会被删除。</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207291943022.png"
+                      alt=""
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207291943593.png"
+                      alt=""
+                ></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207291944759.png"
+                      title="" alt="" width="646"
+                >
+<p>TIME_WAIT主要存在于主动关闭的乙方，因为主动关闭的一方需要发出最后一个ACK包。为了不发生误操作，需要进行等待。</p>
+<h2 id="IP-与以太网的包收发操作">IP 与以太网的包收发操作</h2>
+<h3 id="包的基本知识（基础，很重要）">包的基本知识（基础，很重要）</h3>
+<p>TCP是传输控制协议，IP是网络协议，控制网络数据包的打包和发送，</p>
+<p>每一层有每一层的包的概念，IP层有IP层的包，以太网层有以太网层的包，以太网包包含了IP包，<strong>我们说的最多的网络包（package），指的就是IP包，之前我们说的MTU，指的就是IP包的大小</strong>。对IP包来说，TCP头和数据块组成了IP包的内容。TCP模块在执行连接、收发、断开等各阶段操作时，都需要委托IP模块将数据封装成包（封装成这样的结构）发送给通信对象。大部分的时候，我们通过以太网发送网络包，所以需要把IP包封装成以太网包，当我们用别的协议传出IP包的时候，就会把IP包封装成别的包，<strong>但是IP包始终都是最小单元</strong>。</p>
+<p>包是由头部和数据两部分构成的（图2.14（a））。头部包含目的地址等控制信息，大家可以把它理解为快递包裹的面单；头部后面就是委托方要发送给对方的数据，也就相当于快递包裹里的货物。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207291945583.png"
+                      alt=""
+                ></p>
+<hr>
+<p>包的传输的基本过程，适用各种通信方式：</p>
+<p>首先，发送方的网络设备会负责创建包，创建包的过程就是生成含有正确控制信息的头部，然后再附加上要发送的数据。接下来，<strong>包会被发往最近的网络转发设备</strong>。当到达最近的转发设备之后，<mark>转发设备会根据头部中的信息判断接下来应该发往哪里。这个过程需要用到一张表，<strong>这张表里面记录了每一个地址对应的发送方向</strong>，也就是按照头部里记录的目的地址在表里进行查询，并根据查到的信息判断接下来应该发往哪个方向</mark>。比如，如果查表的结果是&quot;目标地址为××××的包应该发到××××号线路&quot;，那么转发设备就会把这个包发到××××号线路去。接下来，包在向目的地移动的过程中，又会到达下一个转发设备，然后又会按照同样的方式被发往下一个转发设备。就这样，经过多个转发设备的接力之后，包最终就会到达接收方的网络设备</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207291947294.png"
+                      alt=""
+                ></p>
+<hr>
+<p><mark><strong>TCP/IP协议中的实际过程</strong></mark>（主要的不同就是为了可拓展性把确定路由和包传输分成了两个不同的协议）：</p>
+<p>前提知识：网络中有路由器和集线器两种不同的转发设备，<strong>路由器的作用是根据目标地址判断下一个路由器的位置（即纯转发），集线器的作用是在子网中将网络包传输到下一个路由（将子网中的数据发送出子网）</strong>。集线器是按照以太网规则传输包的设备，而路由器是按照IP规则传输包的设备，因此我们也可以作如下理解。<strong>IP协议根据目标地址判断下一个IP转发设备的位置，子网中的以太网协议将包传输到下一个转发设备</strong>。</p>
+<p>这么说是对的，但是对没有掌握以太网基础的人来说可能有点混淆，<strong><mark>实际上，以太网中的所有设备（只要有网卡）底层最终都是通过以太网协议收发数据，集线器、交换机，路由器都是如此</mark>，只是说在子网内部，不存在路由转发，主机之间可直接通信，而在<mark>子网与子网之间，需要通过路由转发，而路由需要用IP协议确定下一个路由Mac的地址，指导以太网协议的传输</mark></strong>，这样提供了更高的效率，这有点像现在的快递网络中的二维码，虽然直接看具体地址也能送，但是有了二维码，可以更快地处理，效率更高。</p>
+<p>包传输的整体思路是，<strong><mark>通过（转发）设备的路由表用IP确定下一个（转发）设备（一般都是路由器）的IP，然后用ARP协议（2.5.5）获取这个IP对应的Mac，然后用以太网协议传输过去</mark></strong>，为什么一定要用以太网协议呢，只用IP协议行不行呢？不行，原因请查看<a href="https://xiashuo.xyz/2022/07/31/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91%E7%BD%91%E7%BB%9C%E7%9A%84%E8%BF%9B%E5%8C%96/">网络的进化</a></p>
+<p><mark>IP的出现就是为了提高网络包的转发效率，在学习了3.3.2小节之后，我们会发现，使用IP来转发包的效率确实很高，使用MAC地址无法如此高效</mark></p>
+<hr>
+<p>实际过程：如图2.14（b）所示，TCP/IP包包含如下两个头部，<br>
+MAC头部（用于以太网协议）、IP头部（用于IP协议），首先，发送方将包的目的地，也就是要访问的服务器的IP地址写入IP头部中。这样一来，我们就知道这个包应该发往哪里，IP协议就可以根据这一地址查找包的传输方向，从而找到下一个路由器的位置，也就是图2.16中的路由器R1。接下来，IP协议会委托以太网协议将包传输过去。而委托以太网协议将包传输过去，<strong>IP协议需要查找（通过ARP协议，2.5.5）下一个路由器即R1的以太网地址（MAC地址），并将这个地址写入MAC头部中</strong>。这样一来，以太网协议就知道要将这个包发到哪一个路由器上了。网络包在传输过程中（图2.16①）会经过集线器，集线器是根据以太网协议工作的设备。为了判断包接下来应该向什么地方传输，集线器里有一张表（用于以太网协议的表），可根据以太网头部中记录的目的地信息查出相应的传输方向。这张图中只有一个集线器，当存在多个集线器时（比如子网嵌套的时候），网络包会按顺序逐一通过这些集线器进行传输。这样，包就到了下一个路由器。包到达下一个路由器（图2.16②）之后。路由器中有一张IP协议的表，可根据这张表以及IP头部中记录的目的地信息查出接下来应该发往哪个路由器。为了将包发到下一个路由器，我们还需要查出下一个路由器的MAC地址，并记录到MAC头部中，大家可以理解为改写了MAC头部（准确地说，<strong>收到包的时候MAC头部会被舍弃，而当再次发送的时候又会加上包含新MAC地址的新MAC头部</strong>。）。这样，网络包就又被发往下一个节点了。然后这个过程不断重复（有点像递归），最终网络包就会被送到目的地，当目的地设备成功接收之后，网络包的传输过程就结束了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292013459.png"
+                      alt=""
+                ></p>
+<p>前面讲了IP和以太网的分工，其中以太网的部分也可以替换成其他的东西，例如无线局域网、ADSL、FTTH等，它们都可以替代以太网的角色帮助IP协议来传输网络包，当使用除以太网之外的其他网络进行传输时，MAC头部也会被替换为适合所选通信规格的其他头部。<strong>因此，将IP和负责传输的网络分开，可以更好地根据需要使用各种通信技术</strong>。像互联网这样庞大复杂的网络，在架构上需要保证灵活性，这就是设计这种分工方式的原因。</p>
+<p><mark><strong>可跟<code>本章：以太网的基本知识</code>中的包传递的描述进行对比</strong></mark></p>
+<hr>
+<p>PS：关于以太网协议和mac头部的细节，可查看<code>本章：生成以太网用的 MAC 头部</code></p>
+<h3 id="包收发操作概览">包收发操作概览</h3>
+<p><strong>尽管我们说IP模块负责将包发给对方，但实际上将包从发送方传输到接收方的工作是由集线器、路由器等网络设备来完成的</strong>，因此IP模块仅仅是整个包传输过程的入口而已。（IP协议只负责确定下一个转发设备的mac地址）</p>
+<p>包收发操作的起点是TCP模块委托IP模块发送包的操作（图2.17中的&quot;①发送&quot;）。这个委托的过程就是TCP模块在数据块的前面加上TCP头部，然后整个传递给IP模块，这部分就是网络包的内容。与此同时，TCP模块还需要指定通信对象的IP地址，也就是需要写清楚&quot;将什么内容发给谁&quot;。收到委托后，<strong>IP模块会将包的内容当作一整块数据</strong>，在前面加上包含控制信息的头部。刚才我们讲过，<mark>IP模块会添加IP头部和MAC头部这两种头部</mark>。IP头部中包含IP协议规定的、根据IP地址将包发往目的地所需的控制信息；MAC头部包含通过以太网的局域网将包传输至最近的路由器所需的控制信息。这些就是IP模块负责的工作。</p>
+<p>接下来，封装好的包会被交给网络硬件（图2.17中的&quot;②发送&quot;），例如以太网、无线局域网等。<strong><mark>网络硬件即网卡（从这个意义上来看应该叫作&quot;网络接口&quot;比较准确）</mark></strong>。传递给网卡的网络包是由一连串0和1组成的数字信息，网卡会将这些数字信息转换为电信号或光信号，并通过网线（或光纤）发送出去，然后这些信号就会到达集线器、路由器等转发设备，再由转发设备一步一步地送达接收方。接收的过程和发送的过程是相反的，信息先以电信号的形式从网线传输进来，然后由网卡将其转换为数字信息并传递给IP模块（图2.17中的&quot;③接收&quot;）。接下来，IP模块会将MAC头部和IP头部后面的内容，也就是TCP头部加上数据块，传递给TCP模块。接下来的操作就是我们之前讲过的TCP模块负责的部分了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292016887.png"
+                      alt=""
+                ></p>
+<p>在这个过程中，有几个关键的点。<strong>IP模块会将TCP头部和数据块看作一整块二进制数据，在执行收发操作时并不关心其中的内容和内容的意义，对于包的乱序和丢失也一概不知</strong>。比如，TCP中有各种不同的控制包，三次握手四次挥手等等，IP模块一概不管，<strong>IP的职责就是将委托的东西打包送到对方手里，或者是将对方送来的包接收下来，仅此而已</strong>。（这一点，跟以太网协议忽略IP模块的内容很像）因此，接下来我们要讲的这些关于IP的工作方式，可适用于任何TCP委派的收发操作。</p>
+<h3 id="生成包含接收方-IP-地址的-IP-头部">生成包含接收方 IP 地址的 IP 头部</h3>
+<p>IP模块接受TCP模块的委托负责包的收发工作，它会生成IP头部并附加在TCP头部前面。IP头部包含的内容如表2.2所示，其中最重要的内容就是IP地址，它表示这个包应该发到哪里去。这个地址是由TCP模块告知的，而TCP又是在执行连接操作时从应用程序那里获得这个地址的，因此这个地址的最初来源就是应用程序。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292016022.png"
+                      alt=""
+                ></p>
+<p>协议号，它表示包的内容是来自哪个模块的。例如，如果是TCP模块委托的内容，则设置为06（十六进制），如果是UDP模块委托的内容，则设置为17（十六进制）</p>
+<hr>
+<p>IP头部中还需要填写发送方的IP地址，大家可以认为是发送方计算机的IP地址，实际上&quot;计算机的IP地址&quot;这种说法并不准确。<mark><strong>IP地址实际上并不是分配给计算机的，而是分配给网卡的</strong></mark>，因此当计算机上存在多块网卡时，每一块网卡都会有自己的IP地址（虚拟网卡也有自己的IP地址）。那么，在填写发送方IP地址时就需要判断到底应该填写哪个地址。<strong>这个判断相当于在多块网卡中判断应该使用哪一块网卡来发送这个包，也就相当于判断应该把包发往哪个路由器（后文会提到网关其实就是路由器，而网卡和路由器是相绑定的，设置网卡的时候，都会设置网关），因此只要确定了目标路由器，也就确定了应该使用哪块网卡，也就确定了发送方的IP地址</strong>。</p>
+<p>那么应该如何判断目标路由器呢？------查看IP表（路由表 Routing Table），和图2.16中路由器使用IP表（路由表）判断下一个路由器位置的操作是一样的。通过<strong>route print</strong> 命令查看路由表</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292018599.png"
+                      alt=""
+                ></p>
+<p>（下面还有Ipv6 路由表，省略了）</p>
+<hr>
+<p>第一部分是接口列表，</p>
+<p>接口表示网卡等网络接口，这些网络接口可以将包发送给通信对象。一般，电脑上至少会有两个网卡，一个以太网网卡，一个无线网卡，除此之外还会有很多虚拟网卡，上图中，Realtek PCIe是以太网网卡， Realtek 8822BE<br>
+Wireless是无线网卡，像Vmware开头的那两个都是虚拟网卡</p>
+<hr>
+<p>第二部分是Ipv4 路由表</p>
+<p>网络目标和网络掩码即表示了目标网段，网关表示要访问此网段需要经过的下一个路由器的IP地址，将包发给这个IP地址，该地址对应的路由器就会将包转发到目标地址。<strong><mark>Gateway（网关）在TCP/IP的世界里就是路由器的意思</mark></strong>。如果网关（Gateway）和接口（Interface）列的IP地址相同，就表示不需要路由器进行转发，可以直接将包发给接收方的IP地址。&quot;在链路上&quot;英文On-Link，字面意思就是在链路上。表示不需要通过路由器转发，可以直接与其通信的意思。<strong>显示在链路上，表示该条路由表的网关IP和接口的IP是一样的，由本机接口直接决定数据包的去向，无需其他路由中转</strong>。一般都是目标的ip与本机接口IP在同一个网段。同一个网段，自然不需要路由转发，可以直接与同网段的IP进行通信，那么网关自然是自己本身（自己接口的ip）。广播和组播255.255.255.255,224.0.0.0例外，虽然与接口ip不是同一个网段，但是也不需要其他路由器转发，同样由自己处理</p>
+<p>接口就是上面的接口列表中的接口</p>
+<p>路由表的第1行中，目标地址和子网掩码（<code>第一章：IP 地址的基本知识</code>小节介绍过）都是0.0.0.0，这表示默认网关，<mark><strong>如果其他所有条目都无法匹配，就会自动匹配这一行</strong></mark>。</p>
+<hr>
+<p>首先我们把目标IP地址跟Ipv4 路由表的网络目标（Network Destination）栏和子网掩码确定的网段比较，找到对应的一行，比如如果目标地址是192.168.1.3，那就应该匹配192.168.1.0，具体的匹配规则我们将在第3章详细介绍（<code>路由表中的信息</code>）。然后我们就可以确定接口（网卡）了，确定了网卡，本机IP就确定了。</p>
+<hr>
+<p><strong><mark>等我们学完了网络上的集线器，交换机，路由器这些设备之后再回过头看，你会发现跟计算机内部的网卡没什么区别，都是那些表，都是那些硬件，只不过组合不一样。</mark></strong></p>
+<p>PS：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292021707.png"
+                      alt=""
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292021702.png"
+                      alt=""
+                ></p>
+<p>版本号（Version）：长度4比特。标识目前采用的IP协议的版本号。一般的值为0100（IPv4），0110（IPv6）</p>
+<p>IP包头长度（Internet Header Length）：长度4比特。这个字段的作用是为了描述IP包头的长度，因为在IP包头中有变长的可选部分。该部分占4个bit位，单位为32bit（4个字节),一个IP包头的长度最长为15=1111，即15*4＝60个字节。IP包头最小长度为20字节即该字段至少为5。这个跟TCP头中的数据偏移量一样</p>
+<p>服务类型（Type of Service）：长度8比特。RFC定义的该字段如图：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292022313.png"
+                      alt=""
+                ></p>
+<p>优先级Precedence，取值越大数据越重要</p>
+<p>000 普通 (Routine)</p>
+<p>001 优先的 (Priority)</p>
+<p>010 立即的发送 (Immediate)</p>
+<p>011 闪电式的 (Flash)</p>
+<p>100 比闪电还闪电式的 (Flash Override)</p>
+<p>101 CRITIC/ECP</p>
+<p>110 网间控制 (Internetwork Control)</p>
+<p>111 网络控制 (Network Control)</p>
+<p>D 时延: 0:普通 1:延迟尽量小</p>
+<p>T 吞吐量: 0:普通 1:流量尽量大</p>
+<p>R 可靠性: 0:普通 1:可靠性尽量大</p>
+<p>0 最后2位被保留，恒定为0</p>
+<p>3位优先权字段(现已被忽略) + 4位TOS字段 + 1位保留字段(须为0)。<strong>4位TOS字段分别表示最小延时、最大吞吐量、最高可靠性、最小费用，其中最多有一个能置为1</strong>。应用程序根据实际需要来设置 TOS值，如ssh和telnet这样的登录程序需要的是最小延时的服务，文件传输ftp需要的是最大吞吐量的服务</p>
+<hr>
+<p>IP包总长（Total Length）：长度16比特。 以字节为单位计算的IP包的长度 (包括头部和数据)，所以IP包最大长度65535=2的15次方-1字节。<strong>由于MTU的限制，长度超过MTU的数据报都将被分片传输，所以<mark>实际传输的IP分片数据报的长度远远没有达到最大值</mark>。</strong></p>
+<hr>
+<p>标识符（Identifier）:长度16比特。唯一地标识主机发送的每一个数据报，其初始值是随机的，每发送一个数据报其值就加1。该字段和Flags和Fragment Offest字段联合使用，对较大的上层数据包进行分段（fragment）操作。路由器将一个包拆分后，所有拆分开的小包被标记相同的值，以便目的端设备能够区分哪个包属于被拆分开的包的一部分；</p>
+<p>标记（Flags）：长度3比特。该字段第一位不使用。第二位是DF（Don’t Fragment）位，DF位设为1时表明路由器不能对该上层数据包分段。如果IP数据包的大小超过了MTU（无法在不分段的情况下进行转发），则路由器会丢弃该上层数据包并返回一个ICMP类型的错误信息。第三位是MF（More Fragments）位，当路由器对一个上层数据包分段，则路由器会在除了最后一个分段的IP包的包头中将MF位设为1。</p>
+<p>片偏移（Fragment Offset）：长度13比特。表示该IP包在该组分片包中位置，接收端靠此来组装还原IP包。分片相对原始IP数据报数据部分的偏移。实际的偏移值为该值左移3位后得到的，所以除了最后一个IP数据报分片外，每个IP分片的数据部分的长度都必须是8的整数倍。</p>
+<p>关于分片的细节，查看<code>第三章：通过分片功能拆分大网络包</code></p>
+<hr>
+<p>生存时间（TTL）：长度8比特。当IP包进行传送时，先会对该字段赋予某个特定的值。当IP包经过每一个沿途的路由器的时候，每个沿途的路由器会将IP包的TTL值减少1。如果TTL减少为0，则该IP包会被丢弃。这个字段可以防止由于路由环路而导致IP包在网络中不停被转发。</p>
+<hr>
+<p>协议（Protocol）：长度8比特。标识了上层所使用的协议。以下是比较常用的协议号：</p>
+<p>1 ICMP</p>
+<p>2 IGMP</p>
+<p>6 TCP</p>
+<p>17 UDP</p>
+<p>88 IGRP</p>
+<p>89 OSPF</p>
+<hr>
+<p>头部校验（Header Checksum）：长度16位。用来做IP头部的正确性检测，但不包含数据部分。因为每个路由器要改变TTL的值,所以路由器会为每个通过的数据包重新计算这个值。</p>
+<hr>
+<p>起源和目标地址（Source and Destination Addresses）：这两个地段都是32比特。标识了这个IP包的起源和目标地址。要注意除非使用NAT，否则整个传输的过程中，这两个地址不会改变。</p>
+<h3 id="生成以太网用的-MAC-头部">生成以太网用的 MAC 头部</h3>
+<p><code>本章：包的基本知识</code>末尾也有介绍</p>
+<p>IP模块在生成IP头部之后，会在它前面再加上MAC头部。MAC头部是以太网使用的头部，它包含了接收方和发送方的MAC地址等信息。</p>
+<p>发送方Mac地址：MAC地址是在网卡生产时写入ROM里的，只要将这个值读取出来写入MAC头部就可以了</p>
+<p>接收方MAC地址：我们只知道接收方的IP（就是gateway路由器的IP）这个时候，我们就需要执行<strong>根据IP地址查询MAC地址的操作</strong>。即ARP，看<code>本章:通过 ARP 查询目标路由器的 MAC 地址</code>小结</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292220522.png"
+                      alt=""
+                ></p>
+<p>每一个主机对应唯一的一个 MAC 地址，是由网卡决定的，长度是 48 位，所以这里的接收方mac地址和发送方mac地址都是 6 个字节，也就是 48 个比特位。在显示的时候，经常用16进制数表示，，一个16进制数用4比特表示，一个字节用2个16进制数表示，Mac地址就是12个16进制数：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292322307.png"
+                      alt=""
+                ></p>
+<p><strong><mark>在数据发送传输的过程中，目的 IP 地址与源 IP 地址是永远不会变的，这是这个数据的起始与终点，而 MAC 地址是一直在变化的，由于数据在传输的过程中会经历很多的主机等，所以在这个过程中 MAC 地址一直在变（只要有转发就会变）</mark></strong>。类似于我们坐车，要坐车从 A 出发，目的地是 D。这个过程中我们会经过 B C，从A出发前往B 的时候，发送方MAC是A，接收方MAC是B，当我们从B前往C的时候，发送方MAC是B，接收方MAC是C，而目的 IP 地址与 源 IP 地址一直是 D 与 A，这样说的话就很好理解了。</p>
+<p>MAC 地址与 IP 地址，一个代表的目的与终点，一个代表着途中的经过。所以在到达目的局域网后，数据包并不知道要传输给哪台主机，因为 MAC 地址的变化，但是目的 IP 地址一直没有变化，所以此时就需要 ARP 协议来确定目的主机的 MAC 地址。关于ARP的细节，查看<code>本章：通过 ARP 查询目标路由器的 MAC 地址</code></p>
+<h3 id="通过-ARP-查询目标路由器的-MAC-地址">通过 ARP 查询目标路由器的 MAC 地址</h3>
+<p>ARP：Address Resolution Protocol，地址解析协议</p>
+<p>在以太网中，<strong>有一种叫作广播的方法，可以把包发给连接在同一以太网中的所有设备</strong>。ARP就是利用广播对所有设备提问：&quot;××这个IP地址是谁的？请把你的MAC地址告诉我。&quot;然后就会有人回答：&quot;这个IP地址是我的，我的MAC地址是××××。&quot;A（图2.19）。如果对方和自己处于同一个子网中，那么通过上面的操作就可以得到对方的MAC地址。然后，我们将这个MAC地址写入MAC头部，MAC头部就完成了。如果路由表的设置正确，那么对方应该在同一子网，否则对方无法作出ARP响应，这时只能认为对方不存在，包的发送操作就会失败。</p>
+<p>在查询路由器Mac地址的操作中，路由器肯定跟当前设备处于同一子网，不然当前计算机都无法访问它，它还怎么实现路由功能呢，所以是一定可以查询到Mac地址的。</p>
+<p>查询到结果之后，<strong>将查询结果放到一块叫作ARP缓存的内存空间中留着以后用</strong>。也就是说，在发送包时，先查询一下ARP缓存，如果其中已经保存了对方的MAC地址，就不需要发送ARP查询，直接使用ARP缓存中的地址，而当ARP缓存中不存在对方MAC地址时，则发送ARP查询。如果总是使用ARP缓存中保存的地址也会产生问题。例如当IP地址发生变化时，ARP缓存的内容就会和现实发生差异。为了防止这种问题的发生，ARP缓存中的值在经过一段时间后会被删除，一般这个时间在几分钟左右。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292223174.png"
+                      alt=""
+                ></p>
+<p>我们可以通过<code>arp -a</code>查看所有的ARP缓存（每一块网卡上的IP对应的MAC地址）。<code>arp -d &lt;IP地址&gt;</code>表示删除这个的IP的ARP缓存。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292223819.png"
+                      alt=""
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292224466.png"
+                      alt=""
+                ></p>
+<p>有人认为，MAC头部是以太网需要的内容，并不属于IP的职责范围，但从现实来看，如果在交给网卡之前，IP模块就把整个网络包打好了，那么网卡只要将打好的包发送出去就可以了。对于别的协议的模块也是一样，对于网卡来说，它不关心包的内容，它只负责发送，这样，同一块网卡就可以支持各种类型的包。至于接收也是一样的道理。这一点跟IP模块忽略TCP模块打包的内容的性质很像。</p>
+<h3 id="以太网的基本知识（很重要的基础知识）">以太网的基本知识（很重要的基础知识）</h3>
+<p><mark>以太网是一种为多台计算机能够彼此自由和廉价地相互通信而设计的通信技术</mark>，它的原型如图2.22（a）所示。</p>
+<p>这种网络的本质其实就是一根网线。图上还有一种叫作收发器的小设备，它的功能只是将不同网线之间的信号连接起来而已。因此<mark>，当一台计算机发送信号时，信号就会通过网线流过整个网络，最终到达所有的设备。这就好像所有人待在一个大房间里，任何一个人说话，所有人都能够听到</mark>，同样地，这种网络中任何一台设备发送的信号所有设备都能接收到。不过，我们无法判断一个信号到底是发给谁的，因此需要在信号的开头加上接收者的信息，也就是地址。这样一来就能够判断信号的接收者了，与接收者地址匹配的设备就接收这个包，其他的设备则丢弃这个包，这样我们的包就送到指定的目的地了。为了控制这一操作，我们就需要使用表2.3中列出的MAC头部。通过MAC头部中的接收方MAC地址，就能够知道包是发给谁的；而通过发送方MAC地址，就能够知道包是谁发出的；此外，通过以太类型就可以判断包里面装了什么类型的内容。以太网其实就这么简单。实际上，多台设备同时发送信号会造成碰撞，当然也有相应的解决方案，不过这部分比较复杂。随着交换式集线器的普及，信号已经不会发生碰撞了，因此在实际工作中也不需要在意这个复杂的部分。</p>
+<p>这个原型后来变成了图2.22（b）中的结构。这个结构是将主干网线替换成了一个中继式集线器，将收发器网线替换成了双绞线。不过，虽然网络的结构有所变化，但<mark>信号会发送给所有设备这一基本性质并没有改变</mark>。</p>
+<p>后来，图2.22（c）这样的使用交换式集线器（后文统称交换机）的结构普及开来，现在我们说的以太网指的都是这样的结构。这个结构看上去和（b）很像，但其实里面有一个重要的变化，<strong><mark>即信号会发送给所有设备这一性质变了，现在信号只会流到根据MAC地址指定的设备，而不会到达其他设备了</mark></strong>。当然，根据MAC地址来传输包这一点并没有变，因此MAC头部的设计也得以保留。</p>
+<p><mark><strong>尽管以太网经历了数次变迁，但其基本的3个性质至今仍未改变，即将包发送到MAC头部的接收方MAC地址代表的目的地，用发送方MAC地址识别发送方，用以太类型识别包的内容</strong></mark>。因此，大家可以认为具备这3个性质的网络就是以太网。这些性质也适用于无线局域网。也就是说，将包发送到MAC头部的接收方MAC地址所代表的目的地，用发送方MAC地址识别发送方，在这些方面无线局域网和以太网是一样的。无线局域网没有以太类型，但有另一个具备同样功能的参数，可以认为它就是以太类型。因此，我们可以用无线局域网来代替以太网。</p>
+<p><strong>以太网中的各种设备也是基于以太网规格来工作的，因此下面的内容不仅适用于客户端计算机，同样也适用于服务器、路由器等各种设备。</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292226541.png"
+                      alt=""
+                ></p>
+<hr>
+<p>更详尽的网络变迁史，<a href="https://xiashuo.xyz/2022/07/31/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91%E7%BD%91%E7%BB%9C%E7%9A%84%E8%BF%9B%E5%8C%96/">网络的进化</a>，其中讲解了另一个版本的TCP/IP协议中包的传递的描述，可跟<code>本章:包的基本知识</code>中描述进行对比：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292227329.png"
+                      alt=""
+                ></p>
+<h3 id="将-IP-包转换成电或光信号发送出去">将 IP 包转换成电或光信号发送出去</h3>
+<p>IP生成的网络包只是存放在内存中的一串数字信息，没有办法直接发送给对方。因此，我们需要将<mark>数字信息转换为电或光信号，才能在网线上传输</mark>，也就是说，这才是真正的数据发送过程。（<code>本章:包收发操作概览</code>小节讲过）。网卡无法单独工作，要控制网卡还需要网卡驱动程序，不同厂商和型号的网卡在结构上有所不同，因此网卡驱动程序也是厂商开发的专用程序。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292227356.png"
+                      alt=""
+                ></p>
+<p>打开计算机启动操作系统的时候，网卡驱动程序会对硬件进行初始化操作，然后硬件才进入可以使用的状态。这些操作包括硬件错误检查、初始设置等步骤，这些步骤对于很多其他硬件也是共通的，但也有一些操作是以太网特有的，<mark>那就是在控制以太网收发操作的MACA模块中设置MAC地址</mark>。</p>
+<p><strong>MAC：Media Access Control的缩写。MAC头部、MAC地址中的MAC也是这个意思。也就是说，通过MAC模块控制包收发操作时所使用的头部和地址就叫作MAC头部和MAC地址</strong>。</p>
+<p>网卡的ROM中保存着全世界唯一的MAC地址，这是在生产网卡时写入的，将这个值读出之后就可以对MAC模块进行设置，MAC模块就知道自己对应的MAC地址了。也有一些特殊的方法，比如从命令或者配置文件中读取MAC地址并分配给MAC模块。这里就不讨论了。</p>
+<h3 id="给网络包再加-3-个控制数据">给网络包再加 3 个控制数据</h3>
+<p>网卡驱动从IP模块获取包之后，会将其复制到网卡内的缓冲区中，然后向MAC模块发送发送包的命令。接下来就轮到<mark><strong>MAC模块</strong></mark>进行工作了。（前面又TCP模块、IP模块，这里又有MAC模块，网卡中的软件核心就是MAC模块）</p>
+<p>首先，MAC模块会将包从缓冲区中取出，<strong>并在开头加上报头和起始帧分界符，在末尾加上用于检测错误的帧校验序列</strong>（图2.24）。制定以太网标准的组织IEEE出于历史原因使用了&quot;帧&quot;而不是&quot;包&quot;，因此在以太网术语中都是说&quot;帧&quot;，其实我们基本没必要讨论两者的区别，大家可以认为包和帧是一回事，只是说法不同罢了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292229206.png"
+                      alt=""
+                ></p>
+<p><mark>报头56比特，起始帧分界符8比特，帧校验序列32比特</mark></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292230072.png"
+                      alt=""
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292230452.png"
+                      alt=""
+                ></p>
+<p>我们在传递电信号的时候，是将数据信号和时钟信号叠加在一起传送的。这样的信号如图2.26（c）所示，发送方将这样的信号发给接收方。由于时钟信号是像图2.26（b）这样按固定频率进行变化的，只要能够找到这个变化的周期，就可以从接收到的信号（c）中提取出时钟信号（b），进而通过接收信号（c）和时钟信号（b）计算出数据信号（a），这和发送方将数据信号和时钟信号进行叠加的过程正好相反。然后，只要根据时钟信号（b）的变化周期，我们就可以从数据信号（a）中读取相应的电压和电流值，并将其还原为0或1的比特了。</p>
+<p>这里的重点在于如何判断时钟信号的变化周期。时钟信号是以10 Mbit/s或者100 Mbit/s这种固定频率进行变化的，就像我们乘坐自动扶梯一样，只要对信号进行一段时间的观察，就可以找到其变化的周期。因此，<mark><strong>我们不能一开始就发送包的数据，而是要在前面加上一段用来测量时钟信号的特殊信号，这就是报头的作用</strong></mark>，即确定时钟信号的周期。</p>
+<p>报头后面的起始帧分界符在图2.25中也已经画出来了，它的末尾比特排列有少许变化。接收方以这一变化作为标记，从这里开始提取网络包数据。也就是说，<mark><strong>起始帧分界符是一个用来表示包起始位置的标记</strong></mark>。</p>
+<p><mark><strong>末尾的FCS（帧校验序列）用来检查包传输过程中因噪声导致的波形紊乱、数据错误</strong></mark>，它是一串32比特的序列，是通过一个公式对包中从头到尾的所有内容进行计算而得出来的。具体的计算公式在此省略，它和磁盘等设备中使用的CRC错误校验码（CRC：Cyclic Redundancy Check，循环冗余校验）是同一种东西，当原始数据中某一个比特发生变化时，计算出来的结果就会发生变化。在包传输过程中，如果受到噪声的干扰而导致其中的数据发生了变化，那么接收方计算出的FCS和发送方计算出的FCS就会不同，这样我们就可以判断出数据有没有错误。</p>
+<h3 id="向集线器发送网络包">向集线器发送网络包</h3>
+<p>发送信号的操作分为两种，一种是使用集线器的半双工模式，另一种是使用交换机的全双工模式。<strong>发送和接收同时并行的方式叫作&quot;全双工&quot;</strong>，相对地，<strong>某一时刻只能进行发送或接收其中一种操作的叫作&quot;半双工&quot;</strong>。现在用的大部分都是全双工的交换机。不必太仔细研究半双工的集线器。</p>
+<p>在半双工模式中，会等待网线中已经存在的信号传输完毕（这是为了避免信号碰撞），然后当之前的信号传输完毕，或者本来就没有信号在传输的情况下，我们就可以开始发送信号了，在全双工模式下不需要考虑这个问题。<mark><strong>首先，MAC模块从报头开始将数字信息按每个比特转换成电信号，然后由PHY，或者叫MAU的信号收发模块发送出去</strong></mark>。注意，网卡的 MAC 模块生成通用信号，然后由 PHY（MAU）模块转换成可在网线中传输的格式，并通过网线发送出去，可以认为PHY（MAU）模块的功能就是对MAC模块产生的信号进行格式转换。在这里，<mark><strong>将数字信息转换为电信号的速率就是网络的传输速率</strong></mark>，例如每秒将10 Mbit的数字信息转换为电信号发送出去，则速率就是10 Mbit/s。参考图2.23。根据以太网信号方式的不同，有些地方叫MAU（Medium Attachment Unit，介质连接单元），有些地方叫PHY（Physical Layer Device，物理层装置）。在速率为100 Mbit/s以上的以太网中都叫PHY。</p>
+<p>以太网不会确认发送的信号对方有没有收到。如果发生错误，协议栈的TCP负责搞定。</p>
+<p>在半双工模式中，PHY（MAU）的职责并不是仅仅是将MAC模块传递过来的信号通过网线发送出去，它还需要监控接收线路中有没有信号进来。在开始发送信号之前，需要先确认没有其他信号进来，这时才能开始发送。如果在信号开始发送到结束发送的这段时间内一直没有其他信号进来，发送操作就成功完成了。如果有其他信号进来，<strong>两组信号就会相互叠加，无法彼此区分出来，这就是所谓的信号碰撞</strong>。这种情况下，继续发送信号是没有意义的，因此发送操作会终止。为了通知其他设备当前线路已发生碰撞，还会发送一段时间的阻塞信号，然后所有的发送操作会全部停止。等待一段时间之后，网络中的设备会尝试重新发送信号。但如果所有设备的等待时间都相同，那肯定还会发生碰撞，因此必须让等待的时间相互错开。具体来说，等待时间是根据MAC地址生成一个随机数计算出来的。</p>
+<p>全双工模式不会有信号碰撞，可以同时接受和发送。</p>
+<h3 id="接收返回包">接收返回包</h3>
+<p><mark>在使用集线器的半双工模式以太网中，一台设备发送的信号会到达连接在集线器上的所有设备。这意味着无论是不是发给自己的信号都会通过接收线路传进来，因此接收操作的第一步就是不管三七二十一把这些信号全都收进来再说</mark>。信号的开头是报头，通过报头的波形同步时钟，然后遇到起始帧分界符时开始将后面的信号转换成数字信息。这个操作和发送时是相反的，即PHY（MAU）模块先开始工作，然后再轮到MAC模块。首先，PHY（MAU）模块会将信号转换成通用格式并发送给MAC模块，MAC模块再从头开始将信号转换为数字信息，并存放到缓冲区中。当到达信号的末尾时，还需要检查FCS。具体来说，就是将从包开头到结尾的所有比特套用到公式中计算出FCS，然后和包末尾的FCS进行对比，正常情况下两者应该是一致的，如果中途受到噪声干扰而导致波形发生紊乱，则两者的值会产生差异，这时这个包就会被当作错误包而被丢弃。如果FCS校验没有问题，接下来就要看一下MAC头部中接收方MAC地址与网卡在初始化时分配给自己的MAC地址是否一致，以判断这个包是不是发给自己的。我们没必要去接收发给别人的包，因此如果不是自己的包就直接丢弃，如果接收方MAC地址和自己MAC地址一致，则将包放入缓冲区中。到这里，MAC模块的工作就完成了，接下来网卡会通知计算机收到了一个包。</p>
+<p><strong>通知计算机的操作会使用一个叫作中断的机制</strong>。在网卡执行接收包的操作的过程中，计算机并不是一直监控着网卡的活动，而是去继续执行其他的任务。因此，如果网卡不通知计算机，计算机是不知道包已经收到了这件事的。网卡驱动也是在计算机中运行的一个程序，因此它也不知道包到达的状态。在这种情况下，<strong>我们需要一种机制能够打断计算机正在执行的任务，让计算机注意到网卡中发生的事情，这种机制就是中断</strong>。具体来说，中断的工作过程是这样的。<strong>首先，网卡向扩展总线中的中断信号线发送信号，该信号线通过计算机中的中断控制器连接到CPU。当产生中断信号时，CPU会暂时挂起正在处理的任务，切换到操作系统中的中断处理程序。然后，中断处理程序会调用网卡驱动，控制网卡执行相应的接收操作</strong>。</p>
+<p>网卡驱动被中断处理程序调用后，会从网卡的缓冲区中取出收到的包，并通过MAC头部中的以太类型字段判断协议的类型。然后将包交给对应的协议栈进行处理。如果操作系统内不存在相应的协议栈，则会视作错误，直接丢弃这个包。</p>
+<h3 id="将服务器的响应包从-IP-传递给-TCP">将服务器的响应包从 IP 传递给 TCP</h3>
+<p>服务器返回的包的以太类型应该是0800，因此网卡驱动会将其交给TCP/IP协议栈来进行处理。接下来就轮到IP模块先开始工作了，第一步是检查IP头部，确认格式是否正确（如果有问题，会发送ICMP类型的数据）。如果格式没有问题，下一步就是查看接收方IP地址。如果接收网络包的设备是一台Windows客户端计算机，那么服务器返回的包的接收方IP地址应该与客户端网卡的地址一致，检查确认之后我们就可以接收这个包了。如果接收方IP地址不是自己的地址，那一定是发生了什么错误。客户端计算机不负责对包进行转发，因此不应该收到不是发给自己的包，当发生这样的错误时，IP模块会通过ICMP消息将错误告知发送方（图2.1）。如果是服务器就不一定了。服务器的操作系统具备和路由器相同的包转发功能，当打开这一功能时，它就可以像路由器一样对包进行转发。在这种情况下，当收到不是发给自己的包的时候，就会像路由器一样执行包转发操作。由于这一过程和路由器是相同的，因此我们将在第3章探索路由器时进行介绍。</p>
+<p>如果接收方IP地址正确，则这个包会被接收下来，这时还需要完成另一项工作。IP协议有一个叫作分片的功能，具体的内容我们将在第3章探索路由器时进行介绍。简单来说，网线和局域网中只能传输小包，因此需要将大的包切分成多个小包。如果接收到的包是经过分片的，那么IP模块会将它们还原成原始的包。分片的包会在IP头部的标志字段中进行标记，当收到分片的包时，IP模块会将其暂存在内部的内存空间中，然后等待IP头部中具有相同ID的包全部到达，这是因为同一个包的所有分片都具有相同的ID。此外，IP头部还有一个分片偏移量（fragment<br>
+offset）字段，它表示当前分片在整个包中所处的位置。根据这些信息，在所有分片全部收到之后，就可以将它们还原成原始的包，这个操作叫作分片重组。到这里，IP模块的工作就结束了，</p>
+<p>接下来包会被交给TCP模块。<strong>TCP模块会根据IP头部中的接收方和发送方IP地址，以及TCP头部中的接收方和发送方端口号来查找对应的套接字</strong>（关于为什么查找套接字同时需要接收方和发送方的IP地址和端口号，我们会在第6章介绍端口号机制时一起讲解）。找到对应的套接字之后，就可以根据套接字中记录的通信状态，执行相应的操作了。例如，如果包的内容是应用程序数据，则返回确认接收的包，并将数据放入缓冲区，等待应用程序来读取；如果是建立或断开连接的控制包，则返回相应的响应控制包，并告知应用程序建立和断开连接的操作状态。</p>
+<p>ICMP：Internet Control Message Protocol</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292233348.png"
+                      alt=""
+                ></p>
+<p>计算机网络的知识体系，真的好庞大啊，操！</p>
+<h2 id="UDP-协议的收发操作">UDP 协议的收发操作</h2>
+<h3 id="不需要重发的数据用-UDP-发送更高效">不需要重发的数据用 UDP 发送更高效</h3>
+<p>向DNS服务器查询IP地址的时候我们用的也是UDP协议。</p>
+<p>TCP的工作方式十分复杂，为什么要设计得如此复杂呢？因为我们需要将数据高效且可靠地发送给对方。为了实现可靠性，我们就需要确认对方是否收到了我们发送的数据，如果没有还需要再发一遍。要实现上面的要求，最简单的方法是数据全部发送完毕之后让接收方返回一个接收确认。这样一来，如果没收到直接全部重新发送一遍就好了，根本不用像TCP一样要管理发送和确认的进度。但是，如果漏掉了一个包就要全部重发一遍，怎么看都很低效。<strong><mark>为了实现高效的传输，我们要避免重发已经送达的包，而是只重发那些出错的或者未送达的包。TCP之所以复杂，就是因为要实现这一点</mark></strong>。</p>
+<p>不过，在某种情况下，即便没有TCP这样复杂的机制，我们也能够高效地重发数据，<strong>这种情况就是数据很短，用一个包就能装得下。如果只有一个包，就不用考虑哪个包未送达了，因为全部重发也只不过是重发一个包而已</strong>，这种情况下我们就不需要TCP这样复杂的机制了。而且，如果不使用TCP，也不需要发送那些用来建立和断开连接的控制包了。此外，我们发送了数据，对方一般都会给出回复，只要将回复的数据当作接收确认就行了，也不需要专门的接收确认包了。</p>
+<h3 id="控制用的短数据">控制用的短数据</h3>
+<p>像DNS查询等交换控制信息的操作基本上都可以在一个包的大小范围内解决，这种场景中就可以用UDP来代替TCP。</p>
+<p>UDP没有TCP的接收确认、窗口等机制，因此在收发数据之前也不需要交换控制信息，也就是说不需要建立和断开连接的步骤，<strong><mark>只要在从应用程序获取的数据前面加上UDP头部，然后交给IP进行发送就可以了（表2.5）。接收也很简单，只要根据IP头部中的接收方和发送方IP地址，以及UDP头部中的接收方和发送方端口号，找到相应的套接字并将数据交给相应的应用程序就可以了</mark></strong>。除此之外，UDP协议没有其他功能了，遇到错误或者丢包也一概不管。因为<mark><strong>UDP只负责单纯地发送包而已</strong></mark>，并不像TCP一样会对包的送达状态进行监控，所以协议栈也不知道有没有发生错误。但这样并不会引发什么问题，因此出错时就收不到来自对方的回复，应用程序会注意到这个问题，并重新发送一遍数据（<strong>UDP包的重发是由应用程序控制的</strong>）。这样的操作本身并不复杂，也并不会增加应用程序的负担。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207292236401.png"
+                      alt=""
+                ></p>
+<p>UDP可发送的数据最大长度为IP包的最大长度减去IP头部和UDP头部的长度。不过，这个长度与MTU、MSS不是一个层面上的概念。MTU和MSS是基于以太网和通信线路上网络包的最大长度来计算的，而IP包的最大长度是由IP头部中的&quot;全长&quot;字段决定的。&quot;全长&quot;字段的长度为16比特，因此从IP协议规范来看，IP包的最大长度为65535字节，再减去IP头部和UDP头部的长度，就是UDP协议所能发送的数据最大长度。如果不考虑可选字段的话，一般来说IP头部为20字节，UDP头部为8字节，因此UDP的最大数据长度为65507字节。当然，这么长的数据已经超过了以太网和通信线路的最大传输长度，因此需要让IP模块使用分片功能拆分之后再传输。</p>
+<h3 id="音频和视频数据">音频和视频数据</h3>
+<p><strong><mark>音频和视频数据必须在规定的时间内送达，一旦送达晚了，就会错过播放时机，导致声音和图像卡顿</mark></strong>。如果像TCP一样通过接收确认响应来检查错误并重发，重发的过程需要消耗一定的时间，因此重发的数据很可能已经错过了播放的时机。<strong><mark>一旦错过播放时机，重发数据也是没有用的，因为声音和图像已经卡顿了，这是无法挽回的</mark></strong>。当然，我们可以用高速线路让重发的数据能够在规定的时间内送达，但这样一来可能要增加几倍的带宽才行。此外，音频和视频数据中缺少了某些包并不会产生严重的问题，只是会产生一些失真或者卡顿而已，一般都是可以接受的。在这些无需重发数据，或者是重发了也没什么意义的情况下，使用UDP发送数据的效率会更高.</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：《网络是怎样连接的》-第二章：用电信号传输 TCP和IP 数据——探索协议栈和网卡</li>
+        <li>本文作者：小虾米</li>
+        <li>创建时间：2022-07-29 23:31:20</li>
+        <li>
+            本文链接：https://xiashuo.xyz/2022/07/29/《网络是怎样连接的》-第二章：用电信号传输 TCP和IP 数据——探索协议栈和网卡/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/07/31/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91%E7%BD%91%E7%BB%9C%E7%9A%84%E8%BF%9B%E5%8C%96/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">【转载】网络的进化</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/07/26/%E3%80%8A%E7%BD%91%E7%BB%9C%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%9E%E6%8E%A5%E7%9A%84%E3%80%8B-%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9A%E6%B5%8F%E8%A7%88%E5%99%A8%E7%94%9F%E6%88%90%E6%B6%88%E6%81%AF%E2%80%94%E2%80%94%E6%8E%A2%E7%B4%A2%E6%B5%8F%E8%A7%88%E5%99%A8%E5%86%85%E9%83%A8/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">《网络是怎样连接的》-第一章：浏览器生成消息——探索浏览器内部</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '3f329557fe1b20fa9c21',
+                    clientSecret: 'a126bc3b9d208261a6ff0c7d32c84395bd4615b5',
+                    repo: 'gittalk-use-repo',
+                    owner: 'liangkang1436',
+                    admin: ['liangkang1436'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小虾米</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">鄂ICP备2022011270号-1</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">用电信号传输 TCP&#x2F;IP 数据——探索协议栈和网卡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">1.1.</span> <span class="nav-text">创建套接字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E6%A0%88%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.1.</span> <span class="nav-text">协议栈的内部结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A5%97%E6%8E%A5%E5%AD%97%E7%9A%84%E5%AE%9E%E4%BD%93%E5%B0%B1%E6%98%AF%E9%80%9A%E4%BF%A1%E6%8E%A7%E5%88%B6%E4%BF%A1%E6%81%AF"><span class="nav-number">1.1.2.</span> <span class="nav-text">套接字的实体就是通信控制信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8-socket-%E6%97%B6%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.3.</span> <span class="nav-text">调用 socket 时的操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">连接服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D"><span class="nav-number">1.2.1.</span> <span class="nav-text">连接是什么意思</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%9F%E8%B4%A3%E4%BF%9D%E5%AD%98%E6%8E%A7%E5%88%B6%E4%BF%A1%E6%81%AF%E7%9A%84%E5%A4%B4%E9%83%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">负责保存控制信息的头部</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP%E6%8A%A5%E6%96%87%E5%A4%B4%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">TCP报文头详解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E9%99%85%E8%BF%87%E7%A8%8B%EF%BC%88%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">连接操作的实际过程（三次握手）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B6%E5%8F%91%E6%95%B0%E6%8D%AE"><span class="nav-number">1.3.</span> <span class="nav-text">收发数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86-HTTP-%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E4%BA%A4%E7%BB%99%E5%8D%8F%E8%AE%AE%E6%A0%88"><span class="nav-number">1.3.1.</span> <span class="nav-text">将 HTTP 请求消息交给协议栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%BE%83%E5%A4%A7%E7%9A%84%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E6%8B%86%E5%88%86"><span class="nav-number">1.3.2.</span> <span class="nav-text">对较大的数据进行拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-ACK-%E5%8F%B7%E7%A1%AE%E8%AE%A4%E7%BD%91%E7%BB%9C%E5%8C%85%E5%B7%B2%E6%94%B6%E5%88%B0%EF%BC%88TCP%E7%9A%84%E7%B2%BE%E9%AB%93%EF%BC%8C%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%AF%A6%E7%BB%86%E7%89%88%EF%BC%89"><span class="nav-number">1.3.3.</span> <span class="nav-text">使用 ACK 号确认网络包已收到（TCP的精髓，三次握手详细版）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E7%BD%91%E7%BB%9C%E5%8C%85%E5%B9%B3%E5%9D%87%E5%BE%80%E8%BF%94%E6%97%B6%E9%97%B4%E8%B0%83%E6%95%B4-ACK-%E5%8F%B7%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4%EF%BC%88%E5%86%B3%E5%AE%9A%E6%98%AF%E5%90%A6%E9%87%8D%E4%BC%A0%EF%BC%89"><span class="nav-number">1.3.4.</span> <span class="nav-text">根据网络包平均往返时间调整 ACK 号等待时间（决定是否重传）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%AA%97%E5%8F%A3%E6%9C%89%E6%95%88%E7%AE%A1%E7%90%86-ACK-%E5%8F%B7"><span class="nav-number">1.3.5.</span> <span class="nav-text">使用窗口有效管理 ACK 号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACK-%E4%B8%8E%E7%AA%97%E5%8F%A3%E7%9A%84%E5%90%88%E5%B9%B6%EF%BC%88%E4%BF%A1%E5%8F%B7%E5%8F%91%E9%80%81%E7%9A%84%E6%97%B6%E6%9C%BA%EF%BC%89"><span class="nav-number">1.3.6.</span> <span class="nav-text">ACK 与窗口的合并（信号发送的时机）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E6%94%B6-HTTP-%E5%93%8D%E5%BA%94%E6%B6%88%E6%81%AF"><span class="nav-number">1.3.7.</span> <span class="nav-text">接收 HTTP 响应消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%96%AD%E5%BC%80%E5%B9%B6%E5%88%A0%E9%99%A4%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">1.4.</span> <span class="nav-text">从服务器断开并删除套接字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%8F%91%E9%80%81%E5%AE%8C%E6%AF%95%E5%90%8E%E6%96%AD%E5%BC%80%E8%BF%9E%E6%8E%A5%EF%BC%88%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%EF%BC%89"><span class="nav-number">1.4.1.</span> <span class="nav-text">数据发送完毕后断开连接（四次挥手）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="nav-number">1.4.2.</span> <span class="nav-text">删除套接字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%94%B6%E5%8F%91%E6%93%8D%E4%BD%9C%E5%B0%8F%E7%BB%93%EF%BC%88-mark-TCP%E8%BF%9E%E6%8E%A5%E4%B8%8E%E6%96%AD%E5%BC%80%E7%BB%88%E6%9E%81%E7%89%88-mark-%EF%BC%89"><span class="nav-number">1.4.3.</span> <span class="nav-text">数据收发操作小结（TCP连接与断开终极版）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP-%E4%B8%8E%E4%BB%A5%E5%A4%AA%E7%BD%91%E7%9A%84%E5%8C%85%E6%94%B6%E5%8F%91%E6%93%8D%E4%BD%9C"><span class="nav-number">1.5.</span> <span class="nav-text">IP 与以太网的包收发操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%85%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%EF%BC%88%E5%9F%BA%E7%A1%80%EF%BC%8C%E5%BE%88%E9%87%8D%E8%A6%81%EF%BC%89"><span class="nav-number">1.5.1.</span> <span class="nav-text">包的基本知识（基础，很重要）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%85%E6%94%B6%E5%8F%91%E6%93%8D%E4%BD%9C%E6%A6%82%E8%A7%88"><span class="nav-number">1.5.2.</span> <span class="nav-text">包收发操作概览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%8C%85%E5%90%AB%E6%8E%A5%E6%94%B6%E6%96%B9-IP-%E5%9C%B0%E5%9D%80%E7%9A%84-IP-%E5%A4%B4%E9%83%A8"><span class="nav-number">1.5.3.</span> <span class="nav-text">生成包含接收方 IP 地址的 IP 头部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E4%BB%A5%E5%A4%AA%E7%BD%91%E7%94%A8%E7%9A%84-MAC-%E5%A4%B4%E9%83%A8"><span class="nav-number">1.5.4.</span> <span class="nav-text">生成以太网用的 MAC 头部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-ARP-%E6%9F%A5%E8%AF%A2%E7%9B%AE%E6%A0%87%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84-MAC-%E5%9C%B0%E5%9D%80"><span class="nav-number">1.5.5.</span> <span class="nav-text">通过 ARP 查询目标路由器的 MAC 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%EF%BC%88%E5%BE%88%E9%87%8D%E8%A6%81%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%89"><span class="nav-number">1.5.6.</span> <span class="nav-text">以太网的基本知识（很重要的基础知识）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86-IP-%E5%8C%85%E8%BD%AC%E6%8D%A2%E6%88%90%E7%94%B5%E6%88%96%E5%85%89%E4%BF%A1%E5%8F%B7%E5%8F%91%E9%80%81%E5%87%BA%E5%8E%BB"><span class="nav-number">1.5.7.</span> <span class="nav-text">将 IP 包转换成电或光信号发送出去</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%99%E7%BD%91%E7%BB%9C%E5%8C%85%E5%86%8D%E5%8A%A0-3-%E4%B8%AA%E6%8E%A7%E5%88%B6%E6%95%B0%E6%8D%AE"><span class="nav-number">1.5.8.</span> <span class="nav-text">给网络包再加 3 个控制数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%91%E9%9B%86%E7%BA%BF%E5%99%A8%E5%8F%91%E9%80%81%E7%BD%91%E7%BB%9C%E5%8C%85"><span class="nav-number">1.5.9.</span> <span class="nav-text">向集线器发送网络包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E6%94%B6%E8%BF%94%E5%9B%9E%E5%8C%85"><span class="nav-number">1.5.10.</span> <span class="nav-text">接收返回包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%93%8D%E5%BA%94%E5%8C%85%E4%BB%8E-IP-%E4%BC%A0%E9%80%92%E7%BB%99-TCP"><span class="nav-number">1.5.11.</span> <span class="nav-text">将服务器的响应包从 IP 传递给 TCP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP-%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%94%B6%E5%8F%91%E6%93%8D%E4%BD%9C"><span class="nav-number">1.6.</span> <span class="nav-text">UDP 协议的收发操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E9%9C%80%E8%A6%81%E9%87%8D%E5%8F%91%E7%9A%84%E6%95%B0%E6%8D%AE%E7%94%A8-UDP-%E5%8F%91%E9%80%81%E6%9B%B4%E9%AB%98%E6%95%88"><span class="nav-number">1.6.1.</span> <span class="nav-text">不需要重发的数据用 UDP 发送更高效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E7%94%A8%E7%9A%84%E7%9F%AD%E6%95%B0%E6%8D%AE"><span class="nav-number">1.6.2.</span> <span class="nav-text">控制用的短数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9F%B3%E9%A2%91%E5%92%8C%E8%A7%86%E9%A2%91%E6%95%B0%E6%8D%AE"><span class="nav-number">1.6.3.</span> <span class="nav-text">音频和视频数据</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

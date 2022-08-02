@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="小虾米">
+    
+    <title>
+        
+            《网络是怎样连接的》-第一章：浏览器生成消息——探索浏览器内部 |
+        
+        虾说
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"xiashuo.xyz","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207102315524.png","favicon":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"1920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207111056425.svg","description":"求知是一种快乐，表达是一种本能"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                虾说
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">《网络是怎样连接的》-第一章：浏览器生成消息——探索浏览器内部</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207102315524.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">小虾米</span>
+                        
+                            <span class="author-label">半吊子CRUD工程师</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-07-26 14:26:20</span>
+        <span class="mobile">2022-07-26 14:26</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E3%80%8A%E7%BD%91%E7%BB%9C%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%9E%E6%8E%A5%E7%9A%84%E3%80%8B/">《网络是怎样连接的》</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1>浏览器生成消息——探索浏览器内部</h1>
+<p>总结，第一章主要是讲了两个步骤：</p>
+<p><mark>浏览器根据URL和各种系统信息生成HTTP消息（同时解析域名），然后委托操作系统的Socket，调用协议栈，发送消息</mark></p>
+<h2 id="生成-HTTP-请求消息">生成 HTTP 请求消息</h2>
+<h3 id="探索之旅从输入网址开始">探索之旅从输入网址开始</h3>
+<p>网址，准确来说应该叫URL，URL：Uniform Resource Locator，统一资源定位符</p>
+<p>除了&quot;http:“，网址还可以以其他一些文字开头，例如&quot;ftp:”“file:”&quot;mailto:&quot;等。这代表着不同的协议，不同的协议代表着不同的功能</p>
+<p>file不是协议，file可以看作是浏览器访问本地文件的一种方法<code>file:///C:/Users/LiangKang/Desktop/111.txt</code>，其中<code>file:///</code>实际是<code>file://localhost/</code>的省略</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207251200572.png"
+                      alt=""
+                ></p>
+<h3 id="浏览器先要解析-URL">浏览器先要解析 URL</h3>
+<p>以HTTP为例，按照URL的格式将其中的各个元素拆分出来</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207251201521.png"
+                      alt=""
+                ></p>
+<h3 id="省略文件名的情况">省略文件名的情况</h3>
+<p>比如<code>http://www.lab.glasscom.com/dir/</code> 或者 <code>http://www.lab.glasscom.com/ </code>以&quot;/&quot;结尾代表域名后面应该有的文件名被省略了。<strong>根据URL的规则，文件名可以像前面这样省略</strong>。一般，我们会在服务器上事先设置好文件名省略时要访问的默认文件名。Tomcat就是这样的，会默认访问<code>/default/index.html</code>。</p>
+<p><code>http://www.lab.glasscom.com</code>（ 没有 '/'符号），访问根目录下事先设置的默认文件。</p>
+<p><code>http://www.lab.glasscom.com/whatisthis</code>，没有文件拓展名。也没有&quot;/&quot;，这个时候就要判断，如果Web服务器上存在名为<code>whatisthis</code>的文件，则将<code>whatisthis</code>作为文件名来处理；如果存在名为<code>whatisthis</code>的目录，则将<code>whatisthis</code>作为目录名来处理，毕竟<strong>不可能在同一目录下存在名字相同的文件和目录</strong>。</p>
+<h3 id="HTTP-的基本思路">HTTP 的基本思路</h3>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207251206812.png"
+                      alt=""
+                ></p>
+<p>HTTP协议定义了客户端和服务器之间交互的消息内容和步骤，其基本思路非常简单。首先，客户端会向服务器发送请求消息（图1.4）。<strong>请求消息中包含的内容是&quot;对什么&quot;和&quot;进行怎样的操作&quot;两个部分</strong>。</p>
+<p>其中 &quot;对什么&quot;的部分称为URI（Uniform Resource Identifier）。一般来说，URI的内容是一个存放网页数据的文件名或者是一个CGI程序的文件名，例如<code>&quot;/dir1/file1.html&quot;&quot;/dir1/program1.cgi&quot;</code>等，实际上，这个文件在Web服务器上未必是真实存在的，因为Web服务器可以通过重写规则对虚拟的URI进行映射。各种Web框架都是这样干的，比如Spring，url访问的实际上是Controller的地址。<strong>URI是比URL更广泛的概念</strong>。</p>
+<p>接下来&quot;进行怎样的操作&quot;的部分称为方法。方法表示需要让Web服务器完成怎样的工作</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261427581.png"
+                      alt=""
+                ></p>
+<p>POST DELETE PUT GET刚好对应增删改查。而这，实际上就是RESTful的实现方式。在同一个URL上，通过请求方法的不同，实现不同的功能</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>传统方式</th>
+<th>REST风格</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查询操作</td>
+<td>getUserById?id=1</td>
+<td>user/1–&gt;get请求方式</td>
+</tr>
+<tr>
+<td>保存操作</td>
+<td>saveUser</td>
+<td>user–&gt;post请求方式</td>
+</tr>
+<tr>
+<td>删除操作</td>
+<td>deleteUser?id=1</td>
+<td>user/1–&gt;delete请求方式</td>
+</tr>
+<tr>
+<td>更新操作</td>
+<td>updateUser</td>
+<td>user–&gt;put请求方式</td>
+</tr>
+</tbody>
+</table>
+<p>GET和POST方法属于HTTP的典型用法，除此之外的其他方法在互联网上几乎见不到使用的例子。</p>
+<p>OPTIONS类型的请求在跨域的时候查询是否有权限的时候会用到。</p>
+<hr>
+<p>除了图1.4中的内容之外，HTTP消息中还有一些用来表示附加信息的头字段。客户端向Web服务器发送数据时，会先发送头字段，然后再发送数据。不过，头字段属于可有可无的附加信息。</p>
+<p>收到请求消息之后，Web服务器会对其中的内容进行解析，通过URI和方法来判断&quot;对什么&quot;“进行怎样的操作”，如果是访问文件就直接返回文件，如果是访问应用程序就调用URI指定的应用程序，并将相关数据发送给它（<strong>Web服务器跟web应用是两个概念，Web服务器是一个容器</strong>），完成工作后，将结果存放在响应消息中。在响应消息的开头有一个状态码，它用来表示操作的执行结果是成功还是发生了错误（比如404）。</p>
+<h3 id="生成-HTTP-请求消息-2">生成 HTTP 请求消息</h3>
+<p>HTTP消息在格式上是有严格规定的，因此浏览器会按照规定的格式来生成请求消息</p>
+<p>HTTP消息的格式：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261345643.png"
+                      alt=""
+                ></p>
+<p>消息头项目信息：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261428592.png"
+                      alt=""
+                ></p>
+<p>Allow消息头让我想起，CROS跨域请求的preflight请求的响应头中会有<code>Access-Control-Allow-Methods</code>表示接受的跨域请求的方法，<code>Access-Control-Allow-Origin</code>表示接受的跨域请求的来源URL。具体请查看看<code>MyLearnning\Java\Java EE\front-end\JavaScript</code>的《CROS跨域详解》</p>
+<p><mark>Cookie信息是放在消息头中的，请求消息头中存放的是Cookie项目，响应消息头中存放的是Set-Cookie（告知浏览器，添加或者修改某一个Cookie项目的值）</mark></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261429983.png"
+                      alt=""
+                ></p>
+<p>请求的具体数据在GET方法和POST方法中存储的位置不一样。使用GET方法请求的时候，参数会放到URI中。而使用PSOT提交的时候，数据（一般是表单数据）会放到消息体中。</p>
+<p>在使用GET方法的情况下，仅凭方法和URI，Web服务器就能够判断需要进行怎样的操作，因此消息体中不需要填写任何数据</p>
+<h3 id="发送请求后会收到响应">发送请求后会收到响应</h3>
+<p>响应消息的格式以及基本思路和请求消息是相同的，差别只在第一行上。</p>
+<p><strong>状态码和响应短语表示的内容一致</strong>，但它们的用途不同。状态码是一个数字，它主要用来向程序告知执行的结果（表1.3）；相对地，响应短语则是一段文字，用来向人们告知执行的结果。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261348617.png"
+                      alt=""
+                ></p>
+<p>如果服务器返回图片，那么消息体中的内容将是二进制的</p>
+<h2 id="向-DNS-服务器查询-Web-服务器的-IP-地址">向 DNS 服务器查询 Web 服务器的 IP 地址</h2>
+<h3 id="IP-地址的基本知识（熟记）">IP 地址的基本知识（熟记）</h3>
+<p>学习此小节之前，建议看看<a href="https://xiashuo.xyz/2022/07/31/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91%E7%BD%91%E7%BB%9C%E7%9A%84%E8%BF%9B%E5%8C%96/">网络的进化</a>。</p>
+<p><mark><strong>尽管浏览器能够解析网址并生成HTTP消息，但它本身并不具备将消息发送到网络中的功能，因此这一功能需要委托操作系统来实现</strong>。</mark></p>
+<p>发送消息的功能对于所有的应用程序来说都是通用的，因此让操作系统来实现这一功能，其他应用程序委托操作系统来进行操作，这是一个比较合理的做法。</p>
+<p>TCP/IP的基本思路：<mark><strong>子网可以理解为用集线器连接起来的几台计算机，我们将它看作一个单位，称为子网。将子网通过路由器连接起来，就形成了一个网络</strong></mark>。在网络中，所有的设备都会被分配一个地址。这个地址就相当于现实中某条路上的&quot;××号××室&quot;。其中&quot;号&quot;对应的号码是分配给整个子网的，而&quot;室&quot;对应的号码是分配给子网中的计算机的，这就是网络中的地址。<mark>&quot;号&quot;对应的号码称为网络号，&quot;室&quot;对应的号码称为主机号，这个地址的整体称为IP地址</mark>。发送者发出的消息首先经过子网中的集线器，转发到距离发送者最近的路由器上（图1.8①）。接下来，路由器会根据消息的目的地判断下一个路由器的位置，然后将消息发送到下一个路由器，即消息再次经过子网内的集线器被转发到下一个路由器（图1.8②）。前面的过程不断重复，最终消息就被传送到了目的地。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261429090.png"
+                      alt=""
+                ></p>
+<p>实际的IP地址：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261350112.png"
+                      alt=""
+                ></p>
+<p>实际的IP地址是一串32比特的数字，按照8比特（1字节）为一组分成4组，分别用十进制表示然后再用圆点隔开。这就是我们平常经常见到的IP地址格式，但仅凭这一串数字我们无法区分哪部分是网络号，哪部分是主机号，这两部分的具体结构是不固定的。在组建网络时，用户可以自行决定它们之间的分配关系，因此我们还需要子网掩码来表示IP地址的内部结构。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261430959.png"
+                      alt=""
+                ></p>
+<p>子网掩码的格式如图1.10②所示，是一串与IP地址长度相同的32比特数字，其左边一半都是1，右边一半都是0。其中，<mark>子网掩码为1的部分表示网络号，子网掩码为0的部分表示主机号</mark>。主机号部分的比特全部为0或者全部为1时代表两种特殊的含义。<strong>主机号部分全部为0代表整个子网而不是子网中的某台设备（图1.9（d））。此外，主机号部分全部为1代表向子网上所有设备发送包，即广播（图1.9（e））</strong>，这两个主机号本来是可以作为一台主机的ip使用的，但是我们现在特化这两个地址用于别的用途。</p>
+<hr>
+<p>之所以将主机号全部为1定位向子网广播，可能跟路由器的转发规则有关，这个得看第三章</p>
+<h3 id="域名和-IP-地址并用的理由">域名和 IP 地址并用的理由</h3>
+<p>为什么使用IP来确定网络通信对象，而不是通过域名？</p>
+<p>IP只有4个字节，域名则没有大小限制，会很长，降低查找效率，而且IP固定只有4个字节，注意，是固定的，查找起来非常简单快速，而域名则长度不定，查找效率不高。</p>
+<p>现在我们使用的方案是让人来使用名称，让路由器来使用IP地址。为了填补两者之间的障碍，需要有一个机制能够通过名称来查询IP地址，或者通过IP地址来查询名称，这样就能够在人和机器双方都不做出牺牲的前提下完美地解决问题。这个机制就是DNS。</p>
+<p>DNS：Domain Name System，域名服务系统。<strong>将服务器名称和IP地址进行关联是DNS最常见的用法，但DNS的功能并不仅限于此</strong>，它还可以将邮件地址和邮件服务器进行关联，以及为各种信息关联相应的名称。</p>
+<h3 id="Socket-库提供查询-IP-地址的功能">Socket 库提供查询 IP 地址的功能</h3>
+<p>向DNS服务器发出查询，也就是向DNS服务器发送查询消息，并接收服务器返回的响应消息。换句话说，对于DNS服务器，我们的计算机上一定有相应的DNS客户端，而<mark>相当于DNS客户端的部分称为DNS解析器</mark>，或者简称解析器。<mark>通过DNS查询IP地址的操作称为域名解析</mark>，因此负责执行解析（resolution）这一操作的就叫解析器（resolver）了。</p>
+<p>解析器实际上是一段程序，它包含在操作系统的Socket库中，<mark>Socket库是用于调用网络功能的程序组件集合</mark>，其中包含的程序组件可以让其他的应用程序调用操作系统的网络功能。</p>
+<h3 id="通过解析器向-DNS-服务器发出查询">通过解析器向 DNS 服务器发出查询</h3>
+<p>在编写浏览器等应用程序的时候，只要像图1.11这样写上<strong>解析器的程序名称gethostbyname</strong>以及Web服务器的域名<code>www.lab.glasscom.com</code>就可以了，这样就完成了对解析器的调用。<strong>(我们假设gethostbyname这个程序实现了解析器的全部功能，实际上，实现解析器的功能需要多个程序相互配合，可能还会从gethostbyname程序中调用其他的程序。)</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261430534.png"
+                      alt=""
+                ></p>
+<h3 id="解析器的内部原理">解析器的内部原理</h3>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261430934.png"
+                      alt=""
+                ></p>
+<p>当控制流程转移到解析器后，解析器会生成要发送给DNS服务器的查询消息。<strong>这个过程与浏览器生成要发送给Web服务器的HTTP请求消息的过程类似</strong>，我们当然也需要知道DNS服务器的IP地址。只不过这个IP地址是作为TCP/IP的一个设置项目事先设置好的，不需要再去查询了，<mark>这就是我们在设置网络适配器的时候，设置网络适配器属性，在其中配置的DNS服务器的地址的作用</mark>。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207311605749.png"
+                      title="" alt="" width="330"
+                >
+<p>然后解析器会根据DNS的规格，生成一条表示&quot;请告诉我<code>www.lab.glasscom.com</code>的IP地址&quot;的数据，（采用<strong>UDP</strong>协议），并将它发送给DNS服务器（图1.12③）。<mark>发送消息这个操作并不是由解析器自身来执行，而是要委托给操作系统内部的协议栈来执行（协议栈：操作系统内部的网络控制软件，也叫&quot;协议驱动&quot;&quot;TCP/IP驱动&quot;等）</mark>。这是因为和浏览器一样，解析器本身也不具备使用网络收发数据的功能。解析器调用协议栈后，控制流程会再次转移，协议栈会执行发送消息的操作，然后<mark>通过网卡将消息发送给DNS服务器（图1.12④⑤）</mark>。</p>
+<hr>
+<p>计算机的内部结构就是这样一层一层的。也就是说，很多程序组成不同的层次，彼此之间分工协作。当接到上层委派的操作时，本层的程序并不会完成所有的工作，而是会完成一部分工作，再将剩下的部分委派到下层来完成。（类似于Java中的栈内存）</p>
+<h2 id="全世界-DNS-服务器的大接力">全世界 DNS 服务器的大接力</h2>
+<h3 id="DNS-服务器的基本工作">DNS 服务器的基本工作</h3>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261431209.png"
+                      alt=""
+                ></p>
+<p>web服务器的域名有很多都是像<code>www.lab.glasscom.com</code>这样以<code>www</code>开头的，但这并不是一定之规，只是因为最早设计Web的时候，很多Web服务器都采用了www这样的命名，后来就形成了一个惯例而已。</p>
+<p><strong>DNS 服务器会从域名与 IP 地址的对照表中查找相应的记录，并返回 IP 地址</strong>。</p>
+<h3 id="域名的层次结构">域名的层次结构</h3>
+<p>首先，<strong>DNS服务器中的所有信息都是按照域名以分层次的结构来保存的。DNS中的域名都是用句点来分隔的</strong>，比如<code>www.lab.glasscom.com</code>，这里的句点代表了不同层次之间的界限，就相当于公司里面的组织结构不用部、科之类的名称来划分，只是用句点来分隔而已。<strong>在域名中，越靠右的位置表示其层级越高</strong>，比如<code>www.lab.glasscom.com</code>这个域名如果按照公司里的组织结构来说，大概就是&quot;com事业集团glasscom部lab科的www&quot;这样。其中，<strong>一个层级称为一个域</strong>。因此，com域的下一层是glasscom域，再下一层是lab域，再下面才是www这个名字。</p>
+<p>每个域都是作为一个整体来处理的。换句话说就是，<strong>一个域的信息是作为一个整体存放在DNS服务器中的</strong>，不能将一个域拆开来存放在多台DNS服务器中。<strong>但是一台DNS服务器中也可以存放多个域的信息</strong>。</p>
+<p>这里再补充一点。对于公司域来说，例如现在需要为每一个事业集团配备一台DNS服务器，分别管理各事业集团自己的信息，但我们之前也说过一个域是不可分割的，这该怎么办呢？没关系，我们可以在域的下面创建下级域，又称为子域，然后再将它们分别分配给各个事业集团（应该这么理解<code>lab.glasscom.com</code>和<code>business.glasscom.com</code>是两个域，而且他们都是<code>glasscom.com</code>的子域，同时，<code>lab.glasscom.com</code>和<code>business.glasscom.com</code>的域名信息都必须作为一个整体存放在一个DNS服务器上，意思是<code>lab.glasscom.com</code>的信息<mark>只能存在于一台DNS服务器上，不能两台DNS域名服务器都存着<code>lab.glasscom.com</code>的信息都可以解析<code>lab.glasscom.com</code></mark>，<code>lab.glasscom.com</code>也是一样，当然，这两个域也可以存在于同一个DNS服务器上。一个域名只能存在于一台DNS服务器上的原因是方便查找，在进行子域名查找的时候可以确定只用去一台唯一的子域名服务器查找即可，一个域名可以存在于多台DNS服务器上的话，这个时候就得去多台DNS服务器上查询了，查询时间会指数级增加）</p>
+<p>互联网中的域也是一样，通过创建下级的域来分配给不同的国家、公司和组织使用。通过实际的域名可能更容易理解，比如<code>www.nikkeibp.co.jp</code>这个域名，最上层的jp代表分配给日本这个国家的域；下一层的co是日本国内进行分类的域，代表公司；再下层的nikkeibp就是分配给某个公司的域；最下层的www就是服务器的名称。</p>
+<h3 id="寻找相应的-DNS-服务器并获取-IP-地址">寻找相应的 DNS 服务器并获取 IP 地址</h3>
+<p>关键在于如何找到我们要访问的Web服务器的信息归哪一台DNS服务器管。</p>
+<p>互联网中有数万台DNS服务器，肯定不能一台一台挨个去找。我们可以采用下面的办法。<mark><strong>首先，将负责管理下级域的DNS服务器的IP地址注册到它们的上级DNS服务器中，然后上级DNS服务器的IP地址再注册到更上一级的DNS服务器中，以此类推</strong></mark>。也就是说，负责管理<code>lab.glasscom.com</code>这个域的DNS服务器的IP地址需要注册到<code>glasscom.com</code>域的DNS服务器中，而<code>glasscom.com</code>域的DNS服务器的IP地址又需要注册到com域的DNS服务器中。这样，<mark><strong>我们就可以通过上级DNS服务器查询出下级DNS服务器的IP地址，也就可以向下级DNS服务器发送查询请求了</strong></mark>。</p>
+<p>在互联网中，com和jp的上面还有一级域，称为根域。根域不像com、jp那样有自己的名字，因此在一般书写域名时经常被省略，如果要明确表示根域，应该像<code>www.lab.glasscom.com</code>.这样在域名的最后再加上一个句点，而这个最后的句点就代表根域。<mark><strong>根域的DNS服务器中保管着com、jp等的DNS服务器的信息</strong></mark>。由于上级DNS服务器保管着所有下级DNS服务器的信息，所以我们可以从根域开始一路往下顺藤摸瓜找到任意一个域的DNS服务器。</p>
+<p>除此之外还需要完成另一项工作，那就是将根域的DNS服务器信息保存在互联网中所有的DNS服务器中。这样一来，任何DNS服务器就都可以找到并访问根域DNS服务器了。<strong>分配给根域DNS服务器的IP地址在全世界仅有13个，而且这些地址几乎不发生变化，因此将这些地址保存在所有的DNS服务器中也并不是一件难事</strong>。实际上，根域DNS服务器的相关信息已经包含在DNS服务器程序的配置文件中了，因此只要安装了DNS服务器程序，这些信息也就被自动配置好了。</p>
+<p>到这里所有的准备工作就都完成了。下面就来看一看域名解析是如何进行的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261431279.png"
+                      alt=""
+                ></p>
+<p>如图1.16所示，客户端首先会访问最近的一台DNS服务器（也就是客户端的TCP/IP设置中填写的DNS服务器地址），假设我们要查询<code>www.lab.glasscom.com</code>这台Web服务器的相关信息（图1.16①）。<strong>由于最近的DNS服务器中没有存放<code>www.lab.glasscom.com</code>这一域名对应的信息，所以我们<mark>需要从顶层开始向下查找</mark>。最近的DNS服务器中保存了根域DNS服务器的信息，因此它会将来自客户端的查询消息转发给根域DNS服务器（图1.16②）。根域服务器中也没有<code>www.lab.glasscom.com</code>这个域名，但根据域名结构可以判断这个域名属于com域，因此根域DNS服务器会返回它所管理的com域中的DNS服务器的IP地址，意思是&quot;虽然我不知道你要查的那个域名的地址，但你可以去com域问问看&quot;。接下来，最近的DNS服务器又会向com域的DNS服务器发送查询消息（图1.16③）。com域中也没有<code>www.lab.glasscom.com</code>这个域名的信息，和刚才一样，com域服务器会返回它下面的<code>glasscom.com</code>域的DNS服务器的IP地址。以此类推，只要重复前面的步骤，就可以顺藤摸瓜找到目标DNS服务器（图1.16⑤）</strong>，只要向目标DNS服务器发送查询消息，就能够得到我们需要的答案，也就是<code>www.lab.glasscom.com</code>的IP地址了。（费这么大劲，只为拿到域名对一个的IP地址）。</p>
+<hr>
+<p>dns自顶向下的解析过程也印证了为什么，com等域名是顶级域名。</p>
+<p>这一段真的说的好清楚！！！</p>
+<p>这个过程，在《Linux听课笔记》 13.8中也有记录。</p>
+<h3 id="通过缓存加快-DNS-服务器的响应">通过缓存加快 DNS 服务器的响应</h3>
+<p>DNS服务器有一个缓存功能，可以记住之前查询过的域名。如果要查询的域名和相关信息已经在缓存中，那么就可以直接返回响应，接下来的查询可以从缓存的位置开始向下进行。相比每次都从根域找起来说，缓存可以减少查询所需的时间。并且，当要查询的域名不存在时，&quot;不存在&quot;这一响应结果也会被缓存。这样，当下次查询这个不存在的域名时，也可以快速响应。</p>
+<p>这个缓存机制中有一点需要注意，那就是信息被缓存后，原本的注册信息可能会发生改变，这时缓存中的信息就有可能是不正确的。因此，<mark><strong>DNS服务器中保存的信息都设置有一个有效期，当缓存中的信息超过有效期后，数据就会从缓存中删除</strong></mark>。而且，在对查询进行响应时，<strong>DNS服务器也会告知客户端这一响应的结果是来自缓存中还是来自负责管理该域名的DNS服务器</strong>。</p>
+<h2 id="委托协议栈发送消息">委托协议栈发送消息</h2>
+<h3 id="数据收发操作概览">数据收发操作概览</h3>
+<p>向操作系统内部的协议栈发出委托时，需要按照指定的顺序来调用 Socket库中的程序组件。发送数据是一系列操作相结合来实现的。</p>
+<p>如果不能理解这个操作的全貌，就无法理解其中每个操作的意义。因此，我们先来介绍一下收发数据操作的整体思路。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261432019.png"
+                      alt=""
+                ></p>
+<p>我们可以把数据通道想象成一条管道，将数据从一端送入管道，数据就会到达管道的另一端然后被取出。</p>
+<p><mark>建立管道的关键在于管道两端的数据出入口，这些出入口称为套接字</mark>。我们需要先创建套接字，然后再将套接字连接起来形成管道。</p>
+<p>收发数据的操作分为若干个阶段，可以大致总结为以下4个。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>创建套接字（创建套接字阶段）</p>
+</li>
+<li class="lvl-2">
+<p>将管道连接到服务器端的套接字上（连接阶段）</p>
+</li>
+<li class="lvl-2">
+<p>收发数据（通信阶段）</p>
+</li>
+<li class="lvl-2">
+<p>断开管道并删除套接字（断开阶段）</p>
+</li>
+</ul>
+<p><mark>这4个操作都是由操作系统中的协议栈来执行的</mark>，浏览器等应用程序并不会自己去做连接管道、放入数据这些工作，而是通过调用Socket库中的程序组件来委托协议栈来代劳。<mark>本章将要介绍的只是这个&quot;委托&quot;的操作。关于协议栈收到委托之后具体是如何连接管道和放入数据的，我们将在第2章介绍。</mark></p>
+<h3 id="创建套接字阶段">创建套接字阶段</h3>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207261432354.png"
+                      alt=""
+                ></p>
+<p>这个图和代码流程非常像。</p>
+<p><strong>Create -&gt; connect -&gt; read/write -&gt; close （释放资源）</strong></p>
+<p>我们常见的web编程、文件读写都是分这几步。这么说起来，其实写入socket和写入文件，还真的没有什么区别。</p>
+<hr>
+<p>应用程序是通过&quot;描述符&quot;这一类似号码牌的东西来识别套接字的。</p>
+<h3 id="连接阶段：把管道接上去">连接阶段：把管道接上去</h3>
+<p>IP地址是为了区分网络中的各个计算机而分配的数值。因此，只要知道了IP地址，我们就可以识别出网络上的某台计算机。但是，<mark>连接操作的对象是某个具体的套接字，因此必须要识别到具体的套接字才行</mark>，而仅凭IP地址是无法做到这一点的。所以需要端口来确定套接字，当同时指定IP地址和端口号时，就可以明确识别出某台具体的计算机上的某个具体的套接字。</p>
+<p>如果说描述符（socket库中的socket方法的返回结果是Socket的Id）是用来在一台计算机内部识别套接字的机制，那么端口号就是用来让通信的另一方能够识别出套接字的机制</p>
+<p>那为什么有的网址只有一个域名，没有端口号呢？服务器上所使用的端口号是根据应用的种类事先规定好的。比如：Web是80号端口，电子邮件是25号端口</p>
+<p>端口号的规则是全球统一的，为了避免重复和冲突，端口号和IP地址一样都是由IANA（Internet Assigned Number Authority，互联网编号管理局）这一组织来统一管理的。</p>
+<hr>
+<p><strong>描述符：应用程序用来识别套接字的机制</strong></p>
+<p><strong><mark>IP 地址+端口号：客户端和服务器之间用来识别对方套接字的机制</mark>（这个角度很独特）</strong></p>
+<hr>
+<p>在操作系统内核中，通过源ip+源端口+目的ip+目的端口+协议，来唯一确定一个套接字</p>
+<h3 id="通信阶段：传递消息">通信阶段：传递消息</h3>
+<p>首先，<mark>应用程序需要在内存中准备好要发送的数据。根据用户输入的网址生成的HTTP请求消息就是我们要发送的数据</mark>。接下来，当调用write时，需要指定描述符和发送数据（图1.18③），然后协议栈就会将数据发送到服务器。由于套接字中已经保存了已连接的通信对象的相关信息，所以只要通过描述符指定套接字，就可以识别出通信对象，并向其发送数据。接着，发送数据会通过网络到达我们要访问的服务器</p>
+<p><mark>调用read时需要指定用于存放接收到的响应消息的内存地址，这一内存地址称为接收缓冲区</mark>。于是，当服务器返回响应消息时，read就会负责将接收到的响应消息存放到接收缓冲区中。由于接收缓冲区是一块位于应用程序内部的内存空间，因此当消息被存放到接收缓冲区中时，就相当于已经转交给了应用程序</p>
+<h3 id="断开阶段：收发数据结束">断开阶段：收发数据结束</h3>
+<p>断开的过程如下。Web使用的HTTP协议规定，当Web服务器发送完响应消息之后，应该主动执行断开操作A，因此Web服务器会首先调用close来断开连接。断开操作传达到客户端之后，客户端的套接字也会进入断开阶段。接下来，当浏览器调用read执行接收数据操作时，read会告知浏览器收发数据操作已结束，连接已经断开。浏览器得知后，也会调用close进入断开阶段。</p>
+<p>HTTP协议将HTML文档和图片都作为单独的对象来处理，每获取一次数据，就要执行一次连接、发送请求消息、接收响应消息、断开的过程。这个效率很低，因此后来人们又设计出了能够在一次连接中收发多个请求和响应的方法。在HTTP版本1.1中就可以使用这种方法，在这种情况下，当所有数据都请求完成后，浏览器会主动触发断开连接的操作。</p>
+<hr>
+<h4 id="拓展">拓展</h4>
+<p>建立通道主要是TCP协议实现的功能，耗时也是因为三次握手四次挥手耗时，而不是HTTP协议耗时，HTTP协议只是按照格式生成了把发送的信息，并交给TCP协议层，让TCP协议层以TCP协议发送这个数据而已，那是不是一个HTTP信息就新建一个TCP连接，肯定不是的，一个TCP连接在创建后会用于多个HTTP请求的发送，在HTTP1.1中消息头中有一个属性Connection，并且默认开启持久连接，除非请求中写明<code>Connection: close</code>，那么浏览器和服务器之间是会维持一段时间的 TCP 连接，不会一个请求结束就断掉。回看<code>本章：生成 HTTP 请求消息</code>这一小节的图。</p>
+<p>那一个 TCP 连接中 HTTP请求发送可以同时发送么（比如一起发三个请求，再三个响应一起接收）？不行。</p>
+<p><strong>HTTP/1.1 存在一个问题，单个 TCP 连接在同一时刻只能处理一个请求，意思是说：两个请求的生命周期不能重叠，任意两个 HTTP 请求从开始到结束的时间在同一个 TCP 连接里不能重叠</strong>。虽然 HTTP/1.1规范中规定了 Pipelining来试图解决这个问题，但是这个功能在浏览器中默认是关闭的。因为Pipelining规定，一个支持持久连接（指的是TCP重用）的客户端可以在一个连接中发送多个请求（不需要等待任意请求的响应）。<strong>收到请求的服务器必须按照请求收到的顺序发送响应</strong>。为什么这么规定呢？由于HTTP/1.1是个文本协议，同时返回的内容也并不能区分对应于哪个发送的请求，所以顺序必须维持一致。比如你向服务器发送了两个请求<code>GET/query?q=A</code>和<code>GET/query?q=B</code>，服务器返回了两个结果，浏览器是没有办法根据响应结果来判断响应对应于哪一个请求的。必须保证按照请求顺序返回响应也就导致了一个问题，在建立起一个TCP连接之后，假设客户端在这个连接连续向服务器发送了几个请求。按照标准，服务器应该按照收到请求的顺序返回结果，假设服务器在处理首个请求时花费了大量时间，那么后面所有的请求都需要等着首个请求结束才能响应。那还不如直接顺序发起请求算了，所以Pipelining实际用处不大，所以现代浏览器默认是不开启HTTP Pipelining 的。</p>
+<p>但是，HTTP2 提供了 Multiplexing 多路传输特性，可以在一个 TCP 连接中同时完成多个 HTTP 请求。至于 Multiplexing 具体怎么实现的就是另一个问题了。具体可以先看看《HTTP2.0入门》，以后有机会学习一下HTTP2.0，TODO。</p>
+<hr>
+<p>TCP协议在连接和断开的时候会有三次握手、四次挥手的细节，这一小节没讲。</p>
+<p><strong>（猜测）TCP的连接的复用很简单，第二个请求开始的时候，其序号只需要在第一个请求结束的时候服务器返回的ACK号上继续运算即可</strong>。</p>
+<hr>
+<p>此外，http协议是无状态短链接，在服务端为了识别多个用户是否来自于同一个用户，即记录状态，开发了Session技术</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：《网络是怎样连接的》-第一章：浏览器生成消息——探索浏览器内部</li>
+        <li>本文作者：小虾米</li>
+        <li>创建时间：2022-07-26 14:26:20</li>
+        <li>
+            本文链接：https://xiashuo.xyz/2022/07/26/《网络是怎样连接的》-第一章：浏览器生成消息——探索浏览器内部/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/07/29/%E3%80%8A%E7%BD%91%E7%BB%9C%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%9E%E6%8E%A5%E7%9A%84%E3%80%8B-%E7%AC%AC%E4%BA%8C%E7%AB%A0%EF%BC%9A%E7%94%A8%E7%94%B5%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93%20TCP%E5%92%8CIP%20%E6%95%B0%E6%8D%AE%E2%80%94%E2%80%94%E6%8E%A2%E7%B4%A2%E5%8D%8F%E8%AE%AE%E6%A0%88%E5%92%8C%E7%BD%91%E5%8D%A1/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">《网络是怎样连接的》-第二章：用电信号传输 TCP和IP 数据——探索协议栈和网卡</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/07/20/%E3%80%8A%E7%BD%91%E7%BB%9C%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%9E%E6%8E%A5%E7%9A%84%E3%80%8B-README/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">《网络是怎样连接的》-README</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '3f329557fe1b20fa9c21',
+                    clientSecret: 'a126bc3b9d208261a6ff0c7d32c84395bd4615b5',
+                    repo: 'gittalk-use-repo',
+                    owner: 'liangkang1436',
+                    admin: ['liangkang1436'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小虾米</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">鄂ICP备2022011270号-1</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">浏览器生成消息——探索浏览器内部</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90-HTTP-%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF"><span class="nav-number">1.1.</span> <span class="nav-text">生成 HTTP 请求消息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2%E4%B9%8B%E6%97%85%E4%BB%8E%E8%BE%93%E5%85%A5%E7%BD%91%E5%9D%80%E5%BC%80%E5%A7%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">探索之旅从输入网址开始</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%85%88%E8%A6%81%E8%A7%A3%E6%9E%90-URL"><span class="nav-number">1.1.2.</span> <span class="nav-text">浏览器先要解析 URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%81%E7%95%A5%E6%96%87%E4%BB%B6%E5%90%8D%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">1.1.3.</span> <span class="nav-text">省略文件名的情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="nav-number">1.1.4.</span> <span class="nav-text">HTTP 的基本思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90-HTTP-%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF-2"><span class="nav-number">1.1.5.</span> <span class="nav-text">生成 HTTP 请求消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82%E5%90%8E%E4%BC%9A%E6%94%B6%E5%88%B0%E5%93%8D%E5%BA%94"><span class="nav-number">1.1.6.</span> <span class="nav-text">发送请求后会收到响应</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91-DNS-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9F%A5%E8%AF%A2-Web-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84-IP-%E5%9C%B0%E5%9D%80"><span class="nav-number">1.2.</span> <span class="nav-text">向 DNS 服务器查询 Web 服务器的 IP 地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IP-%E5%9C%B0%E5%9D%80%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%EF%BC%88%E7%86%9F%E8%AE%B0%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">IP 地址的基本知识（熟记）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E5%92%8C-IP-%E5%9C%B0%E5%9D%80%E5%B9%B6%E7%94%A8%E7%9A%84%E7%90%86%E7%94%B1"><span class="nav-number">1.2.2.</span> <span class="nav-text">域名和 IP 地址并用的理由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Socket-%E5%BA%93%E6%8F%90%E4%BE%9B%E6%9F%A5%E8%AF%A2-IP-%E5%9C%B0%E5%9D%80%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.3.</span> <span class="nav-text">Socket 库提供查询 IP 地址的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E8%A7%A3%E6%9E%90%E5%99%A8%E5%90%91-DNS-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E5%87%BA%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.2.4.</span> <span class="nav-text">通过解析器向 DNS 服务器发出查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E5%99%A8%E7%9A%84%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.5.</span> <span class="nav-text">解析器的内部原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E4%B8%96%E7%95%8C-DNS-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%A4%A7%E6%8E%A5%E5%8A%9B"><span class="nav-number">1.3.</span> <span class="nav-text">全世界 DNS 服务器的大接力</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.3.1.</span> <span class="nav-text">DNS 服务器的基本工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%90%8D%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-number">1.3.2.</span> <span class="nav-text">域名的层次结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BB%E6%89%BE%E7%9B%B8%E5%BA%94%E7%9A%84-DNS-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B9%B6%E8%8E%B7%E5%8F%96-IP-%E5%9C%B0%E5%9D%80"><span class="nav-number">1.3.3.</span> <span class="nav-text">寻找相应的 DNS 服务器并获取 IP 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%BC%93%E5%AD%98%E5%8A%A0%E5%BF%AB-DNS-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%93%8D%E5%BA%94"><span class="nav-number">1.3.4.</span> <span class="nav-text">通过缓存加快 DNS 服务器的响应</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A7%94%E6%89%98%E5%8D%8F%E8%AE%AE%E6%A0%88%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="nav-number">1.4.</span> <span class="nav-text">委托协议栈发送消息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%94%B6%E5%8F%91%E6%93%8D%E4%BD%9C%E6%A6%82%E8%A7%88"><span class="nav-number">1.4.1.</span> <span class="nav-text">数据收发操作概览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%A5%97%E6%8E%A5%E5%AD%97%E9%98%B6%E6%AE%B5"><span class="nav-number">1.4.2.</span> <span class="nav-text">创建套接字阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%8A%8A%E7%AE%A1%E9%81%93%E6%8E%A5%E4%B8%8A%E5%8E%BB"><span class="nav-number">1.4.3.</span> <span class="nav-text">连接阶段：把管道接上去</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E4%BF%A1%E9%98%B6%E6%AE%B5%EF%BC%9A%E4%BC%A0%E9%80%92%E6%B6%88%E6%81%AF"><span class="nav-number">1.4.4.</span> <span class="nav-text">通信阶段：传递消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%AD%E5%BC%80%E9%98%B6%E6%AE%B5%EF%BC%9A%E6%94%B6%E5%8F%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9D%9F"><span class="nav-number">1.4.5.</span> <span class="nav-text">断开阶段：收发数据结束</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%93%E5%B1%95"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">拓展</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="小虾米">
+    
+    <title>
+        
+            Hexo+Keep+Github_Action+Aliyun搭建静态博客 |
+        
+        虾说
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"xiashuo.xyz","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207102315524.png","favicon":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"1920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207111056425.svg","description":"求知是一种快乐，表达是一种本能"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                虾说
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Hexo+Keep+Github_Action+Aliyun搭建静态博客</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207102315524.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">小虾米</span>
+                        
+                            <span class="author-label">半吊子CRUD工程师</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-07-13 14:31:00</span>
+        <span class="mobile">2022-07-13 14:31</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/hexo/">hexo</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/hexo/%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">搭建教程</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="本地通过Hexo搭建博客">本地通过Hexo搭建博客</h2>
+<p>可参考<a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/" >hexo官方配置手册<i class="fas fa-external-link-alt"></i></a>，同时Easyhexo团队对此进行了部分翻译并简化了配置过程，编写了<a class="link"   target="_blank" rel="noopener" href="https://easyhexo.com/" >自己的文档<i class="fas fa-external-link-alt"></i></a>，</p>
+<blockquote>
+<p>hexo官方配置手册：<a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/" >https://hexo.io/docs/<i class="fas fa-external-link-alt"></i></a></p>
+<p>easyhexo教程，实际上就是官方配置手册的中文翻译版：<a class="link"   target="_blank" rel="noopener" href="https://easyhexo.com/" >https://easyhexo.com/<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<p>参考Easyhexo团队的文档，看完前三章，基本上可以在本地部署一个hexo博客。</p>
+<h3 id="基本使用">基本使用</h3>
+<h4 id="启动">启动</h4>
+<p>在博客目录（后文统一使用Hexo主目录表示此目录），先运行 hexo clean，再运行 hexo generate，最后运行 hexo server，启动hexo，或者使用 &amp; 将这三个命令连起来</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp; hexo generate &amp; hexo server</span><br></pre></td></tr></table></figure>
+<h4 id="添加文章">添加文章</h4>
+<p>有两种方式：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>通过hexo命令，在Hexo主目录运行</p>
+<pre><code>hexo new [layout] &lt;title&gt;
+</code></pre>
+</li>
+<li class="lvl-2">
+<p>直接在Hexo主目录/source/_post/下添加markdown格式的文章，<mark>注意，markdown文本的头部，需要手动添加文章相关的信息</mark>，类似于元数据，格式如下，这些元数据在[Hexo官方文档中有专门的介绍](<a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/front-matter" >Front-matter | Hexo<i class="fas fa-external-link-alt"></i></a>)</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 测试markdown格式-1</span><br><span class="line">date: 2022-7-10 08:12:20</span><br><span class="line">tags: </span><br><span class="line"><span class="bullet">-</span> 正在测试</span><br><span class="line">categories: </span><br><span class="line"><span class="bullet">-</span> [java,spring,ioc]</span><br><span class="line"><span class="bullet">-</span> [python,aaa,bbb]</span><br><span class="line"><span class="bullet">-</span> javascript</span><br><span class="line">comments: true</span><br><span class="line"><span class="section">sticky: 999</span></span><br><span class="line"><span class="section">---</span></span><br><span class="line"><span class="section">## 文章标题</span></span><br></pre></td></tr></table></figure>
+<p>其中各属性的意思：</p>
+<ul class="lvl-2">
+<li class="lvl-4">
+<p>title 文章标题，在博客页面上展示文章的时候，会把title属性的内容当成文章标题，而不是md文档实际的名称</p>
+</li>
+<li class="lvl-4">
+<p>date 文章发布时间</p>
+</li>
+<li class="lvl-4">
+<p>tags 文章标签</p>
+</li>
+<li class="lvl-4">
+<p>categories 文章目录，这个很关键，以上面的内容为例，<code>[java,spring,ioc]</code>表示属于java目录下的spring目录下的ioc，如果当然，在<code>[]</code>中，你也可以只写一个目录名。同时，一篇文章还可以属于多个（多级）目录，[参考Hexo官方文档](<a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/front-matter#Categories-amp-Tags" >Front-matter | Hexo<i class="fas fa-external-link-alt"></i></a>)。</p>
+</li>
+<li class="lvl-4">
+<p>comments 是否开启评论功能，这个需要进一步的Hexok插件支持</p>
+</li>
+<li class="lvl-4">
+<p>sticky 是否需要将此文章置顶，不需要置顶的文章可以不写这个属性，Hexo将文章按照sticky的值倒叙排列确定文章置顶的时候顺序，即值越大，越排在前面</p>
+</li>
+</ul>
+<p><mark>尤其要注意这部分信息的格式为yaml格式，对缩进非常敏感</mark>，如果缩进出错，文章将无法通过渲染，最终导致无法发布到博客中。</p>
+<p>添加或者修改文章之后，一般直接就可以在博客中看到，但是最好还是重新启动一下。</p>
+</li>
+</ul>
+<h3 id="图床">图床</h3>
+<p>为什么要使用图床？</p>
+<p>我们在写markdown文档的时候，经常需要粘贴图片，在部署静态博客的时候，这些图片的存储是一个大问题，因为你在编辑文章的时候，图片是存储在本地的一个文件夹里，一般都是文档所在目录下的asserts文件夹，手动发布文章的时候，不仅得把文章复制到Hexo主目录/source/_post/下，图片还得复制到Hexo博客的静态资源文件夹中（我还没研究放到那哪里），不然在渲染markdown的时候，会无法加载图片，此外，而且图片非常占空间，在远程部署的时候，传输图片都会占用很多时间，于是，图床应运而生，图床的意思就是将图片全部放到一个集中的图片仓库中，通过url来使用里面的图片。这样，所有的问题都解决了，唯一的问题就是你的网络可能会断。</p>
+<p>推荐通过PicGo+github图床创建个人图床，<a href="%5BPicGo%5D(https://picgo.github.io/PicGo-Doc/)">Picgo官方文档</a>非常好用，照着来即可，说两点文档里没提到的。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>推荐使用picgo插件：picgo-plugin-compress，这个插件会在上传图片前对图片进行压缩，提升上传速度，降低存储压力</p>
+<img  title="" 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207130811755.png"
+                      alt="" width="466"
+                >
+</li>
+<li class="lvl-2">
+<p>配置jsdelivr的CDN加速，免费，好用，设置方式是将 <a class="link"   target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main" >https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main<i class="fas fa-external-link-alt"></i></a> 把这个贴在picgo的GitHub图床配置中的自定义域名即可</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207130812930.png"
+                      title="" alt="" width="570"
+                >
+<p>这个域名的格式为<code>https://cdn.jsdelivr.net/gh/GitHub用户名/图床所在仓库名@图床所在分支名</code></p>
+</li>
+</ul>
+<p>有一点遗憾的就是，Marktext无法跟通过exe安装的picgo互通，只能额外安装和配置 <a class="link"   target="_blank" rel="noopener" href="https://picgo.github.io/PicGo-Core-Doc/zh/guide/getting-started.html#%E4%B8%B4%E6%97%B6%E5%B0%9D%E9%B2%9C" >PicGo-Core<i class="fas fa-external-link-alt"></i></a>，但是无法使用图片压缩。而且上传不稳定，算了，还是用exe安装的picgo吧，上传之后，然后再把图片链接复制过来即可。</p>
+<h3 id="安装主题">安装主题</h3>
+<p>本文只要介绍如何安装 <strong>hexo-theme-keep</strong> 主题，根据<a class="link"   target="_blank" rel="noopener" href="https://keep-docs.xpoet.cn/" >官方文档<i class="fas fa-external-link-alt"></i></a>，可快速学习如何安装，其中[配置文档](<a class="link"   target="_blank" rel="noopener" href="https://keep-docs.xpoet.cn/usage-tutorial/configuration-guide.html" >配置指南 | hexo-theme-keep<i class="fas fa-external-link-alt"></i></a>)非常完备，基本上覆盖了主题配置文件<code>_config.yml</code>中的所有属性，上手非常简单。有几个注意的点，这里总结一下</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>base_info部分还未更新首页头像的说明</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207130750931.png"
+                      title="" alt="" width="583"
+                >
+<p>实际对应的位置：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207130751607.png"
+                      title="" alt="" width="1153"
+                >
+</li>
+<li class="lvl-2">
+<p>如果将来需要将Hexo博客源码提交到Github，并使用Github Action自动部署到Github Pages或者自己的博客，那么<mark>配置文件中的所有的图片地址，都需要使用图床连接</mark>，不然会提示无法找到文件，原因是<code>/images/xxx.svg</code>路径在使用<code>theme-keep/hexo-deploy-github-pages-action@master</code>来编译的时候，不会添加输出结果目录即public目录中，更深层次的原因是，在将Hexokinase项目源码提交到GitHub的时候，主题文件所在的<code>node_modules/</code>文件夹压根儿就不会被提交，参考Hexo主目录下的<code>.gitignore</code>文件。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207130757447.png"
+                      title="" alt="" width="138"
+                >
+<p>这个问题在后续的博客主题自定义样式中也会存在。</p>
+</li>
+</ul>
+<p>然后就是文档的进阶部分，也有需要注意的地方：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>平滑升级，如果你将Hexo博客源码提交到Github，并使用Github Action自动部署到Github Pages或者自己的博客，那么你必须使用平滑升级，否则部署到GitHub Pages或者自己服务器上的静态页面是没有主题生效的，即必须<mark>将主题目录下的 _config.yml 文件复制到博客根目录下的 /source/_data/ 中，并重命名为 keep.yml</mark>。如果 source 目录下没有 _data 文件夹请自行创建，然后，<mark>对<strong>hexo-theme-keep</strong>主题的任何更改，都只能通过修改keep.yml文件实现</mark>。而且主题更新后，如果主题目录下的 _config.yml 文件里出现了新的配置项，那么你必须从该文件中将它们复制到 /source/_data/keep.yml 中，并设置它们的值为你想要的选项。同时<mark>主题配置文件 _config.yml 的 version 的值必须跟版本号保持一致</mark>！!<br>
+例如：我将主题升级到 3.4.2 版本，那么主题配置文件 _config.yml 的 version 的值必须是 3.4.2 。如果你用了平滑升级，/source/_data/keep.yml 中的版本号需要你手动更改。</p>
+<p>原因前面已经说过了。</p>
+</li>
+<li class="lvl-2">
+<p>自动部署，作者自己也写了[博客](<a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/6943895271751286821" >如何使用 GitHub Actions 自动部署 Hexo 博客 - 掘金<i class="fas fa-external-link-alt"></i></a>)，非常详细，参考即可。</p>
+</li>
+</ul>
+<h2 id="使用-GitHub-Actions-自动部署-Hexo-博客">使用 GitHub Actions 自动部署 Hexo 博客</h2>
+<h3 id="部署到Github-Pages">部署到Github Pages</h3>
+<p>参考 <strong>hexo-theme-keep</strong> 主题作者编写的[博客](<a class="link"   target="_blank" rel="noopener" href="https://juejin.cn/post/6943895271751286821" >如何使用 GitHub Actions 自动部署 Hexo 博客 - 掘金<i class="fas fa-external-link-alt"></i></a>)，非常详尽，浅显易懂，这里只说注意点。</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>在编写<code>.github\workflows</code>下的部署文件的时候，需要监听某一个分支的push事件，那么当前部署文件必须在你监听的分支上存在，比如：</p>
+<img  title="" 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207131427839.png"
+                      alt="" width="684"
+                >
+<p>即，你监听master分支的push事件，那么这个deploy-blog.yml文件就必须在master分支上，否则这个deploy-blog.yml无法生效</p>
+</li>
+</ul>
+<h3 id="部署到服务器上">部署到服务器上</h3>
+<p>这里以阿里云为例，其他的服务器比如腾讯云华为云都是差不多的，首先需要读者把服务器准备好，准备内容包括：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>开端口，http端口为80，https默认端口为443，</p>
+</li>
+<li class="lvl-2">
+<p>https还需要准备ssl证书，一般各大云服务提供商会提供免费的证书，比如阿里云就提供20个证书，缺点就是有效期仅为1年，1年之后可重新申请</p>
+</li>
+</ul>
+<p>开始部署，参考博客：<a class="link"   target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1720500" >使用GithubActions自动部署应用到自己的服务器（ECS） - 腾讯云开发者社区-腾讯云<i class="fas fa-external-link-alt"></i></a>，重点参考最后一个步骤</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deploy</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">aliyun</span></span><br><span class="line">  <span class="attr">uses:</span> <span class="string">easingthemes/ssh-deploy@main</span></span><br><span class="line">  <span class="attr">env:</span></span><br><span class="line">    <span class="attr">SSH_PRIVATE_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.BLOG_SERVER_ACCESS_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">ARGS:</span> <span class="string">&quot;-avzr  --delete&quot;</span></span><br><span class="line">    <span class="attr">SOURCE:</span> <span class="string">./public/</span></span><br><span class="line">    <span class="attr">REMOTE_HOST:</span> <span class="string">xiashuo.xyz</span></span><br><span class="line">    <span class="attr">REMOTE_USER:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">TARGET:</span> <span class="string">/XiaShuoBlog</span></span><br><span class="line">    <span class="comment">#  EXCLUDE:  </span></span><br></pre></td></tr></table></figure>
+<p>将上述步骤添加到部署到上一步写好的deploy-blog.yml中，即可，注意，在配置服务器ssl登录的时候，一定要注意，把私钥拿去创建给GitHub创建BLOG_SERVER_ACCESS_TO，公钥留给自己，放到authorized_keys文件中。不要乱了。然后注意，配置好ssl登录之后，每次Github action触发，都会通过SSL登录服务器，然后将public文件夹推送到服务器上，云服务器监控程序会给你推送服务器异地登录提醒，警告你服务器密码可能泄露之类的，忽略即可。</p>
+<p>完整的deploy-blog.yml如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">deploying</span> <span class="string">Hexo</span> <span class="string">project</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">pages</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span> <span class="comment"># master 分支有 push 行为时就触发这个 action</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build-and-deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@master</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">and</span> <span class="string">Deploy</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">theme-keep/hexo-deploy-github-pages-action@master</span> <span class="comment"># 使用专门部署 Hexo 到 GitHub pages 的 action</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">PERSONAL_TOKEN:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.BLOG_DEPLOY</span> <span class="string">&#125;&#125;</span> <span class="comment"># secret 名</span></span><br><span class="line">          <span class="attr">PUBLISH_REPOSITORY:</span> <span class="string">liangkang1436/XiaShuoBlog2Deploy</span> <span class="comment"># 公共仓库，格式：GitHub 用户名/仓库名</span></span><br><span class="line">          <span class="attr">BRANCH:</span> <span class="string">gh-pages</span> <span class="comment"># 分支，填 gh-pages 就行</span></span><br><span class="line">          <span class="attr">PUBLISH_DIR:</span> <span class="string">./public</span> <span class="comment"># 部署 public 目录下的文件</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># Deploy</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">aliyun</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">easingthemes/ssh-deploy@main</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="attr">SSH_PRIVATE_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.BLOG_SERVER_ACCESS_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">ARGS:</span> <span class="string">&quot;-avzr  --delete&quot;</span></span><br><span class="line">          <span class="attr">SOURCE:</span> <span class="string">./public/</span></span><br><span class="line">          <span class="attr">REMOTE_HOST:</span> <span class="string">xiashuo.xyz</span></span><br><span class="line">          <span class="attr">REMOTE_USER:</span> <span class="string">root</span></span><br><span class="line">          <span class="attr">TARGET:</span> <span class="string">/XiaShuoBlog</span></span><br><span class="line">          <span class="comment">#  EXCLUDE:  </span></span><br></pre></td></tr></table></figure>
+<p>至此，只要本地推送代码到GitHub，GitHub就会自动渲染博客文章，然后部署到服务器。</p>
+<h3 id="配置Nginx代理静态网页">配置Nginx代理静态网页</h3>
+<p>首先下载nginx</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y nginx</span><br></pre></td></tr></table></figure>
+<p>然后编辑<code>/etc/nginx/nginx.conf</code>，对80和443端口进行监听并将博客所在的静态网页返回，server参考配置如下，其中root为静态博客地址</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">server</span> &#123;</span><br><span class="line">        <span class="string">listen</span>       <span class="number">80</span><span class="string">;</span></span><br><span class="line">        <span class="string">listen</span>       [<span class="string">::</span>]<span class="string">:80;</span></span><br><span class="line">        <span class="string">server_name</span>  <span class="string">_;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="string">listen</span>       <span class="number">443</span> <span class="string">ssl</span> <span class="string">;</span></span><br><span class="line">        <span class="string">listen</span>       [<span class="string">::</span>]<span class="string">:443</span> <span class="string">ssl</span> <span class="string">;</span></span><br><span class="line">        <span class="string">server_name</span>  <span class="string">_;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">ssl_certificate</span> <span class="string">&quot;/etc/host_ssl/8098127_xiashuo.xyz.pem&quot;</span><span class="string">;</span></span><br><span class="line">        <span class="string">ssl_certificate_key</span> <span class="string">&quot;/etc/host_ssl/8098127_xiashuo.xyz.key&quot;</span><span class="string">;</span></span><br><span class="line">        <span class="string">ssl_session_cache</span> <span class="string">shared:SSL:1m;</span></span><br><span class="line">        <span class="string">ssl_session_timeout</span>  <span class="string">10m;</span></span><br><span class="line">        <span class="string">ssl_ciphers</span> <span class="string">HIGH:!aNULL:!MD5;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">root</span>         <span class="string">/XiaShuoBlog;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Load configuration files for the default server block.</span></span><br><span class="line">        <span class="string">include</span> <span class="string">/etc/nginx/default.d/*.conf;</span></span><br><span class="line"></span><br><span class="line">        <span class="string">error_page</span> <span class="number">404</span> <span class="string">/404.html;</span></span><br><span class="line">        <span class="string">location</span> <span class="string">=</span> <span class="string">/404.html</span> &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="string">error_page</span> <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span> <span class="string">/50x.html;</span></span><br><span class="line">        <span class="string">location</span> <span class="string">=</span> <span class="string">/50x.html</span> &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>然后配置开机重启</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable nginx</span><br></pre></td></tr></table></figure>
+<p>第一次启动nginx之后，通过<code>systemctl status nginx</code>查看nginx状态，可能会看到没有运行，但是实际上nginx是在运行的，重启服务器就好了</p>
+<h2 id="自定义样式">自定义样式</h2>
+<p>首先，找到了<a class="link"   target="_blank" rel="noopener" href="http://43.138.24.233/2022/01/31/Hexo-theme-keep%20%E4%B8%BB%E9%A2%98%E8%87%AA%E5%AE%9A%E4%B9%89%E9%BC%A0%E6%A0%87%E6%8C%87%E9%92%88%E6%A0%B7%E5%BC%8F/" >自定义鼠标样式的博客<i class="fas fa-external-link-alt"></i></a>，但是我发现这个不行，不能解决我的问题，因为提交到GitHub的时候不会提交主题文件夹：<code>node_modules\hexo-theme-keep</code>，所以你做的修改不会提交到Github，最终的结果页面的渲染，是通过GitHub action 调用 <code>theme-keep/hexo-deploy-github-pages-action@master</code>来执行的，所以，要实现自定义的css，只能覆盖文件。先本地运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp; hexo generate &amp; hexo server</span><br></pre></td></tr></table></figure>
+<p>然后将<code>Hexo主目录\public\css\style.css</code> 复制到 <code>Hexo主目录\source\css\style.css</code>，然后在这个基础上进行自定义修改，然后，在<code>Hexo主目录\_config.yml</code>中配置此文件夹不渲染</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207131419772.png"
+                      title="" alt="" width="245"
+                >
+<p>这么做相当于手动覆盖public输出结果中的css\style.css<br>
+这么做可以生效，是因为在 <strong>hexo-theme-keep</strong> 主题中，public的index.html只引入一个css，即style.css</p>
+<img  title="" 
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207131422344.png"
+                      alt="" width="799"
+                >
+<p>注意，将来，keep主题升级，需要再次操作一次，即本地运行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp; hexo generate &amp; hexo server</span><br></pre></td></tr></table></figure>
+<p>然后将<code>Hexo主目录\public\css\style.css</code> 和 <code>Hexo主目录\source\css\style.css</code>，进行对比，将新设置的样式同步过来。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Hexo+Keep+Github_Action+Aliyun搭建静态博客</li>
+        <li>本文作者：小虾米</li>
+        <li>创建时间：2022-07-13 14:31:00</li>
+        <li>
+            本文链接：https://xiashuo.xyz/2022/07/13/Hexo+Keep+Github_Action+Aliyun搭建静态博客/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%8D%9A%E5%AE%A2/">#博客</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/07/14/Powershell%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E5%88%B0Github/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Powershell自动提交代码到Github</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/07/10/Hello_World/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">第一篇博客</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '3f329557fe1b20fa9c21',
+                    clientSecret: 'a126bc3b9d208261a6ff0c7d32c84395bd4615b5',
+                    repo: 'gittalk-use-repo',
+                    owner: 'liangkang1436',
+                    admin: ['liangkang1436'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小虾米</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">鄂ICP备2022011270号-1</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E9%80%9A%E8%BF%87Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2"><span class="nav-number">1.</span> <span class="nav-text">本地通过Hexo搭建博客</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-number">1.1.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0"><span class="nav-number">1.1.2.</span> <span class="nav-text">添加文章</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%BA%8A"><span class="nav-number">1.2.</span> <span class="nav-text">图床</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text">安装主题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-GitHub-Actions-%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2-Hexo-%E5%8D%9A%E5%AE%A2"><span class="nav-number">2.</span> <span class="nav-text">使用 GitHub Actions 自动部署 Hexo 博客</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0Github-Pages"><span class="nav-number">2.1.</span> <span class="nav-text">部署到Github Pages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A"><span class="nav-number">2.2.</span> <span class="nav-text">部署到服务器上</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AENginx%E4%BB%A3%E7%90%86%E9%9D%99%E6%80%81%E7%BD%91%E9%A1%B5"><span class="nav-number">2.3.</span> <span class="nav-text">配置Nginx代理静态网页</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%B7%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">自定义样式</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="小虾米">
+    
+    <title>
+        
+            Powershell自动提交代码到Github |
+        
+        虾说
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"xiashuo.xyz","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207102315524.png","favicon":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"1920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207111056425.svg","description":"求知是一种快乐，表达是一种本能"},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207092319736.svg">
+                </a>
+            
+            <a class="logo-title" href="/">
+                虾说
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Powershell自动提交代码到Github</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207102315524.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">小虾米</span>
+                        
+                            <span class="author-label">半吊子CRUD工程师</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-07-14 08:10:00</span>
+        <span class="mobile">2022-07-14 08:10</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="前提">前提</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>本地已安装powershell，且配置ps1文件可执行</p>
+</li>
+<li class="lvl-2">
+<p>本地已安装git，且你监控的文件夹已经跟远程Github仓库建立联系，在次目录下执行<code>git remote -v</code>结果不为空</p>
+</li>
+</ul>
+<p>当前Powershell版本：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207140033942.png"
+                      title="" alt="" width="523"
+                >
+<p>当前Git版本：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207140033369.png"
+                      alt=""
+                ></p>
+<p>远程仓库：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cdn.jsdelivr.net/gh/liangkang1436/image-hosting@main/picgo-images/202207140759724.png"
+                      title="" alt="" width="656"
+                >
+<h2 id="监听特定的文件夹下的文件修改，并写入日志">监听特定的文件夹下的文件修改，并写入日志</h2>
+<p>参考博客：<a class="link"   target="_blank" rel="noopener" href="https://powershell.one/tricks/filesystem/filesystemwatcher#advanced-mode-asynchonous" >Monitoring Folders for File Changes - powershell.one<i class="fas fa-external-link-alt"></i></a></p>
+<p>以下为我的脚本，替换<code>&gt;&gt;&gt;</code>开头的注释所在的变量，然后保存为<code>.ps1</code>文件即可使用</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &gt;&gt;&gt; 指定监控路径</span></span><br><span class="line"><span class="variable">$BlogRepoPath</span> = <span class="string">&#x27;path2monitoredFolder&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># &gt;&gt;&gt; 指定日志文件夹</span></span><br><span class="line"><span class="variable">$basicLogPath</span> = <span class="string">&#x27;path2logFolder&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># &gt;&gt;&gt; 指定监控路径对应的远程仓库名</span></span><br><span class="line"><span class="variable">$remoteReposity</span> = <span class="string">&#x27;remoteRepositoryName&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># specify which files you want to monitor</span></span><br><span class="line"><span class="variable">$FileFilter</span> = <span class="string">&#x27;*&#x27;</span>  </span><br><span class="line"></span><br><span class="line"><span class="comment"># specify whether you want to monitor subfolders as well:</span></span><br><span class="line"><span class="variable">$IncludeSubfolders</span> = <span class="variable">$true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># specify the file or folder properties you want to monitor:</span></span><br><span class="line"><span class="variable">$AttributeFilter</span> = [<span class="type">IO.NotifyFilters</span>]::FileName, [<span class="type">IO.NotifyFilters</span>]::LastWrite </span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="variable">$watcher</span> = <span class="built_in">New-Object</span> <span class="literal">-TypeName</span> System.IO.FileSystemWatcher <span class="literal">-Property</span> <span class="selector-tag">@</span>&#123;</span><br><span class="line">        Path                  = <span class="variable">$BlogRepoPath</span></span><br><span class="line">        <span class="keyword">Filter</span>                = <span class="variable">$FileFilter</span></span><br><span class="line">        IncludeSubdirectories = <span class="variable">$IncludeSubfolders</span></span><br><span class="line">        NotifyFilter          = <span class="variable">$AttributeFilter</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># define the code that should execute when a change occurs:</span></span><br><span class="line">    <span class="variable">$action</span> = &#123;</span><br><span class="line">        <span class="comment"># the code is receiving this to work with:</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># change type information:</span></span><br><span class="line">        <span class="variable">$details</span> = <span class="variable">$event</span>.SourceEventArgs</span><br><span class="line">        <span class="variable">$Name</span> = <span class="variable">$details</span>.Name</span><br><span class="line">        <span class="variable">$OldName</span> = <span class="variable">$details</span>.OldName</span><br><span class="line">        <span class="variable">$FullPath</span> = <span class="variable">$details</span>.FullPath</span><br><span class="line">        <span class="variable">$OldFullPath</span> = <span class="variable">$details</span>.OldFullPath</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$FullPath</span>.StartsWith(<span class="string">&quot;<span class="variable">$BlogRepoPath</span>\.git&quot;</span>) <span class="operator">-and</span> <span class="operator">-not</span>(<span class="variable">$FullPath</span>.Contains(<span class="string">&quot;.github&quot;</span>)) )&#123;</span><br><span class="line">            <span class="comment">&lt;# Action to perform if the condition is true #&gt;</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment"># node_modules/</span></span><br><span class="line">        <span class="comment"># if ($FullPath.StartsWith(&quot;$BlogRepoPath\node_modules&quot;))&#123;</span></span><br><span class="line">        <span class="comment">#     &lt;# Action to perform if the condition is true #&gt;</span></span><br><span class="line">        <span class="comment">#     return</span></span><br><span class="line">        <span class="comment"># &#125;</span></span><br><span class="line">        <span class="comment"># public/</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$FullPath</span>.StartsWith(<span class="string">&quot;<span class="variable">$BlogRepoPath</span>\public&quot;</span>))&#123;</span><br><span class="line">            <span class="comment">&lt;# Action to perform if the condition is true #&gt;</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment"># db.json</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$FullPath</span>.StartsWith(<span class="string">&quot;<span class="variable">$BlogRepoPath</span>\db.json&quot;</span>))&#123;</span><br><span class="line">            <span class="comment">&lt;# Action to perform if the condition is true #&gt;</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 准备日志</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="operator">-not</span> (<span class="built_in">Get-Item</span> <span class="literal">-Path</span> <span class="variable">$basicLogPath</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable">$year</span> = (<span class="built_in">get-date</span>).Year</span><br><span class="line">        <span class="variable">$mouth</span> = (<span class="built_in">get-date</span>).Month</span><br><span class="line">        <span class="variable">$day</span> = (<span class="built_in">get-date</span>).Day</span><br><span class="line">        <span class="variable">$filePath</span> = <span class="string">&quot;<span class="variable">$basicLogPath</span>\<span class="variable">$year</span>-<span class="variable">$mouth</span>&quot;</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="operator">-not</span> (<span class="built_in">Get-Item</span> <span class="literal">-Path</span> <span class="variable">$filePath</span>)) &#123;</span><br><span class="line">            <span class="built_in">New-Item</span> <span class="literal">-ItemType</span> Directory <span class="literal">-Path</span> <span class="variable">$filePath</span> </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable">$logFile</span> = <span class="string">&quot;<span class="variable">$filePath</span>\<span class="variable">$year</span>-<span class="variable">$mouth</span>-<span class="variable">$day</span>.log&quot;</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="operator">-not</span> (<span class="built_in">Get-Item</span> <span class="literal">-Path</span> <span class="variable">$logFile</span>)) &#123;</span><br><span class="line">            <span class="built_in">New-Item</span> <span class="literal">-ItemType</span> File <span class="literal">-Path</span> <span class="variable">$logFile</span> </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># type of change:</span></span><br><span class="line">        <span class="variable">$ChangeType</span> = <span class="variable">$details</span>.ChangeType</span><br><span class="line"></span><br><span class="line">        <span class="comment"># when the change occured:</span></span><br><span class="line">        <span class="variable">$Timestamp</span> = <span class="variable">$event</span>.TimeGenerated</span><br><span class="line"></span><br><span class="line">        <span class="comment"># save information to a global variable for testing purposes</span></span><br><span class="line">        <span class="comment"># so you can examine it later</span></span><br><span class="line">        <span class="comment"># MAKE SURE YOU REMOVE THIS IN PRODUCTION!</span></span><br><span class="line">        <span class="variable">$global:all</span> = <span class="variable">$details</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># now you can define some action to take based on the</span></span><br><span class="line">        <span class="comment"># details about the change event:</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># let&#x27;s compose a message:</span></span><br><span class="line">        <span class="variable">$text</span> = <span class="string">&quot;&#123;0&#125; was &#123;1&#125; at &#123;2&#125;&quot;</span> <span class="operator">-f</span> <span class="variable">$FullPath</span>, <span class="variable">$ChangeType</span>, <span class="variable">$Timestamp</span></span><br><span class="line">        <span class="comment"># Write-Host &quot;&quot;</span></span><br><span class="line">        <span class="comment"># Write-Host $text -ForegroundColor DarkYellow</span></span><br><span class="line">        <span class="comment"># Out-File -Append -FilePath  $logFile -InputObject &quot;&quot;</span></span><br><span class="line">        <span class="built_in">Out-File</span> <span class="literal">-Append</span> <span class="literal">-FilePath</span>  <span class="variable">$logFile</span> <span class="literal">-InputObject</span> <span class="variable">$text</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># you can also execute code based on change type here:</span></span><br><span class="line">        <span class="keyword">switch</span> (<span class="variable">$ChangeType</span>) &#123;</span><br><span class="line">            <span class="string">&#x27;Changed&#x27;</span> &#123; </span><br><span class="line">                <span class="string">&quot;CHANGE&quot;</span> </span><br><span class="line">                <span class="comment"># 修改的时候提交也要等 5 秒</span></span><br><span class="line">                <span class="built_in">Start-Sleep</span> <span class="literal">-Seconds</span> <span class="number">1</span>    </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="string">&#x27;Created&#x27;</span> &#123; <span class="string">&quot;CREATED&quot;</span> &#125;</span><br><span class="line">            <span class="string">&#x27;Deleted&#x27;</span> &#123;</span><br><span class="line">                <span class="string">&quot;DELETED&quot;</span></span><br><span class="line">                <span class="comment"># to illustrate that ALL changes are picked up even if</span></span><br><span class="line">                <span class="comment"># handling an event takes a lot of time, we artifically</span></span><br><span class="line">                <span class="comment"># extend the time the handler needs whenever a file is deleted</span></span><br><span class="line">                <span class="comment"># Write-Host &quot;Deletion Handler Start&quot; -ForegroundColor Gray</span></span><br><span class="line">                <span class="built_in">Out-File</span> <span class="literal">-Append</span> <span class="literal">-FilePath</span>  <span class="variable">$logFile</span> <span class="literal">-InputObject</span> <span class="string">&quot;Deletion Handler Start&quot;</span></span><br><span class="line">                <span class="built_in">Start-Sleep</span> <span class="literal">-Seconds</span> <span class="number">1</span>    </span><br><span class="line">                <span class="comment"># Write-Host &quot;Deletion Handler End&quot; -ForegroundColor Gray</span></span><br><span class="line">                <span class="built_in">Out-File</span> <span class="literal">-Append</span> <span class="literal">-FilePath</span>  <span class="variable">$logFile</span> <span class="literal">-InputObject</span> <span class="string">&quot;Deletion Handler End&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="string">&#x27;Renamed&#x27;</span> &#123; </span><br><span class="line">                <span class="comment"># this executes only when a file was renamed</span></span><br><span class="line">                <span class="variable">$text</span> = <span class="string">&quot;File &#123;0&#125; was renamed to &#123;1&#125;&quot;</span> <span class="operator">-f</span> <span class="variable">$OldName</span>, <span class="variable">$Name</span></span><br><span class="line">                <span class="comment"># Write-Host $text -ForegroundColor Yellow</span></span><br><span class="line">                <span class="built_in">Out-File</span> <span class="literal">-Append</span> <span class="literal">-FilePath</span>  <span class="variable">$logFile</span> <span class="literal">-InputObject</span> <span class="variable">$text</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># any unhandled change types surface here:</span></span><br><span class="line">            default &#123; </span><br><span class="line">                <span class="comment"># Write-Host $_ -ForegroundColor Red -BackgroundColor White</span></span><br><span class="line">                <span class="built_in">Out-File</span> <span class="literal">-Append</span> <span class="literal">-FilePath</span>  <span class="variable">$logFile</span> <span class="literal">-InputObject</span> <span class="variable">$_</span></span><br><span class="line">             &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">#  git 先更新 再提交 </span></span><br><span class="line">        <span class="comment">#  日志添加时间，</span></span><br><span class="line">        <span class="comment">#  目录添加忽略条件。不监听 .git目录下的文件</span></span><br><span class="line">        <span class="comment">#  添加一个延时，不要提交太频繁</span></span><br><span class="line">        git <span class="literal">-C</span> <span class="variable">$BlogRepoPath</span> pull <span class="variable">$remoteReposity</span> master</span><br><span class="line">        git <span class="literal">-C</span> <span class="variable">$BlogRepoPath</span> add <span class="literal">-A</span></span><br><span class="line">        git <span class="literal">-C</span> <span class="variable">$BlogRepoPath</span> commit <span class="literal">-m</span> <span class="string">&#x27;auto commit&#x27;</span></span><br><span class="line">        git <span class="literal">-C</span> <span class="variable">$BlogRepoPath</span> push <span class="variable">$remoteReposity</span></span><br><span class="line">        <span class="built_in">Out-File</span> <span class="literal">-Append</span> <span class="literal">-FilePath</span>  <span class="variable">$logFile</span> <span class="literal">-InputObject</span> <span class="string">&quot;push to github <span class="variable">$remoteReposity</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># subscribe your event handler to all event types that are</span></span><br><span class="line">    <span class="comment"># important to you. Do this as a scriptblock so all returned</span></span><br><span class="line">    <span class="comment"># event handlers can be easily stored in $handlers:</span></span><br><span class="line">    <span class="variable">$handlers</span> = . &#123;</span><br><span class="line">        <span class="built_in">Register-ObjectEvent</span> <span class="literal">-InputObject</span> <span class="variable">$watcher</span> <span class="literal">-EventName</span> Changed  <span class="literal">-Action</span> <span class="variable">$action</span> </span><br><span class="line">        <span class="built_in">Register-ObjectEvent</span> <span class="literal">-InputObject</span> <span class="variable">$watcher</span> <span class="literal">-EventName</span> Created  <span class="literal">-Action</span> <span class="variable">$action</span> </span><br><span class="line">        <span class="built_in">Register-ObjectEvent</span> <span class="literal">-InputObject</span> <span class="variable">$watcher</span> <span class="literal">-EventName</span> Deleted  <span class="literal">-Action</span> <span class="variable">$action</span> </span><br><span class="line">        <span class="built_in">Register-ObjectEvent</span> <span class="literal">-InputObject</span> <span class="variable">$watcher</span> <span class="literal">-EventName</span> Renamed  <span class="literal">-Action</span> <span class="variable">$action</span> </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># monitoring starts now:</span></span><br><span class="line">    <span class="variable">$watcher</span>.EnableRaisingEvents = <span class="variable">$true</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Write-Host &quot;Watching for changes to $BlogRepoPath&quot;</span></span><br><span class="line">    <span class="comment"># Out-File -Append -FilePath  $logFile -InputObject &#x27;------------------------------------------------------------------------------------------------------------------------&#x27;</span></span><br><span class="line">    <span class="comment"># Out-File -Append -FilePath  $logFile -InputObject &quot;Watching for changes to $BlogRepoPath&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># since the FileSystemWatcher is no longer blocking PowerShell</span></span><br><span class="line">    <span class="comment"># we need a way to pause PowerShell while being responsive to</span></span><br><span class="line">    <span class="comment"># incoming events. Use an endless loop to keep PowerShell busy:</span></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="comment"># Wait-Event waits for a second and stays responsive to events</span></span><br><span class="line">        <span class="comment"># Start-Sleep in contrast would NOT work and ignore incoming events</span></span><br><span class="line">        <span class="built_in">Wait-Event</span> <span class="literal">-Timeout</span> <span class="number">60</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># write a dot to indicate we are still monitoring:</span></span><br><span class="line">        <span class="comment"># Write-Host &quot;.&quot; -NoNewline</span></span><br><span class="line">        <span class="comment"># Out-File -Append -FilePath  $logFile -InputObject &quot;.&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">while</span> (<span class="variable">$true</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="comment"># this gets executed when user presses CTRL+C:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># stop monitoring</span></span><br><span class="line">    <span class="variable">$watcher</span>.EnableRaisingEvents = <span class="variable">$false</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># remove the event handlers</span></span><br><span class="line">    <span class="variable">$handlers</span> | <span class="built_in">ForEach-Object</span> &#123;</span><br><span class="line">        <span class="built_in">Unregister-Event</span> <span class="literal">-SourceIdentifier</span> <span class="variable">$_</span>.Name</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># event handlers are technically implemented as a special kind</span></span><br><span class="line">    <span class="comment"># of background job, so remove the jobs now:</span></span><br><span class="line">    <span class="variable">$handlers</span> | <span class="built_in">Remove-Job</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># properly dispose the FileSystemWatcher:</span></span><br><span class="line">    <span class="variable">$watcher</span>.Dispose()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Write-Warning &quot;Event Handler disabled, monitoring ends.&quot;</span></span><br><span class="line">    <span class="built_in">Out-File</span> <span class="literal">-Append</span> <span class="literal">-FilePath</span>  <span class="variable">$logFile</span> <span class="literal">-InputObject</span> <span class="string">&quot;Event Handler disabled, monitoring ends.&quot;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对此，相比于参考博客中的源码，这里做出了几点改进：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>将 Write-Host 打印日志改为通过 Out-File 将日志写入文件，且日志文件按天区分，自动创建。</p>
+</li>
+<li class="lvl-2">
+<p>在.git文件夹、public文件夹和db.json文件出现修改的时候不提交到GitHub，避免出现提交循环，同时节约内存。</p>
+</li>
+</ul>
+<h2 id="将此ps1脚本设置为开机自启">将此ps1脚本设置为开机自启</h2>
+<p>设置powershell脚本开机启动有点麻烦，需要在外面套一层<code>.bat</code>文件，同时还会有闪屏的问题，即打开一个cmd窗口执行完语句之后又快速关闭。为了解决这个问题，在<code>.bat</code>文件的外面再套一层<code>.vbs</code>即可解决，最终文件如下：</p>
+<ol>
+<li class="lvl-3">
+<p>创建<code>script.vbs</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Dim WinScriptHost</span><br><span class="line">Set WinScriptHost = CreateObject(&quot;WScript.Shell&quot;)</span><br><span class="line">WinScriptHost.Run Chr(34) &amp; &quot;path2batfile\script.bat&quot; &amp; Chr(34), 0</span><br><span class="line">Set WinScriptHost = Nothing</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p>创建<code>script.bat</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwsh.exe -file path2powershellScript\script.ps1</span><br></pre></td></tr></table></figure>
+</li>
+<li class="lvl-3">
+<p>将上一小节的脚本保存为<code>script.ps1</code>，放到path2powershellScript指定的位置即可。</p>
+</li>
+<li class="lvl-3">
+<p>将<code>script.vbs</code>创建快捷方式，然后放到<code>C:\Users\&lt;user_name&gt;\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>文件夹，系统开机的时候，会自动执行此文件夹下的脚本或者软件。</p>
+</li>
+</ol>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Powershell自动提交代码到Github</li>
+        <li>本文作者：小虾米</li>
+        <li>创建时间：2022-07-14 08:10:00</li>
+        <li>
+            本文链接：https://xiashuo.xyz/2022/07/14/Powershell自动提交代码到Github/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/07/14/%E5%9F%9F%E5%90%8D%E5%A4%87%E6%A1%88/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">域名备案</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/07/13/Hexo+Keep+Github_Action+Aliyun%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Hexo+Keep+Github_Action+Aliyun搭建静态博客</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: '3f329557fe1b20fa9c21',
+                    clientSecret: 'a126bc3b9d208261a6ff0c7d32c84395bd4615b5',
+                    repo: 'gittalk-use-repo',
+                    owner: 'liangkang1436',
+                    admin: ['liangkang1436'],
+                    id: __gitalk__pathname,
+                    language: 'zh-CN'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">小虾米</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">鄂ICP备2022011270号-1</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%8F%90"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%91%E5%90%AC%E7%89%B9%E5%AE%9A%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%EF%BC%8C%E5%B9%B6%E5%86%99%E5%85%A5%E6%97%A5%E5%BF%97"><span class="nav-number">2.</span> <span class="nav-text">监听特定的文件夹下的文件修改，并写入日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E6%AD%A4ps1%E8%84%9A%E6%9C%AC%E8%AE%BE%E7%BD%AE%E4%B8%BA%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-number">3.</span> <span class="nav-text">将此ps1脚本设置为开机自启</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
